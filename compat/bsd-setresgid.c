@@ -1,4 +1,6 @@
 /*
+ * Copyright (c) 2004, 2005 Darren Tucker (dtucker at zip com au).
+ *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
  * copyright notice and this permission notice appear in all copies.
@@ -11,3 +13,26 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
+
+#include <sys/types.h>
+#include <unistd.h>
+
+int
+setresgid(gid_t rgid, gid_t egid, gid_t sgid)
+{
+	/* this is the only configuration tested */
+	if (rgid != egid || egid != sgid)
+		return -1;
+
+	# if defined(HAVE_SETREGID) && !defined(BROKEN_SETREGID)
+	if (setregid(rgid, egid) == -1)
+		return -1;
+	# else
+	if (setegid(egid) == -1)
+		return -1;
+	if (setgid(rgid) == -1)
+		return -1;
+	# endif
+
+	return 0;
+}

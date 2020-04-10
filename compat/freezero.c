@@ -1,4 +1,9 @@
 /*
+ * Copyright (c) 2008, 2010, 2011, 2016 Otto Moerbeek <otto@drijf.net>
+ * Copyright (c) 2012 Matthew Dempsky <matthew@openbsd.org>
+ * Copyright (c) 2008 Damien Miller <djm@openbsd.org>
+ * Copyright (c) 2000 Poul-Henning Kamp <phk@FreeBSD.org>
+ *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
  * copyright notice and this permission notice appear in all copies.
@@ -11,3 +16,17 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
+
+#include <string.h>
+#include <stdlib.h>
+
+void
+freezero(void *ptr, size_t sz)
+{
+	/* This is legal. */
+	if (ptr == NULL)
+		return;
+
+	explicit_bzero(ptr, sz);
+	free(ptr);
+}

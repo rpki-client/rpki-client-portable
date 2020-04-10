@@ -1,4 +1,7 @@
+/*	$OpenBSD: output-csv.c,v 1.6 2019/12/04 23:03:05 benno Exp $ */
 /*
+ * Copyright (c) 2019 Claudio Jeker <claudio@openbsd.org>
+ *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
  * copyright notice and this permission notice appear in all copies.
@@ -11,3 +14,26 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
+
+#include <stdlib.h>
+#include <openssl/ssl.h>
+
+#include "extern.h"
+
+int
+output_csv(FILE *out, struct vrp_tree *vrps)
+{
+	char		 buf[64];
+	struct vrp	*v;
+
+	if (fprintf(out, "ASN,IP Prefix,Max Length,Trust Anchor\n") < 0)
+		return -1;
+
+	RB_FOREACH(v, vrp_tree, vrps) {
+		ip_addr_print(&v->addr, v->afi, buf, sizeof(buf));
+		if (fprintf(out, "AS%u,%s,%u,%s\n", v->asid, buf, v->maxlength,
+		    v->tal) < 0)
+			return -1;
+	}
+	return 0;
+}

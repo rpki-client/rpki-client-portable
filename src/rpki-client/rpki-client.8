@@ -1,0 +1,208 @@
+.\"	$OpenBSD: rpki-client.8,v 1.22 2020/03/06 22:22:31 job Exp $
+.\"
+.\" Copyright (c) 2019 Kristaps Dzonsons <kristaps@bsd.lv>
+.\"
+.\" Permission to use, copy, modify, and distribute this software for any
+.\" purpose with or without fee is hereby granted, provided that the above
+.\" copyright notice and this permission notice appear in all copies.
+.\"
+.\" THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+.\" WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+.\" MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+.\" ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+.\" WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+.\" ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+.\" OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+.\"
+.Dd $Mdocdate: March 6 2020 $
+.Dt RPKI-CLIENT 8
+.Os
+.Sh NAME
+.Nm rpki-client
+.Nd RPKI validator to support BGP Origin Validation in bgpd
+.Sh SYNOPSIS
+.Nm
+.Op Fl Bcfjnov
+.Op Fl b Ar sourceaddr
+.Op Fl d Ar cachedir
+.Op Fl e Ar rsync_prog
+.Op Fl T Ar table
+.Op Fl t Ar tal
+.Op Ar outputdir
+.Sh DESCRIPTION
+The
+.Nm
+utility queries the RPKI repository system with
+.Xr openrsync 1
+to fetch all X.509 certificates, manifests, and revocation lists under a given
+.Em Trust Anchor .
+.Nm
+subsequently validates each
+.Em Route Origin Authorization Pq ROA
+by constructing and verifying a certification path for the certificate
+associated with the ROA (including checking relevant CRLs).
+.Nm
+produces lists of the
+.Em Validated ROA Payloads Pq VRPs
+in various formats.
+.Pp
+The options are as follows:
+.Bl -tag -width Ds
+.It Fl B
+Create output in the file
+.Pa bird
+in the output directory which is suitable for the BIRD internet routing daemon.
+.It Fl b Ar sourceaddr
+Tell the rsync client to use
+.Ar sourceaddr
+as the source address for connections, which is useful on machines
+with multiple interfaces.
+.It Fl c
+Create output in the file
+.Pa csv
+in the output directory as comma-separated values of the prefix in slash notation,
+the maximum prefix length, the autonomous system number, and an abbreviation
+for the trust anchor the entry is derived from.
+.It Fl d Ar cachedir
+The directory where
+.Nm
+will store the cached repository data.
+Defaults to
+.Pa /var/db/rpki-client/ .
+.It Fl e Ar rsync_prog
+Use
+.Ar rsync_prog
+instead of
+.Xr openrsync 1
+to fetch repositories.
+It must accept the
+.Fl rlt ,
+.Fl -address
+and
+.Fl -delete
+flags and connect with rsync-protocol locations.
+.It Fl f
+Accept out-of-date manifests.
+This will still report if a manifest has expired.
+.It Fl j
+Create output in the file
+.Pa json
+in the output directory as JSON object.
+This format is identical to that
+produced by the RIPE NCC RPKI Validator and NLnet Labs routinator.
+.It Fl n
+Assume that all requested repositories exist: don't update.
+.It Fl o
+Create output in the file
+.Pa openbgpd
+in the output directory as
+.Xr bgpd 8
+compatible input.
+If the
+.Fl B ,
+.Fl c ,
+and
+.Fl j
+options are not specified this is the default.
+.It Fl T Ar table
+For BIRD output generated with the
+.Fl B
+option use
+.Ar table
+as roa table name instead of the default 'ROAS'.
+.It Fl t Ar tal
+Specify a
+.Em Trust Anchor Location Pq TAL
+file to be used.
+This option can be used multiple times to load multiple TALs.
+By default
+.Nm
+will load all TAL files in
+.Pa /etc/rpki .
+.It Fl v
+Specified once, prints information about status.
+Twice, prints each filename as it's processed.
+.It Ar outputdir
+The directory where
+.Nm
+will write the output files.
+Defaults to
+.Pa /var/db/rpki-client/ .
+.El
+.Pp
+By default
+.Nm
+produces a list of unique
+.Li roa-set
+statements in
+.Fl o
+(OpenBGPD compatible) output.
+.\" .Sh ENVIRONMENT
+.\" For sections 1, 6, 7, and 8 only.
+.Sh FILES
+.Bl -tag -width "/var/db/rpki-client/openbgpd" -compact
+.It Pa /etc/rpki/*.tal
+default TAL files used unless
+.Fl t Ar tal
+is specified.
+.It Pa /var/cache/rpki-client
+cached repository data.
+.It Pa /var/db/rpki-client/openbgpd
+default roa-set output file.
+.El
+.Sh EXIT STATUS
+.Ex -std
+.\" For sections 1, 6, and 8 only.
+.\" .Sh EXAMPLES
+.\" .Sh DIAGNOSTICS
+.\" For sections 1, 4, 6, 7, 8, and 9 printf/stderr messages only.
+.Sh SEE ALSO
+.Xr openrsync 1 ,
+.Xr bgpd.conf 5
+.Sh STANDARDS
+The following standards are used or referenced in
+.Nm :
+.Bl -tag -width -Ds
+.It RFC 3370
+Cryptographic Message Syntax (CMS) Algorithms.
+.It RFC 3779
+X.509 Extensions for IP Addresses and AS Identifiers.
+.It RFC 4291
+IP Version 6 Addressing Architecture.
+.It RFC 4631
+Classless Inter-domain Routing (CIDR): The Internet Address Assignment
+and Aggregation Plan.
+.It RFC 5280
+Internet X.509 Public Key Infrastructure Certificate and Certificate
+Revocation List (CRL) Profile.
+.It RFC 5652
+Cryptographic Message Syntax (CMS).
+.It RFC 5781
+The rsync URI Scheme.
+.It RFC 5952
+A Recommendation for IPv6 Address Text Representation.
+.It RFC 6480
+An Infrastructure to Support Secure Internet Routing.
+.It RFC 6482
+A Profile for Route Origin Authorizations (ROAs).
+.It RFC 6485
+The Profile for Algorithms and Key Sizes for Use in the Resource Public Key
+Infrastructure (RPKI).
+.It RFC 6486
+Manifests for the Resource Public Key Infrastructure (RPKI).
+.It RFC 6487
+A Profile for X.509 PKIX Resource Certificates.
+.It RFC 6488
+Signed Object Template for the Resource Public Key Infrastructure
+(RPKI).
+.It RFC 7730
+Resource Public Key Infrastructure (RPKI) Trust Anchor Locator.
+.El
+.\" .Sh HISTORY
+.Sh AUTHORS
+The
+.Nm
+utility was written by
+.An Kristaps Dzonsons Aq Mt kristaps@bsd.lv .
+.\" .Sh CAVEATS
+.\" .Sh BUGS
