@@ -245,6 +245,8 @@ fi
 
 AC_CHECK_HEADERS([err.h sha2.h])
 
+AC_CHECK_HEADERS([openssl/cms.h openssl/err.h openssl/evp.h openssl/ssl.h openssl/x509.h openssl/x509v3.h])
+
 AC_CHECK_MEMBERS([struct sockaddr_in.sin_len], , ,
 	[ #include <netdb.h>
 	  #include <netinet/in.h>
