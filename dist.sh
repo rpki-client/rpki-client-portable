@@ -6,15 +6,15 @@ tree=`dirname $0`
 cd $tree
 version=`cat VERSION`
 
-if [ -d "../rpki-client-portable-$version" ]; then
+if [ -d "../rpki-client-$version" ]; then
 	echo "error: directory ../rpki-client-portable-$version already exists."
 	exit 1
 fi
 
-mkdir "../rpki-client-portable-$version"
-cp -a ./ "../rpki-client-portable-$version/"
+mkdir "../rpki-client-$version"
+cp -a ./ "../rpki-client-$version/"
 
-cd "../rpki-client-portable-$version"
+cd "../rpki-client-$version"
 
 # cleanup
 find ./ -name \*.orig -o -name \*.rej -o -name \*~ -delete
@@ -34,7 +34,7 @@ rm -fr	Makefile \
 	src/rpki-client/Makefile
 
 
-tar -C .. -czf ../rpki-client-portable-$version.tgz rpki-client-portable-$version
+tar -C .. -czf ../rpki-client-$version.tar.gz rpki-client-$version
 
 # remove files created by running autogen.sh
 #rm -fr Makefile.in \
