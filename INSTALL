@@ -27,7 +27,7 @@ To install rpki-cient with default options:
 make
 make install
 
-This will install the OpenBGPD binary in /usr/local/sbin, configuration
+This will install the rpki-client binary in /usr/local/sbin, configuration
 files in /usr/local/etc. To specify a different installation prefix,
 use the --prefix option to configure:
 

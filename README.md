@@ -3,7 +3,7 @@ is based on portability code from the OpenNTPD, OpenSSH, and LibreSSL
 portable projects.
 
 The current portable tree can be found at
-XXX https://github.com/sebastianbenoit/rpki-client-portable XXX
+https://github.com/rpki-client/rpki-client-portable
 
 Platform Requirements
 ---------------------
@@ -11,7 +11,7 @@ Platform Requirements
 At the time of writing the Portable version is known to build and work on:
 
  - OpenBSD-current
- - XXX
+ - Linux (Debian 9)
 
 Building
 --------
