@@ -7,7 +7,6 @@ config.guess
 config.sub
 configure
 depcomp
-dist.sh
 include/Makefile.in
 install-sh
 ltmain.sh
