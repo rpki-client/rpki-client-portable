@@ -8,7 +8,7 @@ openbgpd_version=`cat VERSION`
 echo "pulling upstream openbsd source"
 if [ ! -d openbsd ]; then
 	if [ -z "${OPENBGPD_GIT}" ]; then
-		git clone https://github.com/openbgpd-portable/openbgpd-openbsd.git openbsd
+		git clone https://github.com/rpki-client/rpki-client-openbsd.git openbsd
 	else
 		git clone "${OPENBGPD_GIT}/openbsd"
 	fi
