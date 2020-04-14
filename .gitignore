@@ -2,6 +2,7 @@ Makefile.in
 aclocal.m4
 autom4te.cache/
 compat/Makefile.in
+compat/reallocarray.c
 compat/sha2.c
 compat/strlcat.c
 compat/strlcpy.c
