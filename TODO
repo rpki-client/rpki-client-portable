@@ -2,6 +2,4 @@
 * make RPKI_PATH_OUT_DIR configurable
 * make RPKI_PATH_BASE_DIR configurable
 * make /etc/rpki configurable, defaults to /usr/local/etc/rpki?
-* remove not needed files in compat/ and include/
-* fix update.sh, especially the openbsd/ subdir
 * create ChangeLog
