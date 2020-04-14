@@ -103,8 +103,6 @@ AC_CHECK_FUNCS([pledge unveil])
 AC_SEARCH_LIBS([inet_net_pton],[resolv])
 AC_CHECK_FUNCS([inet_net_pton])
 
-AM_CONDITIONAL([HAVE_ASPRINTF], [test "x$ac_cv_func_asprintf" = xyes])
-AM_CONDITIONAL([HAVE_POLL], [test "x$ac_cv_func_poll" = xyes])
 AM_CONDITIONAL([HAVE_REALLOCARRAY], [test "x$ac_cv_func_reallocarray" = xyes])
 AM_CONDITIONAL([HAVE_RECALLOCARRAY], [test "x$ac_cv_func_recallocarray" = xyes])
 AM_CONDITIONAL([HAVE_SETGROUPS], [test "x$ac_cv_func_setgroups" = xyes])
