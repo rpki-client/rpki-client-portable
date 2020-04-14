@@ -66,7 +66,6 @@ AC_PROG_CC
 AC_PROG_CC_STDC
 AM_PROG_CC_C_O
 AC_PROG_LIBTOOL
-AC_PROG_YACC
 
 save_cflags="$CFLAGS"
 CFLAGS=-Wno-pointer-sign
