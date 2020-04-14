@@ -14,7 +14,7 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 AM_CPPFLAGS = -I$(top_srcdir)/include
-AM_CPPFLAGS += -I$(top_srcdir)/src/rpki-client
+AM_CPPFLAGS += -I$(top_srcdir)/src
 
 ACLOCAL_AMFLAGS = -Im4
 
@@ -27,7 +27,6 @@ rpki_client_CFLAGS += -DLOCALSTATEDIR=\"$(localstatedir)\"
 
 rpki_client_LDADD = $(PLATFORM_LDADD) $(PROG_LDADD) -lcrypto
 rpki_client_LDADD += $(top_builddir)/compat/libcompat.la
-rpki_client_LDADD += $(top_builddir)/compat/libcompatnoopt.la
 
 rpki_client_SOURCES = as.c
 rpki_client_SOURCES += cert.c

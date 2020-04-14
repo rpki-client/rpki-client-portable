@@ -21,3 +21,7 @@ m4/lt~obsolete.m4
 missing
 openbsd/
 src/Makefile.in
+src/*.c
+src/*.h
+src/rpki-client*
+*.tal

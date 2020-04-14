@@ -7,10 +7,10 @@ openbgpd_version=`cat VERSION`
 # pull in latest upstream code
 echo "pulling upstream openbsd source"
 if [ ! -d openbsd ]; then
-	if [ -z "${OPENBGPD_GIT}" ]; then
+	if [ -z "${RPKICLIENT_GIT}" ]; then
 		git clone https://github.com/rpki-client/rpki-client-openbsd.git openbsd
 	else
-		git clone "${OPENBGPD_GIT}/openbsd"
+		git clone "${RPKICLIENT_GIT}/openbsd"
 	fi
 fi
 (cd openbsd/src
@@ -21,12 +21,10 @@ fi
 # setup source paths
 dir=`pwd`
 patches="${dir}/patches"
-etc_src="${dir}/openbsd/src/etc"
+etc_src="${dir}/openbsd/src/etc/rpki"
 libc_inc="${dir}/openbsd/src/include"
 libc_src="${dir}/openbsd/src/lib/libc"
-arc4random_src="${dir}/openbsd/src/lib/libcrypto/arc4random"
-libutil_src="${dir}/openbsd/src/lib/libutil"
-sbin_src="${dir}/openbsd/src/usr.sbin"
+rpkiclient_src="${dir}/openbsd/src/usr.sbin/rpki-client"
 
 do_cp_libc() {
 	sed "/DEF_WEAK/d" < "${1}" > "${2}"/`basename "${1}"`
@@ -36,7 +34,7 @@ CP='cp -p'
 PATCH='patch -s'
 
 echo "copying tal"
-${CP} ${etc_src}/rpki/*.tal "${dir}"
+${CP} ${etc_src}/*.tal "${dir}"
 
 echo "copying includes"
 sed '/DECLS/d' "${libc_inc}/sha2.h" > include/sha2_openbsd.h
@@ -45,19 +43,14 @@ for i in strlcpy.c strlcat.c; do
 	${CP_LIBC} "${libc_src}/string/${i}" compat
 done
 ${CP_LIBC} "${libc_src}/stdlib/reallocarray.c" compat
-${CP_LIBC} "${libc_src}/stdlib/recallocarray.c" compat
-${CP_LIBC} "${libc_src}/stdlib/strtonum.c" compat
-${CP_LIBC} "${libc_src}/hash/md5.c" compat
 ${CP_LIBC} "${libc_src}/hash/sha2.c" compat
 
-for j in rpki-client ; do
-	for i in `awk '/SOURCES|HEADERS|MANS/ { print $3 }' src/$j/Makefile.am |grep -v top_srcdir` ; do
-		src=$j
-#		[ ! -f $sbin_src/$src/$i ] && src=bgpd
-		[ ! -f $sbin_src/$src/$i ] && continue
-		echo Copying $i
-		$CP $sbin_src/$src/$i src/$j/$i
-	done
+for i in as.c cert.c cms.c crl.c extern.h io.c ip.c log.c main.c \
+	mft.c output-bgpd.c output-bird.c output-csv.c output-json.c \
+	output.c roa.c rpki-client.8 rsync.c tal.c validate.c x509.c; do
+	file=`basename ${i}`
+	echo Copying ${file}
+	${CP} "${rpkiclient_src}/${i}" src
 done
 
 if [ -n "$(ls -A patches/*.patch 2>/dev/null)" ]; then

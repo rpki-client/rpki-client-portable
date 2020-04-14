@@ -127,7 +127,7 @@ AC_CONFIG_FILES([
 	Makefile
 	include/Makefile
 	compat/Makefile
-	src/rpki-client/Makefile
+	src/Makefile
 ])
 
 AC_OUTPUT
