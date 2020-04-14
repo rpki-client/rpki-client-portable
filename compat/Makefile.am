@@ -15,28 +15,14 @@
 
 AM_CPPFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/src -DSHA2_SMALL
 
-noinst_LTLIBRARIES = libcompat.la libcompatnoopt.la
-
-# compatibility functions that need to be built without optimizations
-libcompatnoopt_la_CFLAGS = -O0
-libcompatnoopt_la_SOURCES =
+noinst_LTLIBRARIES = libcompat.la
 
 # other compatibility functions
 libcompat_la_SOURCES =
 libcompat_la_LIBADD = $(PLATFORM_LDADD)
 
-libcompat_la_SOURCES += progname.c
-
 if !HAVE_REALLOCARRAY
 libcompat_la_SOURCES += reallocarray.c
-endif
-
-if !HAVE_RECALLOCARRAY
-libcompat_la_SOURCES += recallocarray.c
-endif
-
-if !HAVE_SETPROCTITLE
-libcompat_la_SOURCES += setproctitle.c
 endif
 
 if !HAVE_STRLCAT

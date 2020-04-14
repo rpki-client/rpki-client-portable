@@ -2,6 +2,9 @@ Makefile.in
 aclocal.m4
 autom4te.cache/
 compat/Makefile.in
+compat/sha2.c
+compat/strlcat.c
+compat/strlcpy.c
 compile
 config.guess
 config.sub
@@ -17,4 +20,4 @@ m4/ltversion.m4
 m4/lt~obsolete.m4
 missing
 openbsd/
-src/rpki-client/Makefile.in
+src/Makefile.in

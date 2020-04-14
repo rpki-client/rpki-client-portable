@@ -59,11 +59,6 @@ AM_CONDITIONAL([HOST_LINUX],   [test x$HOST_OS = xlinux])
 AM_CONDITIONAL([HOST_NETBSD],  [test x$HOST_OS = xnetbsd])
 AM_CONDITIONAL([HOST_SOLARIS], [test x$HOST_OS = xsolaris])
 
-AM_CONDITIONAL([HAVE_CARP], [test x$HOST_OS = xopenbsd])
-AM_CONDITIONAL([HAVE_PFKEY], [test x$HOST_OS = xopenbsd])
-AM_CONDITIONAL([HAVE_PFTABLE], [test x$HOST_OS = xopenbsd])
-AM_CONDITIONAL([HAVE_KROUTE], [test x$HOST_OS = xopenbsd])
-
 AC_CHECK_FUNC([dl_iterate_phdr],,
 	[AC_SEARCH_LIBS([dl_iterate_phdr],[dl])])
 
@@ -97,27 +92,12 @@ CFLAGS="$CFLAGS $CLANG_CFLAGS"
 LDFLAGS="$LDFLAGS $CLANG_FLAGS"
 
 # check functions that are expected to be in libc
-AC_CHECK_FUNCS([reallocarray recallocarray])
+AC_CHECK_FUNCS([reallocarray])
 AC_CHECK_FUNCS([asprintf])
-AC_CHECK_FUNCS([setproctitle setgroups])
+AC_CHECK_FUNCS([setgroups])
 AC_CHECK_FUNCS([setregid setresgid setreuid setresuid])
 AC_CHECK_FUNCS([strlcat strlcpy])
 AC_CHECK_FUNCS([pledge unveil])
-
-AC_CHECK_HEADERS([endian.h])
-
-AC_SEARCH_LIBS([inet_net_pton],[resolv])
-AC_CHECK_FUNCS([inet_net_pton])
-
-AC_CACHE_CHECK([if libc defines optreset], ac_cv_libc_defines_optreset, [
-	AC_LINK_IFELSE([AC_LANG_PROGRAM([[]],
-		[[ extern int optreset; optreset = 1; ]])],
-		[ ac_cv_libc_defines_optreset="yes" ],
-		[ ac_cv_libc_defines_optreset="no" ])
-])
-if test "x$ac_cv_libc_defines_optreset" = "xyes" ; then
-	AC_DEFINE([HAVE_GETOPT_OPTRESET], [1], [Define if libc defines optreset])
-fi
 
 # Share test results with automake
 AM_CONDITIONAL([HAVE_ASPRINTF], [test "x$ac_cv_func_asprintf" = xyes])
@@ -127,45 +107,8 @@ AM_CONDITIONAL([HAVE_RECALLOCARRAY], [test "x$ac_cv_func_recallocarray" = xyes])
 AM_CONDITIONAL([HAVE_SETGROUPS], [test "x$ac_cv_func_setgroups" = xyes])
 AM_CONDITIONAL([HAVE_SETRESGID], [test "x$ac_cv_func_setresgid" = xyes])
 AM_CONDITIONAL([HAVE_SETRESUID], [test "x$ac_cv_func_setresuid" = xyes])
-AM_CONDITIONAL([HAVE_SETPROCTITLE], [test "x$ac_cv_func_setproctitle" = xyes])
 AM_CONDITIONAL([HAVE_STRLCAT], [test "x$ac_cv_func_strlcat" = xyes])
 AM_CONDITIONAL([HAVE_STRLCPY], [test "x$ac_cv_func_strlcpy" = xyes])
-
-AC_CACHE_CHECK([if libc defines __progname], ac_cv_libc_defines___progname, [
-	AC_LINK_IFELSE([AC_LANG_PROGRAM([[]],
-                [[ extern char *__progname; printf("%s", __progname); ]])],
-        [ ac_cv_libc_defines___progname="yes" ],
-        [ ac_cv_libc_defines___progname="no"
-        ])
-])
-if test "x$ac_cv_libc_defines___progname" = "xyes" ; then
-        AC_DEFINE([HAVE___PROGNAME], [1], [Define if libc defines __progname])
-fi
-
-AC_CACHE_CHECK([whether va_copy exists], ac_cv_have_va_copy, [
-	AC_LINK_IFELSE([AC_LANG_PROGRAM([[
-#include <stdarg.h>
-va_list x,y;
-		]], [[ va_copy(x,y); ]])],
-	[ ac_cv_have_va_copy="yes" ],
-	[ ac_cv_have_va_copy="no"
-	])
-])
-if test "x$ac_cv_have_va_copy" = "xyes" ; then
-	AC_DEFINE([HAVE_VA_COPY], [1], [Define if va_copy exists])
-fi
-
-AC_CACHE_CHECK([whether __va_copy exists], ac_cv_have___va_copy, [
-	AC_LINK_IFELSE([AC_LANG_PROGRAM([[
-#include <stdarg.h>
-va_list x,y;
-		]], [[ __va_copy(x,y); ]])],
-	[ ac_cv_have___va_copy="yes" ], [ ac_cv_have___va_copy="no"
-	])
-])
-if test "x$ac_cv_have___va_copy" = "xyes" ; then
-	AC_DEFINE([HAVE___VA_COPY], [1], [Define if __va_copy exists])
-fi
 
 AC_CHECK_HEADERS([err.h sha2.h])
 
@@ -177,7 +120,7 @@ AC_ARG_WITH([privsep-user],
 	PRIVSEP_USER="$withval",
 	PRIVSEP_USER="_rpki-client"
 )
-AC_DEFINE_UNQUOTED(BGPD_USER, "$PRIVSEP_USER", [Unprivileged user])
+AC_DEFINE_UNQUOTED(RPKI_CLIENT_USER, "$PRIVSEP_USER", [Unprivileged user])
 AC_SUBST(PRIVSEP_USER)
 
 AC_CONFIG_FILES([
