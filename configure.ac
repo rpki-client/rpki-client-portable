@@ -173,7 +173,7 @@ AC_CHECK_HEADERS([openssl/cms.h openssl/err.h openssl/evp.h openssl/ssl.h openss
 
 AC_ARG_WITH([privsep-user],
 	AS_HELP_STRING([--with-privsep-user=user],
-		[Privilege separation user for ntpd to use]),
+		[Privilege separation user for rpki-client to use]),
 	PRIVSEP_USER="$withval",
 	PRIVSEP_USER="_rpki-client"
 )
