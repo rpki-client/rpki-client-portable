@@ -14,7 +14,6 @@ noinst_HEADERS += imsg.h
 noinst_HEADERS += poll.h
 noinst_HEADERS += sha2.h
 noinst_HEADERS += sha2_openbsd.h
-noinst_HEADERS += siphash.h
 noinst_HEADERS += stdlib.h
 noinst_HEADERS += string.h
 noinst_HEADERS += unistd.h
