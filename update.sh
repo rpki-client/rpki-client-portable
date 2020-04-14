@@ -56,6 +56,6 @@ done
 if [ -n "$(ls -A patches/*.patch 2>/dev/null)" ]; then
 	for i in patches/*.patch; do
 		echo "Applying patch ${i}"
-		(cd src && ${PATCH} -p2 < "${dir}/${i}")
+		(cd src && ${PATCH} -p3 < "${dir}/${i}")
 	done
 fi

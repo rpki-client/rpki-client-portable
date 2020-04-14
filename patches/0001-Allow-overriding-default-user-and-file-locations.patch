@@ -1,0 +1,79 @@
+From bd3826db0029b9bd071d851b0d1adb10db402d0a Mon Sep 17 00:00:00 2001
+From: Claudio Jeker <claudio@openbsd.org>
+Date: Tue, 14 Apr 2020 22:43:56 +0200
+Subject: [PATCH] Allow overriding default user and file locations
+
+---
+ src/usr.sbin/rpki-client/extern.h | 16 ++++++++++++++--
+ src/usr.sbin/rpki-client/main.c   |  8 ++++----
+ 2 files changed, 18 insertions(+), 6 deletions(-)
+
+diff --git src/usr.sbin/rpki-client/extern.h src/usr.sbin/rpki-client/extern.h
+index 27f1d0866..cb3418438 100644
+--- src/usr.sbin/rpki-client/extern.h
++++ src/usr.sbin/rpki-client/extern.h
+@@ -381,7 +381,19 @@ int		 output_json(FILE *, struct vrp_tree *);
+ void	logx(const char *fmt, ...)
+ 		    __attribute__((format(printf, 1, 2)));
+ 
+-#define		RPKI_PATH_OUT_DIR	"/var/db/rpki-client"
+-#define		RPKI_PATH_BASE_DIR	"/var/cache/rpki-client"
++#ifndef SYSCONFDIR
++#define SYSCONFDIR "/etc"
++#endif
+ 
++#ifndef LOCALSTATEDIR
++#define LOCALSTATEDIR "/var"
++#endif
++
++#define		RPKI_PATH_TAL_DIR	SYSCONFDIR "/rpki"
++#define		RPKI_PATH_OUT_DIR	LOCALSTATEDIR "/db/rpki-client"
++#define		RPKI_PATH_BASE_DIR	LOCALSTATEDIR "/cache/rpki-client"
++
++#ifndef RPKI_CLIENT_USER
++#define		RPKI_CLIENT_USER	"_rpki-client"
++#endif
+ #endif /* ! EXTERN_H */
+diff --git src/usr.sbin/rpki-client/main.c src/usr.sbin/rpki-client/main.c
+index aaacb7b8b..203d1caef 100644
+--- src/usr.sbin/rpki-client/main.c
++++ src/usr.sbin/rpki-client/main.c
+@@ -1345,7 +1345,7 @@ entity_process(int proc, int rsync, struct stats *st,
+ }
+ 
+ /*
+- * Assign filenames ending in ".tal" in "/etc/rpki" into "tals",
++ * Assign filenames ending in ".tal" in RPKI_PATH_TAL_DIR into "tals",
+  * returning the number of files found and filled-in.
+  * This may be zero.
+  * Don't exceded "max" filenames.
+@@ -1353,7 +1353,7 @@ entity_process(int proc, int rsync, struct stats *st,
+ static size_t
+ tal_load_default(const char *tals[], size_t max)
+ {
+-	static const char *confdir = "/etc/rpki";
++	static const char *confdir = RPKI_PATH_TAL_DIR;
+ 	size_t s = 0;
+ 	char *path;
+ 	DIR *dirp;
+@@ -1401,7 +1401,7 @@ main(int argc, char *argv[])
+ 	if (getuid() == 0) {
+ 		struct passwd *pw;
+ 
+-		pw = getpwnam("_rpki-client");
++		pw = getpwnam(RPKI_CLIENT_USER);
+ 		if (!pw)
+ 			errx(1, "no _rpki-client user to revoke to");
+ 		if (setgroups(1, &pw->pw_gid) == -1 ||
+@@ -1483,7 +1483,7 @@ main(int argc, char *argv[])
+ 	if (talsz == 0)
+ 		talsz = tal_load_default(tals, TALSZ_MAX);
+ 	if (talsz == 0)
+-		err(1, "no TAL files found in %s", "/etc/rpki");
++		err(1, "no TAL files found in %s", RPKI_PATH_TAL_DIR);
+ 
+ 	memset(&rt, 0, sizeof(struct repotab));
+ 	memset(&stats, 0, sizeof(struct stats));
+-- 
+2.26.0
+
