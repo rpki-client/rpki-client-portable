@@ -35,8 +35,10 @@ CP_LIBC='do_cp_libc'
 CP='cp -p'
 PATCH='patch -s'
 
+echo "copying tal"
+${CP} ${etc_src}/rpki/*.tal "${dir}"
+
 echo "copying includes"
-#${CP} "${etc_src}/rpki/*.tal" ./src/rpki-client/
 sed '/DECLS/d' "${libc_inc}/sha2.h" > include/sha2_openbsd.h
 
 for i in strlcpy.c strlcat.c; do
