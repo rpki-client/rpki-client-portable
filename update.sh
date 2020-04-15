@@ -42,7 +42,9 @@ sed '/DECLS/d' "${libc_inc}/sha2.h" > include/sha2_openbsd.h
 for i in strlcpy.c strlcat.c; do
 	${CP_LIBC} "${libc_src}/string/${i}" compat
 done
-${CP_LIBC} "${libc_src}/stdlib/reallocarray.c" compat
+for i in reallocarray.c recallocarray.c; do
+	${CP_LIBC} "${libc_src}/stdlib/${i}" compat
+done
 ${CP_LIBC} "${libc_src}/hash/sha2.c" compat
 
 for i in as.c cert.c cms.c crl.c extern.h io.c ip.c log.c main.c \

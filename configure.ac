@@ -91,7 +91,7 @@ CFLAGS="$CFLAGS $CLANG_CFLAGS"
 LDFLAGS="$LDFLAGS $CLANG_FLAGS"
 
 # check functions that are expected to be in libc
-AC_CHECK_FUNCS([reallocarray])
+AC_CHECK_FUNCS([reallocarray, recallocarray])
 AC_CHECK_FUNCS([setgroups])
 AC_CHECK_FUNCS([setregid setresgid setreuid setresuid])
 AC_CHECK_FUNCS([strlcat strlcpy])

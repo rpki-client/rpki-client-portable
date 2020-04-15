@@ -25,6 +25,10 @@ if !HAVE_REALLOCARRAY
 libcompat_la_SOURCES += reallocarray.c
 endif
 
+if !HAVE_RECALLOCARRAY
+libcompat_la_SOURCES += recallocarray.c
+endif
+
 if !HAVE_STRLCAT
 libcompat_la_SOURCES += strlcat.c
 endif

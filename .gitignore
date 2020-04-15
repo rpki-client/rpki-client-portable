@@ -30,6 +30,7 @@ rpki-client-*
 
 *.tal
 compat/reallocarray.c
+compat/recallocarray.c
 compat/sha2.c
 compat/strlcat.c
 compat/strlcpy.c
@@ -38,3 +39,4 @@ include/sha2_openbsd.h
 
 src/*.c
 src/*.h
+src/rpki-client
