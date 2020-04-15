@@ -1,6 +1,6 @@
 This is a port of OpenBSDs rpki-client to other operating systems. It
-is based on portability code from the OpenNTPD, OpenSSH, and LibreSSL
-portable projects.
+is based on portability code from the OpenBGPD, OpenNTPD, OpenSSH, and
+LibreSSL portable projects.
 
 The current portable tree can be found at
 https://github.com/rpki-client/rpki-client-portable
