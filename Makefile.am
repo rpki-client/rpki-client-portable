@@ -16,23 +16,18 @@
 SUBDIRS = include compat src
 ACLOCAL_AMFLAGS = -I m4
 
-EXTRA_DIST = README.md VERSION afrinic.tal apnic.tal lacnic.tal ripe.tal
+EXTRA_DIST = README.md VERSION
+
+taldir = $(DESTDIR)$(RPKI_TAL_DIR)
+tal_DATA = afrinic.tal apnic.tal lacnic.tal ripe.tal
 
 install-data-hook:
-	@if [ ! -d "$(DESTDIR)$(localstatedir)/run" ]; then \
-		$(INSTALL) -m 755 -d "$(DESTDIR)$(localstatedir)/run"; \
+	@if [ ! -d "$(DESTDIR)$(RPKI_BASE_DIR)" ]; then \
+		$(INSTALL) -m 755 -o $(RPKI_USER) -d "$(DESTDIR)$(RPKI_BASE_DIR)"; \
 	fi
-	@if [ ! -d "$(DESTDIR)$(sysconfdir)" ]; then \
-		$(INSTALL) -m 755 -d "$(DESTDIR)$(sysconfdir)"; \
+	@if [ ! -d "$(DESTDIR)$(RPKI_OUT_DIR)" ]; then \
+		$(INSTALL) -m 755 -o $(RPKI_USER) -d "$(DESTDIR)$(RPKI_OUT_DIR)"; \
 	fi
-#	@if [ ! -f "$(DESTDIR)$(sysconfdir)/bgpd.conf" ]; then \
-#		$(INSTALL) -m 644 "$(srcdir)/bgpd.conf" "$(DESTDIR)$(sysconfdir)/bgpd.conf"; \
-#	else \
-#		echo; \
-#		echo " $(DESTDIR)$(sysconfdir)/bgpd.conf already exists, install will not overwrite"; \
-#	fi
-
-uninstall-local:
-#	@if cmp -s "$(DESTDIR)$(sysconfdir)/bgpd.conf" "$(srcdir)/bgpd.conf"; then \
-#		rm -f "$(DESTDIR)$(sysconfdir)/bgpd.conf"; \
-#	fi
+	@if [ ! -d "$(DESTDIR)$(RPKI_TAL_DIR)" ]; then \
+		$(INSTALL) -m 755 -d "$(DESTDIR)$(RPKI_TAL_DIR)"; \
+	fi

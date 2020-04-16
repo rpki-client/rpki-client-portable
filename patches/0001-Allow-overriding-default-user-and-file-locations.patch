@@ -1,34 +1,32 @@
-From 5b871d80adb7e9bfbc139bb3b7961c5a4a3127e2 Mon Sep 17 00:00:00 2001
+From c58330c6932989dffff71b124f22dc90459047c0 Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Tue, 14 Apr 2020 22:43:56 +0200
 Subject: [PATCH] Allow overriding default user and file locations
 
 ---
- src/usr.sbin/rpki-client/extern.h | 20 ++++++++++++++++++--
+ src/usr.sbin/rpki-client/extern.h | 17 +++++++++++++++++
  src/usr.sbin/rpki-client/main.c   | 10 +++++-----
- 2 files changed, 23 insertions(+), 7 deletions(-)
+ 2 files changed, 22 insertions(+), 5 deletions(-)
 
 diff --git src/usr.sbin/rpki-client/extern.h src/usr.sbin/rpki-client/extern.h
-index 27f1d0866..9fc98b750 100644
+index 27f1d0866..69463b2c3 100644
 --- src/usr.sbin/rpki-client/extern.h
 +++ src/usr.sbin/rpki-client/extern.h
-@@ -381,7 +381,23 @@ int		 output_json(FILE *, struct vrp_tree *);
+@@ -381,7 +381,24 @@ int		 output_json(FILE *, struct vrp_tree *);
  void	logx(const char *fmt, ...)
  		    __attribute__((format(printf, 1, 2)));
  
--#define		RPKI_PATH_OUT_DIR	"/var/db/rpki-client"
--#define		RPKI_PATH_BASE_DIR	"/var/cache/rpki-client"
-+#ifndef SYSCONFDIR
-+#define SYSCONFDIR "/etc"
-+#endif
- 
-+#ifndef LOCALSTATEDIR
-+#define LOCALSTATEDIR "/var"
++#ifndef RPKI_PATH_TAL_DIR
++#define		RPKI_PATH_TAL_DIR	"/etc/rpki"
 +#endif
 +
-+#define		RPKI_PATH_TAL_DIR	SYSCONFDIR "/rpki"
-+#define		RPKI_PATH_OUT_DIR	LOCALSTATEDIR "/db/rpki-client"
-+#define		RPKI_PATH_BASE_DIR	LOCALSTATEDIR "/cache/rpki-client"
++#ifndef RPKI_PATH_OUT_DIR
+ #define		RPKI_PATH_OUT_DIR	"/var/db/rpki-client"
++#endif
++
++#ifndef RPKI_PATH_BASE_DIR
+ #define		RPKI_PATH_BASE_DIR	"/var/cache/rpki-client"
++#endif
 +
 +#ifndef RPKI_CLIENT_USER
 +#define		RPKI_CLIENT_USER	"_rpki-client"
@@ -37,6 +35,7 @@ index 27f1d0866..9fc98b750 100644
 +#ifndef RPKI_RSYNC_CMD
 +#define		RPKI_RSYNC_CMD		"openrsync"
 +#endif
+ 
  #endif /* ! EXTERN_H */
 diff --git src/usr.sbin/rpki-client/main.c src/usr.sbin/rpki-client/main.c
 index aaacb7b8b..56caeae9d 100644

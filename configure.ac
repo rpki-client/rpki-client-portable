@@ -116,6 +116,15 @@ AC_CHECK_HEADERS([err.h sha2.h])
 
 AC_CHECK_HEADERS([openssl/cms.h openssl/err.h openssl/evp.h openssl/ssl.h openssl/x509.h openssl/x509v3.h])
 
+AC_ARG_WITH([user],
+	AS_HELP_STRING([--with-user=user],
+		[User for rpki-client to use when run as root]),
+	RPKI_USER="$withval",
+	RPKI_USER="_rpki-client"
+)
+AC_DEFINE_UNQUOTED(RPKI_CLIENT_USER, "$RPKI_USER", [Unprivileged user])
+AC_SUBST(RPKI_USER)
+
 AC_ARG_WITH([rsync],
 	AS_HELP_STRING([--with-rsync=command],
 		[Rsync command to use]),
@@ -129,13 +138,32 @@ if test X"$RSYNC" = X; then
 fi
 AC_DEFINE_UNQUOTED(RPKI_RSYNC_CMD, "$RSYNC", [Rsync command])
 
-AC_ARG_WITH([privdrop-user],
-	AS_HELP_STRING([--with-privdrop-user=user],
-		[User for rpki-client to use when run as root]),
-	PRIVSEP_USER="$withval",
-	PRIVSEP_USER="_rpki-client"
+AC_ARG_WITH([tal-dir],
+	AS_HELP_STRING([--with-tal-dir=path],
+		[Path to the default TAL directory]),
+	RPKI_TAL_DIR="$withval",
+	RPKI_TAL_DIR="/etc/rpki"
 )
-AC_DEFINE_UNQUOTED(RPKI_CLIENT_USER, "$PRIVSEP_USER", [Unprivileged user])
+AC_DEFINE_UNQUOTED(RPKI_PATH_TAL_DIR, "$RPKI_TAL_DIR", [Default TAL directory])
+AC_SUBST(RPKI_TAL_DIR)
+
+AC_ARG_WITH([base-dir],
+	AS_HELP_STRING([--with-base-dir=path],
+		[Location to store the RPKI cache repository]),
+	RPKI_BASE_DIR="$withval",
+	RPKI_BASE_DIR="/var/cache/rpki-client"
+)
+AC_DEFINE_UNQUOTED(RPKI_PATH_BASE_DIR, "$RPKI_BASE_DIR", [Default base directory])
+AC_SUBST(RPKI_BASE_DIR)
+
+AC_ARG_WITH([output-dir],
+	AS_HELP_STRING([--with-output-dir=path],
+		[Path to the default output directory]),
+	RPKI_OUT_DIR="$withval",
+	RPKI_OUT_DIR="/var/db/rpki-client"
+)
+AC_DEFINE_UNQUOTED(RPKI_PATH_OUT_DIR, "$RPKI_OUT_DIR", [Default output directory])
+AC_SUBST(RPKI_OUT_DIR)
 
 AC_CONFIG_FILES([
 	Makefile
