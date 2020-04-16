@@ -142,7 +142,7 @@ AC_ARG_WITH([tal-dir],
 	AS_HELP_STRING([--with-tal-dir=path],
 		[Path to the default TAL directory]),
 	RPKI_TAL_DIR="$withval",
-	RPKI_TAL_DIR="/etc/rpki"
+	RPKI_TAL_DIR="$sysconfdir/rpki"
 )
 AC_DEFINE_UNQUOTED(RPKI_PATH_TAL_DIR, "$RPKI_TAL_DIR", [Default TAL directory])
 AC_SUBST(RPKI_TAL_DIR)
@@ -151,7 +151,7 @@ AC_ARG_WITH([base-dir],
 	AS_HELP_STRING([--with-base-dir=path],
 		[Location to store the RPKI cache repository]),
 	RPKI_BASE_DIR="$withval",
-	RPKI_BASE_DIR="/var/cache/rpki-client"
+	RPKI_BASE_DIR="$localstatedir/cache/rpki-client"
 )
 AC_DEFINE_UNQUOTED(RPKI_PATH_BASE_DIR, "$RPKI_BASE_DIR", [Default base directory])
 AC_SUBST(RPKI_BASE_DIR)
@@ -160,7 +160,7 @@ AC_ARG_WITH([output-dir],
 	AS_HELP_STRING([--with-output-dir=path],
 		[Path to the default output directory]),
 	RPKI_OUT_DIR="$withval",
-	RPKI_OUT_DIR="/var/db/rpki-client"
+	RPKI_OUT_DIR="$localstatedir/db/rpki-client"
 )
 AC_DEFINE_UNQUOTED(RPKI_PATH_OUT_DIR, "$RPKI_OUT_DIR", [Default output directory])
 AC_SUBST(RPKI_OUT_DIR)
