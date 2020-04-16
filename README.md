@@ -5,6 +5,8 @@ LibreSSL portable projects.
 The current portable tree can be found at
 https://github.com/rpki-client/rpki-client-portable
 
+[![Build Status](https://travis-ci.org/rpki-client/rpki-client-portable.svg?branch=master)](https://travis-ci.org/github/rpki-client/rpki-client-portable)
+
 Platform Requirements
 ---------------------
 
