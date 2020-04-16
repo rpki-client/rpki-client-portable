@@ -1,5 +1,1 @@
-* make username _rpki-client (main.c) a define, to be configurable through autoconf.
-* make RPKI_PATH_OUT_DIR configurable
-* make RPKI_PATH_BASE_DIR configurable
-* make /etc/rpki configurable, defaults to /usr/local/etc/rpki?
 * create ChangeLog
