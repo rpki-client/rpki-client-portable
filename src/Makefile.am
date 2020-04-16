@@ -27,6 +27,7 @@ rpki_client_CFLAGS += -DLOCALSTATEDIR=\"$(localstatedir)\"
 
 rpki_client_LDADD = $(PLATFORM_LDADD) $(PROG_LDADD) -lcrypto
 rpki_client_LDADD += $(top_builddir)/compat/libcompat.la
+rpki_client_LDADD += $(top_builddir)/compat/libcompatnoopt.la
 
 rpki_client_SOURCES = as.c
 rpki_client_SOURCES += cert.c

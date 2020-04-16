@@ -39,7 +39,7 @@ ${CP} ${etc_src}/*.tal "${dir}"
 echo "copying includes"
 sed '/DECLS/d' "${libc_inc}/sha2.h" > include/sha2_openbsd.h
 
-for i in strlcpy.c strlcat.c; do
+for i in explicit_bzero.c strlcpy.c strlcat.c; do
 	${CP_LIBC} "${libc_src}/string/${i}" compat
 done
 for i in reallocarray.c recallocarray.c; do

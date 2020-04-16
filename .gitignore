@@ -29,6 +29,7 @@ Makefile.in
 rpki-client-*
 
 *.tal
+compat/explicit_bzero.c
 compat/reallocarray.c
 compat/recallocarray.c
 compat/sha2.c

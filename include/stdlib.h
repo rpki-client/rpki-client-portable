@@ -12,4 +12,8 @@
 void *reallocarray(void *, size_t, size_t);
 #endif
 
+#ifndef HAVE_RECALLOCARRAY
+void *recallocarray(void *, size_t, size_t, size_t);
+#endif
+
 #endif
