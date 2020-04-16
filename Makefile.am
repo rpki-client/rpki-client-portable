@@ -22,9 +22,9 @@ tal_DATA = afrinic.tal apnic.tal lacnic.tal ripe.tal
 EXTRA_DIST = README.md VERSION $(tal_DATA)
 
 install-data-hook:
-	@if [ ! -d "$(DESTDIR)$(RPKI_BASE_DIR)" ]; then \
+	-@if [ ! -d "$(DESTDIR)$(RPKI_BASE_DIR)" ]; then \
 		$(INSTALL) -m 755 -o $(RPKI_USER) -d "$(DESTDIR)$(RPKI_BASE_DIR)"; \
 	fi
-	@if [ ! -d "$(DESTDIR)$(RPKI_OUT_DIR)" ]; then \
+	-@if [ ! -d "$(DESTDIR)$(RPKI_OUT_DIR)" ]; then \
 		$(INSTALL) -m 755 -o $(RPKI_USER) -d "$(DESTDIR)$(RPKI_OUT_DIR)"; \
 	fi
