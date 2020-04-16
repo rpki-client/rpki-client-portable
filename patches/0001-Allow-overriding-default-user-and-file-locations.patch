@@ -1,18 +1,18 @@
-From bd3826db0029b9bd071d851b0d1adb10db402d0a Mon Sep 17 00:00:00 2001
+From 5b871d80adb7e9bfbc139bb3b7961c5a4a3127e2 Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Tue, 14 Apr 2020 22:43:56 +0200
 Subject: [PATCH] Allow overriding default user and file locations
 
 ---
- src/usr.sbin/rpki-client/extern.h | 16 ++++++++++++++--
- src/usr.sbin/rpki-client/main.c   |  8 ++++----
- 2 files changed, 18 insertions(+), 6 deletions(-)
+ src/usr.sbin/rpki-client/extern.h | 20 ++++++++++++++++++--
+ src/usr.sbin/rpki-client/main.c   | 10 +++++-----
+ 2 files changed, 23 insertions(+), 7 deletions(-)
 
 diff --git src/usr.sbin/rpki-client/extern.h src/usr.sbin/rpki-client/extern.h
-index 27f1d0866..cb3418438 100644
+index 27f1d0866..9fc98b750 100644
 --- src/usr.sbin/rpki-client/extern.h
 +++ src/usr.sbin/rpki-client/extern.h
-@@ -381,7 +381,19 @@ int		 output_json(FILE *, struct vrp_tree *);
+@@ -381,7 +381,23 @@ int		 output_json(FILE *, struct vrp_tree *);
  void	logx(const char *fmt, ...)
  		    __attribute__((format(printf, 1, 2)));
  
@@ -33,9 +33,13 @@ index 27f1d0866..cb3418438 100644
 +#ifndef RPKI_CLIENT_USER
 +#define		RPKI_CLIENT_USER	"_rpki-client"
 +#endif
++
++#ifndef RPKI_RSYNC_CMD
++#define		RPKI_RSYNC_CMD		"openrsync"
++#endif
  #endif /* ! EXTERN_H */
 diff --git src/usr.sbin/rpki-client/main.c src/usr.sbin/rpki-client/main.c
-index aaacb7b8b..203d1caef 100644
+index aaacb7b8b..56caeae9d 100644
 --- src/usr.sbin/rpki-client/main.c
 +++ src/usr.sbin/rpki-client/main.c
 @@ -1345,7 +1345,7 @@ entity_process(int proc, int rsync, struct stats *st,
@@ -56,6 +60,15 @@ index aaacb7b8b..203d1caef 100644
  	size_t s = 0;
  	char *path;
  	DIR *dirp;
+@@ -1391,7 +1391,7 @@ main(int argc, char *argv[])
+ 	struct repotab	 rt;
+ 	struct stats	 stats;
+ 	struct roa	**out = NULL;
+-	char		*rsync_prog = "openrsync";
++	char		*rsync_prog = RPKI_RSYNC_CMD;
+ 	char		*bind_addr = NULL;
+ 	const char	*cachedir = NULL;
+ 	const char	*tals[TALSZ_MAX];
 @@ -1401,7 +1401,7 @@ main(int argc, char *argv[])
  	if (getuid() == 0) {
  		struct passwd *pw;

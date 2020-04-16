@@ -115,14 +115,26 @@ AC_CHECK_HEADERS([err.h sha2.h])
 
 AC_CHECK_HEADERS([openssl/cms.h openssl/err.h openssl/evp.h openssl/ssl.h openssl/x509.h openssl/x509v3.h])
 
-AC_ARG_WITH([privsep-user],
-	AS_HELP_STRING([--with-privsep-user=user],
-		[Privilege separation user for rpki-client to use]),
+AC_ARG_WITH([rsync],
+	AS_HELP_STRING([--with-rsync=command],
+		[Rsync command to use]),
+	RSYNC="$withval"
+)
+if test X"$RSYNC" = X; then
+	AC_CHECK_PROGS([RSYNC], [openrsync rsync])
+fi
+if test X"$RSYNC" = X; then
+   AC_MSG_ERROR([No rsync binary found in $PATH])
+fi
+AC_DEFINE_UNQUOTED(RPKI_RSYNC_CMD, "$RSYNC", [Rsync command])
+
+AC_ARG_WITH([privdrop-user],
+	AS_HELP_STRING([--with-privdrop-user=user],
+		[User for rpki-client to use when run as root]),
 	PRIVSEP_USER="$withval",
 	PRIVSEP_USER="_rpki-client"
 )
 AC_DEFINE_UNQUOTED(RPKI_CLIENT_USER, "$PRIVSEP_USER", [Unprivileged user])
-AC_SUBST(PRIVSEP_USER)
 
 AC_CONFIG_FILES([
 	Makefile
