@@ -114,10 +114,13 @@ AM_CONDITIONAL([HAVE_UNVEIL], [test "x$ac_cv_func_unveil" = xyes])
 
 AC_CHECK_HEADERS([err.h sha2.h])
 
+save_cppflags="$CPPFLAGS"
+CPPFLAGS="$CFLAGS"
 AC_CHECK_LIB([crypto], [ASN1_STRING_get0_data], [], [AC_MSG_ERROR([OpenSSL libraries required])])
 AC_CHECK_HEADERS([openssl/cms.h openssl/err.h openssl/evp.h openssl/ssl.h openssl/x509.h openssl/x509v3.h],
 	[], [AC_MSG_ERROR([OpenSSL headers required])]
 )
+CPPFLAGS="$save_cppflags"
 
 AC_ARG_WITH([user],
 	AS_HELP_STRING([--with-user=user],
