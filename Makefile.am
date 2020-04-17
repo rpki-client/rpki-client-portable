@@ -16,7 +16,7 @@
 SUBDIRS = include compat src
 ACLOCAL_AMFLAGS = -I m4
 
-taldir = $(DESTDIR)$(RPKI_TAL_DIR)
+taldir = $(RPKI_TAL_DIR)
 tal_DATA = afrinic.tal apnic.tal lacnic.tal ripe.tal
 
 EXTRA_DIST = README.md VERSION $(tal_DATA)
