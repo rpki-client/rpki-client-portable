@@ -144,7 +144,6 @@ AC_ARG_WITH([tal-dir],
 	RPKI_TAL_DIR="$withval",
 	RPKI_TAL_DIR="$sysconfdir/rpki"
 )
-AC_DEFINE_UNQUOTED(RPKI_PATH_TAL_DIR, "$RPKI_TAL_DIR", [Default TAL directory])
 AC_SUBST(RPKI_TAL_DIR)
 
 AC_ARG_WITH([base-dir],
@@ -153,7 +152,6 @@ AC_ARG_WITH([base-dir],
 	RPKI_BASE_DIR="$withval",
 	RPKI_BASE_DIR="$localstatedir/cache/rpki-client"
 )
-AC_DEFINE_UNQUOTED(RPKI_PATH_BASE_DIR, "$RPKI_BASE_DIR", [Default base directory])
 AC_SUBST(RPKI_BASE_DIR)
 
 AC_ARG_WITH([output-dir],
@@ -162,7 +160,6 @@ AC_ARG_WITH([output-dir],
 	RPKI_OUT_DIR="$withval",
 	RPKI_OUT_DIR="$localstatedir/db/rpki-client"
 )
-AC_DEFINE_UNQUOTED(RPKI_PATH_OUT_DIR, "$RPKI_OUT_DIR", [Default output directory])
 AC_SUBST(RPKI_OUT_DIR)
 
 AC_CONFIG_FILES([
