@@ -23,8 +23,16 @@ EXTRA_DIST = README.md VERSION $(tal_DATA)
 
 install-data-hook:
 	-@if [ ! -d "$(DESTDIR)$(RPKI_BASE_DIR)" ]; then \
-		$(INSTALL) -m 755 -o $(RPKI_USER) -d "$(DESTDIR)$(RPKI_BASE_DIR)"; \
+		if [ "`id -u`" = "0" ]; then \
+			$(INSTALL) -m 755 -o $(RPKI_USER) -d "$(DESTDIR)$(RPKI_BASE_DIR)"; \
+		else \
+			$(INSTALL) -m 755 -d "$(DESTDIR)$(RPKI_BASE_DIR)"; \
+		fi \
 	fi
 	-@if [ ! -d "$(DESTDIR)$(RPKI_OUT_DIR)" ]; then \
-		$(INSTALL) -m 755 -o $(RPKI_USER) -d "$(DESTDIR)$(RPKI_OUT_DIR)"; \
+		if [ "`id -u`" = "0" ]; then \
+			$(INSTALL) -m 755 -o $(RPKI_USER) -d "$(DESTDIR)$(RPKI_OUT_DIR)"; \
+		else \
+			$(INSTALL) -m 755 -d "$(DESTDIR)$(RPKI_OUT_DIR)"; \
+		fi \
 	fi
