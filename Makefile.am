@@ -27,6 +27,8 @@ install-data-hook:
 			$(INSTALL) -m 755 -o $(RPKI_USER) -d "$(DESTDIR)$(RPKI_BASE_DIR)"; \
 		else \
 			$(INSTALL) -m 755 -d "$(DESTDIR)$(RPKI_BASE_DIR)"; \
+			echo "Warning: Unprivileged permissions, remember to run" \
+				"'chown $(RPKI_USER) $(DESTDIR)$(RPKI_BASE_DIR)'"; \
 		fi \
 	fi
 	-@if [ ! -d "$(DESTDIR)$(RPKI_OUT_DIR)" ]; then \
@@ -34,5 +36,7 @@ install-data-hook:
 			$(INSTALL) -m 755 -o $(RPKI_USER) -d "$(DESTDIR)$(RPKI_OUT_DIR)"; \
 		else \
 			$(INSTALL) -m 755 -d "$(DESTDIR)$(RPKI_OUT_DIR)"; \
+			echo "Warning: Unprivileged permissions, remember to run" \
+				"'chown $(RPKI_USER) $(DESTDIR)$(RPKI_OUT_DIR)'"; \
 		fi \
 	fi
