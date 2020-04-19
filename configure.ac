@@ -163,6 +163,7 @@ AC_CONFIG_FILES([
 	include/Makefile
 	compat/Makefile
 	src/Makefile
+	src/rpki-client.8
 ])
 
 AC_OUTPUT

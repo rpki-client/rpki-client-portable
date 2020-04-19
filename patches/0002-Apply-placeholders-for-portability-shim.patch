@@ -1,0 +1,95 @@
+From b5c29ea798bb977d4db965db0bdec9bf4528d242 Mon Sep 17 00:00:00 2001
+From: Robert Scheck <robert@fedoraproject.org>
+Date: Sun, 19 Apr 2020 03:35:58 +0200
+Subject: [PATCH] Apply placeholders for portability shim
+
+---
+ src/usr.sbin/rpki-client/rpki-client.8 | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
+
+diff --git src/usr.sbin/rpki-client/rpki-client.8 src/usr.sbin/rpki-client/rpki-client.8
+index fbffe38..3a7442c 100644
+--- src/usr.sbin/rpki-client/rpki-client.8
++++ src/usr.sbin/rpki-client/rpki-client.8
+@@ -19,7 +19,7 @@
+ .Os
+ .Sh NAME
+ .Nm rpki-client
+-.Nd RPKI validator to support BGP Origin Validation in bgpd
++.Nd RPKI validator to support BGP Origin Validation
+ .Sh SYNOPSIS
+ .Nm
+ .Op Fl Bcfjnov
+@@ -33,7 +33,7 @@
+ The
+ .Nm
+ utility queries the RPKI repository system with
+-.Xr openrsync 1
++.Xr @RSYNC@ 1
+ to fetch all X.509 certificates, manifests, and revocation lists under a given
+ .Em Trust Anchor .
+ .Nm
+@@ -68,12 +68,12 @@ The directory where
+ .Nm
+ will store the cached repository data.
+ Defaults to
+-.Pa /var/db/rpki-client/ .
++.Pa @RPKI_OUT_DIR@ .
+ .It Fl e Ar rsync_prog
+ Use
+ .Ar rsync_prog
+ instead of
+-.Xr openrsync 1
++.Xr @RSYNC@ 1
+ to fetch repositories.
+ It must accept the
+ .Fl rlt ,
+@@ -118,7 +118,7 @@ This option can be used multiple times to load multiple TALs.
+ By default
+ .Nm
+ will load all TAL files in
+-.Pa /etc/rpki .
++.Pa @RPKI_TAL_DIR@ .
+ .It Fl v
+ Specified once, prints information about status.
+ Twice, prints each filename as it's processed.
+@@ -127,7 +127,7 @@ The directory where
+ .Nm
+ will write the output files.
+ Defaults to
+-.Pa /var/db/rpki-client/ .
++.Pa @RPKI_OUT_DIR@ .
+ .El
+ .Pp
+ By default
+@@ -140,14 +140,14 @@ statements in
+ .\" .Sh ENVIRONMENT
+ .\" For sections 1, 6, 7, and 8 only.
+ .Sh FILES
+-.Bl -tag -width "/var/db/rpki-client/openbgpd" -compact
+-.It Pa /etc/rpki/*.tal
++.Bl -tag -width "@RPKI_OUT_DIR@/openbgpd" -compact
++.It Pa @RPKI_TAL_DIR@/*.tal
+ default TAL files used unless
+ .Fl t Ar tal
+ is specified.
+-.It Pa /var/cache/rpki-client
++.It Pa @RPKI_BASE_DIR@
+ cached repository data.
+-.It Pa /var/db/rpki-client/openbgpd
++.It Pa @RPKI_OUT_DIR@/openbgpd
+ default roa-set output file.
+ .El
+ .Sh EXIT STATUS
+@@ -157,7 +157,7 @@ default roa-set output file.
+ .\" .Sh DIAGNOSTICS
+ .\" For sections 1, 4, 6, 7, 8, and 9 printf/stderr messages only.
+ .Sh SEE ALSO
+-.Xr openrsync 1 ,
++.Xr @RSYNC@ 1 ,
+ .Xr bgpd.conf 5
+ .Sh STANDARDS
+ The following standards are used or referenced in
+-- 
+1.8.3.1
+

@@ -31,6 +31,7 @@ do_cp_libc() {
 }
 CP_LIBC='do_cp_libc'
 CP='cp -p'
+MV='mv -f'
 PATCH='patch -s'
 
 echo "copying tal"
@@ -60,4 +61,5 @@ if [ -n "$(ls -A patches/*.patch 2>/dev/null)" ]; then
 		echo "Applying patch ${i}"
 		(cd src && ${PATCH} -p3 < "${dir}/${i}")
 	done
+	${MV} src/rpki-client.8 src/rpki-client.8.in 
 fi
