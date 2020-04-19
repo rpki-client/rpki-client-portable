@@ -59,7 +59,7 @@ index aaacb7b8b..56caeae9d 100644
  	size_t s = 0;
  	char *path;
  	DIR *dirp;
-@@ -1391,7 +1391,7 @@ main(int argc, char *argv[])
+@@ -1391,19 +1391,19 @@ main(int argc, char *argv[])
  	struct repotab	 rt;
  	struct stats	 stats;
  	struct roa	**out = NULL;
@@ -68,15 +68,21 @@ index aaacb7b8b..56caeae9d 100644
  	char		*bind_addr = NULL;
  	const char	*cachedir = NULL;
  	const char	*tals[TALSZ_MAX];
-@@ -1401,7 +1401,7 @@ main(int argc, char *argv[])
+ 	struct vrp_tree	 v = RB_INITIALIZER(&v);
+ 
+-	/* If started as root, priv-drop to _rpki-client */
++	/* If started as root, priv-drop to RPKI_CLIENT_USER */
  	if (getuid() == 0) {
  		struct passwd *pw;
  
 -		pw = getpwnam("_rpki-client");
 +		pw = getpwnam(RPKI_CLIENT_USER);
  		if (!pw)
- 			errx(1, "no _rpki-client user to revoke to");
+-			errx(1, "no _rpki-client user to revoke to");
++			errx(1, "no %s user to revoke to", RPKI_CLIENT_USER);
  		if (setgroups(1, &pw->pw_gid) == -1 ||
+ 		    setresgid(pw->pw_gid, pw->pw_gid, pw->pw_gid) == -1 ||
+ 		    setresuid(pw->pw_uid, pw->pw_uid, pw->pw_uid) == -1)
 @@ -1483,7 +1483,7 @@ main(int argc, char *argv[])
  	if (talsz == 0)
  		talsz = tal_load_default(tals, TALSZ_MAX);
