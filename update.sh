@@ -13,10 +13,12 @@ if [ ! -d openbsd ]; then
 		git clone "${RPKICLIENT_GIT}/openbsd"
 	fi
 fi
-(cd openbsd/src
- git fetch
- git checkout "${openbsd_branch}"
- git pull --rebase)
+if [ -d openbsd/.git ]; then
+	(cd openbsd/src
+	 git fetch
+	 git checkout "${openbsd_branch}"
+	 git pull --rebase)
+fi
 
 # setup source paths
 dir=`pwd`
