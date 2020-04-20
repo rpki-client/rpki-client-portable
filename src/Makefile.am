@@ -19,7 +19,7 @@ AM_CPPFLAGS += -I$(top_srcdir)/src
 ACLOCAL_AMFLAGS = -Im4
 
 sbin_PROGRAMS = rpki-client
-dist_man_MANS = rpki-client.8
+dist_man_MANS = rpki-client.8.in
 
 rpki_client_CFLAGS = $(CFLAGS)
 rpki_client_CFLAGS += -DRPKI_PATH_TAL_DIR=\"$(RPKI_TAL_DIR)\"
@@ -51,3 +51,14 @@ rpki_client_SOURCES += validate.c
 rpki_client_SOURCES += x509.c
 
 noinst_HEADERS = extern.h
+
+rpki-client.8: rpki-client.8.in
+	sed \
+		-e 's|!!RPKI_TAL_DIR!!|$(RPKI_TAL_DIR)|g' \
+		-e 's|!!RPKI_BASE_DIR!!|$(RPKI_BASE_DIR)|g' \
+		-e 's|!!RPKI_OUT_DIR!!|$(RPKI_OUT_DIR)|g' \
+		-e 's|!!RSYNC!!|$(RSYNC)|g' \
+		$< >$@
+
+mostlyclean-local:
+	-rm -f rpki-client.8

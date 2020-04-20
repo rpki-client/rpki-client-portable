@@ -11,21 +11,12 @@ diff --git src/usr.sbin/rpki-client/rpki-client.8 src/usr.sbin/rpki-client/rpki-
 index fbffe38..3a7442c 100644
 --- src/usr.sbin/rpki-client/rpki-client.8
 +++ src/usr.sbin/rpki-client/rpki-client.8
-@@ -19,7 +19,7 @@
- .Os
- .Sh NAME
- .Nm rpki-client
--.Nd RPKI validator to support BGP Origin Validation in bgpd
-+.Nd RPKI validator to support BGP Origin Validation
- .Sh SYNOPSIS
- .Nm
- .Op Fl Bcfjnov
 @@ -33,7 +33,7 @@
  The
  .Nm
  utility queries the RPKI repository system with
 -.Xr openrsync 1
-+.Xr @RSYNC@ 1
++.Xr !!RSYNC!! 1
  to fetch all X.509 certificates, manifests, and revocation lists under a given
  .Em Trust Anchor .
  .Nm
@@ -33,14 +24,14 @@ index fbffe38..3a7442c 100644
  .Nm
  will store the cached repository data.
  Defaults to
--.Pa /var/db/rpki-client/ .
-+.Pa @RPKI_OUT_DIR@ .
+-.Pa /var/cache/rpki-client .
++.Pa !!RPKI_BASE_DIR!! .
  .It Fl e Ar rsync_prog
  Use
  .Ar rsync_prog
  instead of
 -.Xr openrsync 1
-+.Xr @RSYNC@ 1
++.Xr !!RSYNC!! 1
  to fetch repositories.
  It must accept the
  .Fl rlt ,
@@ -49,7 +40,7 @@ index fbffe38..3a7442c 100644
  .Nm
  will load all TAL files in
 -.Pa /etc/rpki .
-+.Pa @RPKI_TAL_DIR@ .
++.Pa !!RPKI_TAL_DIR!! .
  .It Fl v
  Specified once, prints information about status.
  Twice, prints each filename as it's processed.
@@ -58,7 +49,7 @@ index fbffe38..3a7442c 100644
  will write the output files.
  Defaults to
 -.Pa /var/db/rpki-client/ .
-+.Pa @RPKI_OUT_DIR@ .
++.Pa !!RPKI_OUT_DIR!! .
  .El
  .Pp
  By default
@@ -68,16 +59,16 @@ index fbffe38..3a7442c 100644
  .Sh FILES
 -.Bl -tag -width "/var/db/rpki-client/openbgpd" -compact
 -.It Pa /etc/rpki/*.tal
-+.Bl -tag -width "@RPKI_OUT_DIR@/openbgpd" -compact
-+.It Pa @RPKI_TAL_DIR@/*.tal
++.Bl -tag -width "!!RPKI_OUT_DIR!!/openbgpd" -compact
++.It Pa !!RPKI_TAL_DIR!!/*.tal
  default TAL files used unless
  .Fl t Ar tal
  is specified.
 -.It Pa /var/cache/rpki-client
-+.It Pa @RPKI_BASE_DIR@
++.It Pa !!RPKI_BASE_DIR!!
  cached repository data.
 -.It Pa /var/db/rpki-client/openbgpd
-+.It Pa @RPKI_OUT_DIR@/openbgpd
++.It Pa !!RPKI_OUT_DIR!!/openbgpd
  default roa-set output file.
  .El
  .Sh EXIT STATUS
@@ -86,7 +77,7 @@ index fbffe38..3a7442c 100644
  .\" For sections 1, 4, 6, 7, 8, and 9 printf/stderr messages only.
  .Sh SEE ALSO
 -.Xr openrsync 1 ,
-+.Xr @RSYNC@ 1 ,
++.Xr !!RSYNC!! 1 ,
  .Xr bgpd.conf 5
  .Sh STANDARDS
  The following standards are used or referenced in

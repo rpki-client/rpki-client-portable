@@ -61,5 +61,5 @@ if [ -n "$(ls -A patches/*.patch 2>/dev/null)" ]; then
 		echo "Applying patch ${i}"
 		(cd src && ${PATCH} -p3 < "${dir}/${i}")
 	done
-	${MV} src/rpki-client.8 src/rpki-client.8.in 
+	${MV} src/rpki-client.8 src/rpki-client.8.in
 fi
