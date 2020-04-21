@@ -1,12 +1,12 @@
-From 3394412fce5a54256e93bd0b46b202a9199be1b9 Mon Sep 17 00:00:00 2001
+From b4542b3206695d5bd6978f809655ede7816b2312 Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Tue, 14 Apr 2020 22:43:56 +0200
 Subject: [PATCH 1/2] Allow overriding default user and file locations
 
 ---
  src/usr.sbin/rpki-client/extern.h | 17 +++++++++++++++++
- src/usr.sbin/rpki-client/main.c   | 10 +++++-----
- 2 files changed, 22 insertions(+), 5 deletions(-)
+ src/usr.sbin/rpki-client/main.c   | 12 ++++++------
+ 2 files changed, 23 insertions(+), 6 deletions(-)
 
 diff --git src/usr.sbin/rpki-client/extern.h src/usr.sbin/rpki-client/extern.h
 index 27f1d0866..69463b2c3 100644
@@ -38,7 +38,7 @@ index 27f1d0866..69463b2c3 100644
  
  #endif /* ! EXTERN_H */
 diff --git src/usr.sbin/rpki-client/main.c src/usr.sbin/rpki-client/main.c
-index 8393cef49..7044fa321 100644
+index 8393cef49..d4eecdcb2 100644
 --- src/usr.sbin/rpki-client/main.c
 +++ src/usr.sbin/rpki-client/main.c
 @@ -1340,7 +1340,7 @@ entity_process(int proc, int rsync, struct stats *st,
@@ -68,15 +68,18 @@ index 8393cef49..7044fa321 100644
  	char		*bind_addr = NULL;
  	const char	*cachedir = NULL;
  	const char	*tals[TALSZ_MAX];
-@@ -1396,7 +1396,7 @@ main(int argc, char *argv[])
+@@ -1396,9 +1396,9 @@ main(int argc, char *argv[])
  	if (getuid() == 0) {
  		struct passwd *pw;
  
 -		pw = getpwnam("_rpki-client");
 +		pw = getpwnam(RPKI_CLIENT_USER);
  		if (!pw)
- 			errx(1, "no _rpki-client user to revoke to");
+-			errx(1, "no _rpki-client user to revoke to");
++			errx(1, "no %s user to revoke to", RPKI_CLIENT_USER);
  		if (setgroups(1, &pw->pw_gid) == -1 ||
+ 		    setresgid(pw->pw_gid, pw->pw_gid, pw->pw_gid) == -1 ||
+ 		    setresuid(pw->pw_uid, pw->pw_uid, pw->pw_uid) == -1)
 @@ -1478,7 +1478,7 @@ main(int argc, char *argv[])
  	if (talsz == 0)
  		talsz = tal_load_default(tals, TALSZ_MAX);
