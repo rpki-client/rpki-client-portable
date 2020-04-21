@@ -1,7 +1,7 @@
-From c58330c6932989dffff71b124f22dc90459047c0 Mon Sep 17 00:00:00 2001
+From 3394412fce5a54256e93bd0b46b202a9199be1b9 Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Tue, 14 Apr 2020 22:43:56 +0200
-Subject: [PATCH] Allow overriding default user and file locations
+Subject: [PATCH 1/2] Allow overriding default user and file locations
 
 ---
  src/usr.sbin/rpki-client/extern.h | 17 +++++++++++++++++
@@ -38,10 +38,10 @@ index 27f1d0866..69463b2c3 100644
  
  #endif /* ! EXTERN_H */
 diff --git src/usr.sbin/rpki-client/main.c src/usr.sbin/rpki-client/main.c
-index aaacb7b8b..56caeae9d 100644
+index 8393cef49..7044fa321 100644
 --- src/usr.sbin/rpki-client/main.c
 +++ src/usr.sbin/rpki-client/main.c
-@@ -1345,7 +1345,7 @@ entity_process(int proc, int rsync, struct stats *st,
+@@ -1340,7 +1340,7 @@ entity_process(int proc, int rsync, struct stats *st,
  }
  
  /*
@@ -50,7 +50,7 @@ index aaacb7b8b..56caeae9d 100644
   * returning the number of files found and filled-in.
   * This may be zero.
   * Don't exceded "max" filenames.
-@@ -1353,7 +1353,7 @@ entity_process(int proc, int rsync, struct stats *st,
+@@ -1348,7 +1348,7 @@ entity_process(int proc, int rsync, struct stats *st,
  static size_t
  tal_load_default(const char *tals[], size_t max)
  {
@@ -59,7 +59,7 @@ index aaacb7b8b..56caeae9d 100644
  	size_t s = 0;
  	char *path;
  	DIR *dirp;
-@@ -1391,7 +1391,7 @@ main(int argc, char *argv[])
+@@ -1386,7 +1386,7 @@ main(int argc, char *argv[])
  	struct repotab	 rt;
  	struct stats	 stats;
  	struct roa	**out = NULL;
@@ -68,7 +68,7 @@ index aaacb7b8b..56caeae9d 100644
  	char		*bind_addr = NULL;
  	const char	*cachedir = NULL;
  	const char	*tals[TALSZ_MAX];
-@@ -1401,7 +1401,7 @@ main(int argc, char *argv[])
+@@ -1396,7 +1396,7 @@ main(int argc, char *argv[])
  	if (getuid() == 0) {
  		struct passwd *pw;
  
@@ -77,7 +77,7 @@ index aaacb7b8b..56caeae9d 100644
  		if (!pw)
  			errx(1, "no _rpki-client user to revoke to");
  		if (setgroups(1, &pw->pw_gid) == -1 ||
-@@ -1483,7 +1483,7 @@ main(int argc, char *argv[])
+@@ -1478,7 +1478,7 @@ main(int argc, char *argv[])
  	if (talsz == 0)
  		talsz = tal_load_default(tals, TALSZ_MAX);
  	if (talsz == 0)

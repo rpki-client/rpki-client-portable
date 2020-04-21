@@ -33,6 +33,7 @@ do_cp_libc() {
 }
 CP_LIBC='do_cp_libc'
 CP='cp -p'
+MV='mv -f'
 PATCH='patch -s'
 
 echo "copying tal"
@@ -63,3 +64,6 @@ if [ -n "$(ls -A patches/*.patch 2>/dev/null)" ]; then
 		(cd src && ${PATCH} -p3 < "${dir}/${i}")
 	done
 fi
+
+# after patching rename man-page so that configure can adjust placeholders
+(cd src && ${MV} rpki-client.8 rpki-client.8.in)

@@ -41,3 +41,4 @@ include/sha2_openbsd.h
 src/*.c
 src/*.h
 src/rpki-client
+src/rpki-client.8.in
