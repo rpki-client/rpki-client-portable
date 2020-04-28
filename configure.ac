@@ -111,7 +111,36 @@ AM_CONDITIONAL([HAVE_UNVEIL], [test "x$ac_cv_func_unveil" = xyes])
 
 AC_CHECK_HEADERS([err.h sha2.h])
 
-AC_CHECK_HEADERS([openssl/cms.h openssl/err.h openssl/evp.h openssl/ssl.h openssl/x509.h openssl/x509v3.h])
+AC_ARG_WITH([openssl],
+	AS_HELP_STRING([--with-openssl=pkg-name],
+		[Use pkg-config(1) pkg-name to find OpenSSL files]),
+	PKG_NAME="$withval"
+)
+if test X"$PKG_NAME" != X; then
+	OPENSSL_CFLAGS=`pkg-config --cflags-only-I $PKG_NAME 2>/dev/null`
+	OPENSSL_LDFLAGS=`pkg-config --libs-only-L $PKG_NAME 2>/dev/null`
+fi
+
+AC_ARG_WITH([openssl-cflags],
+	AS_HELP_STRING([--with-openssl-cflags=STRING],
+		[Extra compiler flags to build with OpenSSL]),
+	OPENSSL_CFLAGS="$withval"
+)
+AC_ARG_WITH([openssl-ldflags],
+	AS_HELP_STRING([--with-openssl-ldflags=STRING],
+		[Extra flags for linker to link with OpenSSL libraries]),
+	OPENSSL_LDFLAGS="$withval"
+)
+AC_SUBST(OPENSSL_CFLAGS)
+AC_SUBST(OPENSSL_LDFLAGS)
+
+CFLAGS="$CFLAGS $OPENSSL_CFLAGS"
+CPPFLAGS="$CPPFLAGS $OPENSSL_CFLAGS"
+LDFLAGS="$LDFLAGS $OPENSSL_LDFLAGS"
+
+AC_CHECK_HEADERS([openssl/cms.h openssl/err.h openssl/evp.h openssl/ssl.h openssl/x509.h openssl/x509v3.h], [], [AC_MSG_ERROR([OpenSSL headers required])])
+AC_CHECK_LIB([crypto], [ASN1_STRING_get0_data], [], [AC_MSG_ERROR([OpenSSL libraries required])])
+AC_CHECK_LIB([crypto], [X509_up_ref], [], [AC_MSG_ERROR([OpenSSL libraries required])])
 
 AC_ARG_WITH([user],
 	AS_HELP_STRING([--with-user=user],
