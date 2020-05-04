@@ -188,6 +188,18 @@ AC_ARG_WITH([output-dir],
 )
 AC_SUBST(RPKI_OUT_DIR)
 
+AC_ARG_ENABLE(warnings,
+	[  --disable-warnings    enable compiler warnings [default=enabled]],
+	[case $enableval in
+		yes) enable_warnings=yes;;
+		no) enable_warnings=no;;
+		*) enable_warnings=yes;; esac],
+	enable_warnings=yes)
+
+if test "$enable_warnings" = yes; then
+	AC_SUBST(AM_CFLAGS, ["-Wall -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -Wshadow -Wpointer-arith -Wsign-compare -Werror-implicit-function-declaration"])
+fi
+
 AC_CONFIG_FILES([
 	Makefile
 	include/Makefile

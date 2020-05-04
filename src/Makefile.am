@@ -25,6 +25,7 @@ EXTRA_DIST = rpki-client.8.in
 CLEANFILES = rpki-client.8
 
 rpki_client_CFLAGS = $(CFLAGS)
+rpki_client_CFLAGS += $(AM_CFLAGS)
 rpki_client_CFLAGS += -DRPKI_PATH_TAL_DIR=\"$(RPKI_TAL_DIR)\"
 rpki_client_CFLAGS += -DRPKI_PATH_BASE_DIR=\"$(RPKI_BASE_DIR)\"
 rpki_client_CFLAGS += -DRPKI_PATH_OUT_DIR=\"$(RPKI_OUT_DIR)\"
