@@ -19,7 +19,7 @@ ACLOCAL_AMFLAGS = -I m4
 taldir = $(RPKI_TAL_DIR)
 tal_DATA = afrinic.tal apnic.tal lacnic.tal ripe.tal
 
-EXTRA_DIST = README.md VERSION $(tal_DATA)
+EXTRA_DIST = README.md VERSION LICENSE $(tal_DATA)
 
 install-data-hook:
 	-@if [ ! -d "$(DESTDIR)$(RPKI_BASE_DIR)" ]; then \
