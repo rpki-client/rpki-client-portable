@@ -81,7 +81,7 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([], [[
 	[CLANG_FLAGS=-Qunused-arguments],
 	[AC_MSG_RESULT([no])]
 )
-CFLAGS="$CFLAGS $CLANG_CFLAGS"
+CFLAGS="$CFLAGS $CLANG_FLAGS"
 LDFLAGS="$LDFLAGS $CLANG_FLAGS"
 
 # check functions that are expected to be in libc
