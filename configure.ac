@@ -61,15 +61,30 @@ AC_PROG_CC_STDC
 AM_PROG_CC_C_O
 AC_PROG_LIBTOOL
 
-save_cflags="$CFLAGS"
-CFLAGS=-Wno-pointer-sign
-AC_MSG_CHECKING([whether CC supports -Wno-pointer-sign])
-AC_COMPILE_IFELSE([AC_LANG_PROGRAM([])],
-	[AC_MSG_RESULT([yes])]
-	[AM_CFLAGS=-Wno-pointer-sign],
-	[AC_MSG_RESULT([no])]
-)
-CFLAGS="$save_cflags $AM_CFLAGS"
+AC_ARG_ENABLE(warnings,
+	AS_HELP_STRING([--disable-warnings],
+	[ enable compiler warnings [default=enabled]]),
+    [case $enableval in
+	    yes) enable_warnings=yes;;
+	    no) enable_warnings=no;;
+	    *) enable_warnings=yes;; esac],
+    enable_warnings=yes)
+
+if test "$enable_warnings" = yes; then
+	AM_CFLAGS="$AM_CFLAGS -Wall -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -Wshadow -Wpointer-arith -Wsign-compare -Werror-implicit-function-declaration"
+	#AC_SUBST(AM_CFLAGS, ["-Wall -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -Wshadow -Wpointer-arith -Wsign-compare -Werror-implicit-function-declaration"])
+
+	save_cflags="$CFLAGS"
+	CFLAGS=-Wno-pointer-sign
+	AC_MSG_CHECKING([whether CC supports -Wno-pointer-sign])
+	AC_COMPILE_IFELSE([AC_LANG_PROGRAM([])],
+	    [AC_MSG_RESULT([yes])]
+	    [WARN_CFLAGS=-Wno-pointer-sign],
+	    [AC_MSG_RESULT([no])]
+	)
+	AM_CFLAGS="$AM_CFLAGS $WARN_CFLAGS"
+	CFLAGS="$save_cflags"
+fi
 
 AC_MSG_CHECKING([if compiling with clang])
 AC_COMPILE_IFELSE([AC_LANG_PROGRAM([], [[
@@ -81,8 +96,10 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([], [[
 	[CLANG_FLAGS=-Qunused-arguments],
 	[AC_MSG_RESULT([no])]
 )
-CFLAGS="$CFLAGS $CLANG_FLAGS"
-LDFLAGS="$LDFLAGS $CLANG_FLAGS"
+AM_CFLAGS="$AM_CFLAGS $CLANG_FLAGS"
+AM_LDFLAGS="$LDFLAGS $CLANG_FLAGS"
+AC_SUBST(AM_CFLAGS)
+AC_SUBST(AM_LDFLAGS)
 
 # check functions that are expected to be in libc
 AC_CHECK_FUNCS([reallocarray recallocarray])
@@ -184,18 +201,6 @@ AC_ARG_WITH([output-dir],
 	RPKI_OUT_DIR="$localstatedir/db/rpki-client"
 )
 AC_SUBST(RPKI_OUT_DIR)
-
-AC_ARG_ENABLE(warnings,
-	[  --disable-warnings    enable compiler warnings [default=enabled]],
-	[case $enableval in
-		yes) enable_warnings=yes;;
-		no) enable_warnings=no;;
-		*) enable_warnings=yes;; esac],
-	enable_warnings=yes)
-
-if test "$enable_warnings" = yes; then
-	AC_SUBST(AM_CFLAGS, ["-Wall -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -Wshadow -Wpointer-arith -Wsign-compare -Werror-implicit-function-declaration"])
-fi
 
 AC_CONFIG_FILES([
 	Makefile
