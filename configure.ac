@@ -55,9 +55,6 @@ AM_CONDITIONAL([HOST_LINUX],   [test x$HOST_OS = xlinux])
 AM_CONDITIONAL([HOST_NETBSD],  [test x$HOST_OS = xnetbsd])
 AM_CONDITIONAL([HOST_SOLARIS], [test x$HOST_OS = xsolaris])
 
-AC_CHECK_FUNC([dl_iterate_phdr],,
-	[AC_SEARCH_LIBS([dl_iterate_phdr],[dl])])
-
 AC_PROG_SED
 AC_PROG_CC
 AC_PROG_CC_STDC
