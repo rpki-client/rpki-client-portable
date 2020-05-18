@@ -18,6 +18,7 @@ At the time of writing the Portable version is known to build and work on:
 Building
 --------
 
+    $ ./autogen.sh
     $ ./configure
     $ make
 
