@@ -122,6 +122,7 @@ AM_CONDITIONAL([HAVE_STRLCAT], [test "x$ac_cv_func_strlcat" = xyes])
 AM_CONDITIONAL([HAVE_STRLCPY], [test "x$ac_cv_func_strlcpy" = xyes])
 AM_CONDITIONAL([HAVE_PLEDGE], [test "x$ac_cv_func_pledge" = xyes])
 AM_CONDITIONAL([HAVE_UNVEIL], [test "x$ac_cv_func_unveil" = xyes])
+AM_CONDITIONAL([HAVE___B64_PTON], [test "x$ac_cv_func___b64_pton" = xyes])
 
 AC_CHECK_HEADERS([err.h sha2.h])
 
