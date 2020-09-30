@@ -52,7 +52,3 @@ endif
 if !HAVE_SETRESUID
 libcompat_la_SOURCES += bsd-setresuid.c
 endif
-
-if !HAVE___B64_PTON
-libcompat_la_SOURCES += bsd-b64_pton.c
-endif
