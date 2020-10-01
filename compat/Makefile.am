@@ -45,6 +45,10 @@ if !HAVE_STRLCPY
 libcompat_la_SOURCES += strlcpy.c
 endif
 
+if !HAVE_STRTONUM
+libcompat_la_SOURCES += strtonum.c
+endif
+
 if !HAVE_SETRESGID
 libcompat_la_SOURCES += bsd-setresgid.c
 endif
