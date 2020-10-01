@@ -111,6 +111,8 @@ AC_CHECK_FUNCS([pledge unveil])
 # Share test results with automake
 AC_SEARCH_LIBS([__b64_pton],[resolv])
 AC_CHECK_FUNCS([__b64_pton])
+AC_SEARCH_LIBS([fts_open],[fts])
+AC_CHECK_FUNCS([fts_open])
 
 AM_CONDITIONAL([HAVE_REALLOCARRAY], [test "x$ac_cv_func_reallocarray" = xyes])
 AM_CONDITIONAL([HAVE_RECALLOCARRAY], [test "x$ac_cv_func_recallocarray" = xyes])
