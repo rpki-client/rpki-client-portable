@@ -16,4 +16,9 @@ void *reallocarray(void *, size_t, size_t);
 void *recallocarray(void *, size_t, size_t, size_t);
 #endif
 
+#ifndef HAVE_STRTONUM
+long long strtonum(const char *nptr, long long minval,
+		long long maxval, const char **errstr);
+#endif
+
 #endif

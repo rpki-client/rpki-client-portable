@@ -105,7 +105,7 @@ AC_SUBST(AM_LDFLAGS)
 AC_CHECK_FUNCS([reallocarray recallocarray])
 AC_CHECK_FUNCS([setgroups])
 AC_CHECK_FUNCS([setregid setresgid setreuid setresuid])
-AC_CHECK_FUNCS([explicit_bzero strlcat strlcpy])
+AC_CHECK_FUNCS([explicit_bzero strlcat strlcpy strtonum])
 AC_CHECK_FUNCS([pledge unveil])
 
 # Share test results with automake
@@ -120,6 +120,7 @@ AM_CONDITIONAL([HAVE_SETRESUID], [test "x$ac_cv_func_setresuid" = xyes])
 AM_CONDITIONAL([HAVE_EXPLICIT_BZERO], [test "x$ac_cv_func_explicit_bzero" = xyes])
 AM_CONDITIONAL([HAVE_STRLCAT], [test "x$ac_cv_func_strlcat" = xyes])
 AM_CONDITIONAL([HAVE_STRLCPY], [test "x$ac_cv_func_strlcpy" = xyes])
+AM_CONDITIONAL([HAVE_STRTONUM], [test "x$ac_cv_func_strtonum" = xyes])
 AM_CONDITIONAL([HAVE_PLEDGE], [test "x$ac_cv_func_pledge" = xyes])
 AM_CONDITIONAL([HAVE_UNVEIL], [test "x$ac_cv_func_unveil" = xyes])
 

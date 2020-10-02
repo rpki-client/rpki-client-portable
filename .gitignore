@@ -35,6 +35,7 @@ compat/recallocarray.c
 compat/sha2.c
 compat/strlcat.c
 compat/strlcpy.c
+compat/strtonum.c
 
 include/sha2_openbsd.h
 
