@@ -1,4 +1,4 @@
-This is a port of OpenBSDs rpki-client to other operating systems. It
+This is a port of OpenBSD's rpki-client to other operating systems. It
 is based on portability code from the OpenBGPD, OpenNTPD, OpenSSH, and
 LibreSSL portable projects.
 
@@ -6,6 +6,7 @@ The current portable tree can be found at
 https://github.com/rpki-client/rpki-client-portable
 
 [![Build Status](https://travis-ci.org/rpki-client/rpki-client-portable.svg?branch=master)](https://travis-ci.org/github/rpki-client/rpki-client-portable)
+[![Docker Pulls](https://img.shields.io/docker/pulls/rpki/rpki-client.svg)](https://hub.docker.com/r/rpki/rpki-client)
 
 Platform Requirements
 ---------------------
