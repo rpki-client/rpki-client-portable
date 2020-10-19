@@ -1,0 +1,54 @@
+From 1e1ff343dbf1e9982d3da122ed5d690b97e517d7 Mon Sep 17 00:00:00 2001
+From: claudio <>
+Date: Thu, 1 Oct 2020 19:57:00 +0000
+Subject: [PATCH 6/6] In OpenSSL 1.1.x EVP_ENCODE_CTX is an opaque struct and
+ has to be allocated with EVP_ENCODE_CTX_new(). Do this once on the first call
+ and keep the context around for all subsequent calls. OK tb@ and benno@
+
+---
+ src/usr.sbin/rpki-client/tal.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
+
+diff --git src/usr.sbin/rpki-client/tal.c src/usr.sbin/rpki-client/tal.c
+index 05a7b6aed..518dcd5d7 100644
+--- src/usr.sbin/rpki-client/tal.c
++++ src/usr.sbin/rpki-client/tal.c
+@@ -1,4 +1,4 @@
+-/*	$OpenBSD: tal.c,v 1.20 2020/09/30 14:42:14 claudio Exp $ */
++/*	$OpenBSD: tal.c,v 1.21 2020/10/01 19:57:00 claudio Exp $ */
+ /*
+  * Copyright (c) 2019 Kristaps Dzonsons <kristaps@bsd.lv>
+  *
+@@ -31,10 +31,13 @@ static int
+ base64_decode(const unsigned char *in, size_t inlen, unsigned char **out,
+    size_t *outlen)
+ {
+-	EVP_ENCODE_CTX ctx;
++	static EVP_ENCODE_CTX *ctx;
+ 	unsigned char *to;
+ 	int tolen;
+ 
++	if (ctx == NULL && (ctx = EVP_ENCODE_CTX_new()) == NULL)
++		err(1, "EVP_ENCODE_CTX_new");
++
+ 	*out = NULL;
+ 	*outlen = 0;
+ 
+@@ -44,11 +47,11 @@ base64_decode(const unsigned char *in, size_t inlen, unsigned char **out,
+ 	if ((to = malloc(tolen)) == NULL)
+ 		return -1;
+ 
+-	EVP_DecodeInit(&ctx);
+-	if (EVP_DecodeUpdate(&ctx, to, &tolen, in, inlen) == -1)
++	EVP_DecodeInit(ctx);
++	if (EVP_DecodeUpdate(ctx, to, &tolen, in, inlen) == -1)
+ 		goto fail;
+ 	*outlen = tolen;
+-	if (EVP_DecodeFinal(&ctx, to + tolen, &tolen) == -1)
++	if (EVP_DecodeFinal(ctx, to + tolen, &tolen) == -1)
+ 		goto fail;
+ 	*outlen += tolen;
+ 	*out = to;
+-- 
+2.28.0
+

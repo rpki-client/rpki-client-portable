@@ -1,0 +1,32 @@
+From 6ac61d1e3f1fe4132752ac16159865abd6fe1efd Mon Sep 17 00:00:00 2001
+From: claudio <>
+Date: Thu, 1 Oct 2020 08:27:33 +0000
+Subject: [PATCH 4/6] Use correct way to report error when strtonum fails. Use
+ errx(), remove the extra \n and use the correct argument (-s not -t).
+
+---
+ src/usr.sbin/rpki-client/main.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git src/usr.sbin/rpki-client/main.c src/usr.sbin/rpki-client/main.c
+index aa3106685..7c2954750 100644
+--- src/usr.sbin/rpki-client/main.c
++++ src/usr.sbin/rpki-client/main.c
+@@ -1,4 +1,4 @@
+-/*	$OpenBSD: main.c,v 1.79 2020/09/15 12:06:02 deraadt Exp $ */
++/*	$OpenBSD: main.c,v 1.80 2020/10/01 08:27:33 claudio Exp $ */
+ /*
+  * Copyright (c) 2019 Kristaps Dzonsons <kristaps@bsd.lv>
+  *
+@@ -1439,7 +1439,7 @@ main(int argc, char *argv[])
+ 		case 's':
+ 			timeout = strtonum(optarg, 0, 24*60*60, &errs);
+ 			if (errs)
+-				err(1, "-t: %s\n", errs);
++				errx(1, "-s: %s", errs);
+ 			break;
+ 		case 't':
+ 			if (talsz >= TALSZ_MAX)
+-- 
+2.28.0
+

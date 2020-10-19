@@ -1,0 +1,77 @@
+From 206eb1438207c05ad154dc585e46a489ba9495a5 Mon Sep 17 00:00:00 2001
+From: claudio <>
+Date: Thu, 1 Oct 2020 11:06:47 +0000
+Subject: [PATCH 5/6] Rewrite the signal handler to just toggle a flag and then
+ exit asap in the main loop. This removes a few portability issues. OK benno@
+
+---
+ src/usr.sbin/rpki-client/main.c | 27 +++++++++++++++------------
+ 1 file changed, 15 insertions(+), 12 deletions(-)
+
+diff --git src/usr.sbin/rpki-client/main.c src/usr.sbin/rpki-client/main.c
+index 7c2954750..806e374fe 100644
+--- src/usr.sbin/rpki-client/main.c
++++ src/usr.sbin/rpki-client/main.c
+@@ -1,4 +1,4 @@
+-/*	$OpenBSD: main.c,v 1.80 2020/10/01 08:27:33 claudio Exp $ */
++/*	$OpenBSD: main.c,v 1.82 2020/10/01 11:06:47 claudio Exp $ */
+ /*
+  * Copyright (c) 2019 Kristaps Dzonsons <kristaps@bsd.lv>
+  *
+@@ -89,6 +89,7 @@ struct	repo {
+ };
+ 
+ int	timeout = 60*60;
++volatile sig_atomic_t killme;
+ void	suicide(int sig);
+ 
+ /*
+@@ -1357,15 +1358,8 @@ repo_cleanup(const char *cachedir, struct repotab *rt)
+ void
+ suicide(int sig __attribute__((unused)))
+ {
+-	struct syslog_data sdata = SYSLOG_DATA_INIT;
+-	
+-
+-	dprintf(STDERR_FILENO,
+-	    "%s: excessive runtime (%d seconds), giving up\n",
+-	    getprogname(), timeout);
+-	syslog_r(LOG_CRIT|LOG_DAEMON, &sdata,
+-	    "excessive runtime (%d seconds), giving up", timeout);
+-	_exit(1);
++	killme = 1;
++
+ }
+ 
+ int
+@@ -1578,9 +1572,12 @@ main(int argc, char *argv[])
+ 	pfd[1].fd = proc;
+ 	pfd[0].events = pfd[1].events = POLLIN;
+ 
+-	while (!TAILQ_EMPTY(&q)) {
+-		if ((c = poll(pfd, 2, verbose ? 10000 : INFTIM)) == -1)
++	while (!TAILQ_EMPTY(&q) && !killme) {
++		if ((c = poll(pfd, 2, verbose ? 10000 : INFTIM)) == -1) {
++			if (errno == EINTR)
++				continue;
+ 			err(1, "poll");
++		}
+ 
+ 		/* Debugging: print some statistics if we stall. */
+ 
+@@ -1643,6 +1640,12 @@ main(int argc, char *argv[])
+ 		}
+ 	}
+ 
++	if (killme) {
++		syslog(LOG_CRIT|LOG_DAEMON, 
++		    "excessive runtime (%d seconds), giving up", timeout);
++		errx(1, "excessive runtime (%d seconds), giving up", timeout);
++	}
++
+ 	assert(TAILQ_EMPTY(&q));
+ 	logx("all files parsed: generating output");
+ 	rc = 0;
+-- 
+2.28.0
+
