@@ -13,8 +13,10 @@ Platform Requirements
 At the time of writing the portable version is known to build and work on:
 
  - OpenBSD-current
- - Linux (Alpine 3.12, Debian 9, Debian 10, Fedora 31, Fedora 32, Fedora 33,
-   RHEL/CentOS 7, RHEL/CentOS 8)
+ - Alpine 3.12
+ - Debian 9, 10
+ - Fedora 31, 32, 33
+ - RHEL/CentOS 7, 8
 
 Building
 --------
