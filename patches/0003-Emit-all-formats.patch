@@ -1,0 +1,35 @@
+Emit all output formats on non-OpenBSD systems
+
+diff --git src/usr.sbin/rpki-client/main.c src/usr.sbin/rpki-client/main.c
+index 9fe3ef11..bf30d876 100644
+--- src/usr.sbin/rpki-client/main.c
++++ src/usr.sbin/rpki-client/main.c
+@@ -1490,7 +1490,8 @@ main(int argc, char *argv[])
+ 	}
+ 
+ 	if (outformats == 0)
+-		outformats = FORMAT_OPENBGPD;
++		outformats = FORMAT_OPENBGPD | FORMAT_JSON | FORMAT_CSV
++		    | FORMAT_BIRD;
+ 
+ 	if (talsz == 0)
+ 		talsz = tal_load_default(tals, TALSZ_MAX);
+diff --git src/usr.sbin/rpki-client/rpki-client.8 src/usr.sbin/rpki-client/rpki-client.8
+index dd96b1c9..26e51676 100644
+--- src/usr.sbin/rpki-client/rpki-client.8
++++ src/usr.sbin/rpki-client/rpki-client.8
+@@ -136,11 +136,9 @@ Defaults to
+ .Pp
+ By default
+ .Nm
+-produces a list of unique
+-.Li roa-set
+-statements in
+-.Fl o
+-(OpenBGPD compatible) output.
++produces a list of unique VRPs in
++.Fl joBc
++JSON, OpenBGPD, BIRD and CSV compatible output.
+ .Pp
+ .Nm
+ should be run hourly by
