@@ -159,6 +159,10 @@ AC_CHECK_HEADERS([openssl/cms.h openssl/err.h openssl/evp.h openssl/ssl.h openss
 AC_CHECK_LIB([crypto], [ASN1_STRING_get0_data], [], [AC_MSG_ERROR([OpenSSL libraries required])])
 AC_CHECK_LIB([crypto], [X509_up_ref], [], [AC_MSG_ERROR([OpenSSL libraries required])])
 
+AC_CHECK_FUNCS([ASN1_time_parse ASN1_time_tm_cmp])
+AM_CONDITIONAL([HAVE_ASN1_TIME_PARSE], [test "x$ac_cv_func_ASN1_time_parse" = xyes])
+AM_CONDITIONAL([HAVE_ASN1_TIME_TM_CMP], [test "x$ac_cv_func_ASN1_time_tm_cmp" = xyes])
+
 AC_ARG_WITH([user],
 	AS_HELP_STRING([--with-user=user],
 		[User for rpki-client to use when run as root]),
