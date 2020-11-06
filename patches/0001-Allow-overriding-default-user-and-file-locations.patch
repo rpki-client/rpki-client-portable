@@ -1,7 +1,7 @@
-From b4542b3206695d5bd6978f809655ede7816b2312 Mon Sep 17 00:00:00 2001
+From 1dd666ce981e4902f8d31b12f7f562407d630343 Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Tue, 14 Apr 2020 22:43:56 +0200
-Subject: [PATCH 1/2] Allow overriding default user and file locations
+Subject: [PATCH 1/3] Allow overriding default user and file locations
 
 ---
  src/usr.sbin/rpki-client/extern.h | 17 +++++++++++++++++
@@ -9,10 +9,10 @@ Subject: [PATCH 1/2] Allow overriding default user and file locations
  2 files changed, 23 insertions(+), 6 deletions(-)
 
 diff --git src/usr.sbin/rpki-client/extern.h src/usr.sbin/rpki-client/extern.h
-index 27f1d0866..69463b2c3 100644
+index be7df6393..ab6cbf084 100644
 --- src/usr.sbin/rpki-client/extern.h
 +++ src/usr.sbin/rpki-client/extern.h
-@@ -381,7 +381,24 @@ int		 output_json(FILE *, struct vrp_tree *);
+@@ -412,7 +412,24 @@ int		 output_json(FILE *, struct vrp_tree *, struct stats *);
  void	logx(const char *fmt, ...)
  		    __attribute__((format(printf, 1, 2)));
  
@@ -38,10 +38,10 @@ index 27f1d0866..69463b2c3 100644
  
  #endif /* ! EXTERN_H */
 diff --git src/usr.sbin/rpki-client/main.c src/usr.sbin/rpki-client/main.c
-index 8393cef49..d4eecdcb2 100644
+index 51c24422e..f4a61c019 100644
 --- src/usr.sbin/rpki-client/main.c
 +++ src/usr.sbin/rpki-client/main.c
-@@ -1340,7 +1340,7 @@ entity_process(int proc, int rsync, struct stats *st,
+@@ -1237,7 +1237,7 @@ entity_process(int proc, int rsync, struct stats *st,
  }
  
  /*
@@ -50,7 +50,7 @@ index 8393cef49..d4eecdcb2 100644
   * returning the number of files found and filled-in.
   * This may be zero.
   * Don't exceded "max" filenames.
-@@ -1348,7 +1348,7 @@ entity_process(int proc, int rsync, struct stats *st,
+@@ -1245,7 +1245,7 @@ entity_process(int proc, int rsync, struct stats *st,
  static size_t
  tal_load_default(const char *tals[], size_t max)
  {
@@ -59,16 +59,16 @@ index 8393cef49..d4eecdcb2 100644
  	size_t s = 0;
  	char *path;
  	DIR *dirp;
-@@ -1386,7 +1386,7 @@ main(int argc, char *argv[])
- 	struct repotab	 rt;
- 	struct stats	 stats;
+@@ -1370,7 +1370,7 @@ main(int argc, char *argv[])
+ 	struct entity	*ent;
+ 	struct pollfd	 pfd[2];
  	struct roa	**out = NULL;
 -	char		*rsync_prog = "openrsync";
 +	char		*rsync_prog = RPKI_RSYNC_CMD;
  	char		*bind_addr = NULL;
- 	const char	*cachedir = NULL;
+ 	const char	*cachedir = NULL, *errs;
  	const char	*tals[TALSZ_MAX];
-@@ -1396,9 +1396,9 @@ main(int argc, char *argv[])
+@@ -1384,9 +1384,9 @@ main(int argc, char *argv[])
  	if (getuid() == 0) {
  		struct passwd *pw;
  
@@ -80,15 +80,15 @@ index 8393cef49..d4eecdcb2 100644
  		if (setgroups(1, &pw->pw_gid) == -1 ||
  		    setresgid(pw->pw_gid, pw->pw_gid, pw->pw_gid) == -1 ||
  		    setresuid(pw->pw_uid, pw->pw_uid, pw->pw_uid) == -1)
-@@ -1478,7 +1478,7 @@ main(int argc, char *argv[])
+@@ -1474,7 +1474,7 @@ main(int argc, char *argv[])
  	if (talsz == 0)
  		talsz = tal_load_default(tals, TALSZ_MAX);
  	if (talsz == 0)
 -		err(1, "no TAL files found in %s", "/etc/rpki");
 +		err(1, "no TAL files found in %s", RPKI_PATH_TAL_DIR);
  
- 	memset(&rt, 0, sizeof(struct repotab));
- 	memset(&stats, 0, sizeof(struct stats));
+ 	TAILQ_INIT(&q);
+ 
 -- 
-2.26.0
+2.29.2
 
