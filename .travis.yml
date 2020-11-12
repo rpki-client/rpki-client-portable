@@ -11,4 +11,6 @@ script:
   ./autogen.sh;
   ./configure;
   make -k;
-  make distcheck
+  make distcheck;
+  mkdir rpki-cache rpki;
+  src/rpki-client -v -t afrinic.tal -t apnic.tal -t lacnic.tal -t ripe.tal -d rpki-cache rpki
