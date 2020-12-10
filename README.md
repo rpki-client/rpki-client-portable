@@ -5,6 +5,7 @@ LibreSSL portable projects.
 The current portable tree can be found at
 https://github.com/rpki-client/rpki-client-portable
 
+[![Build CI](https://github.com/rpki-client/rpki-client-portable/workflows/Build%20CI/badge.svg)](https://github.com/rpki-client/rpki-client-portable/actions?query=workflow%3A%22Build+CI%22)
 [![Build Status](https://travis-ci.org/rpki-client/rpki-client-portable.svg?branch=master)](https://travis-ci.org/github/rpki-client/rpki-client-portable)
 [![Docker Pulls](https://img.shields.io/docker/pulls/rpki/rpki-client.svg)](https://hub.docker.com/r/rpki/rpki-client)
 
