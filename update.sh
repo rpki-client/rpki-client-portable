@@ -50,7 +50,7 @@ for i in reallocarray.c recallocarray.c strtonum.c; do
 done
 ${CP_LIBC} "${libc_src}/hash/sha2.c" compat
 
-for i in as.c cert.c cms.c crl.c extern.h io.c ip.c log.c main.c \
+for i in as.c cert.c cms.c crl.c extern.h gbr.c io.c ip.c log.c main.c \
 	mft.c output-bgpd.c output-bird.c output-csv.c output-json.c \
 	output.c roa.c rpki-client.8 rsync.c tal.c validate.c x509.c; do
 	file=`basename ${i}`

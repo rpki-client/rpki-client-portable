@@ -37,6 +37,7 @@ rpki_client_SOURCES = as.c
 rpki_client_SOURCES += cert.c
 rpki_client_SOURCES += cms.c
 rpki_client_SOURCES += crl.c
+rpki_client_SOURCES += gbr.c
 rpki_client_SOURCES += io.c
 rpki_client_SOURCES += ip.c
 rpki_client_SOURCES += log.c
