@@ -102,10 +102,11 @@ AC_SUBST(AM_CFLAGS)
 AC_SUBST(AM_LDFLAGS)
 
 # check functions that are expected to be in libc
-AC_CHECK_FUNCS([reallocarray recallocarray])
+AC_CHECK_FUNCS([explicit_bzero])
+AC_CHECK_FUNCS([reallocarray recallocarray freezero])
 AC_CHECK_FUNCS([setgroups])
 AC_CHECK_FUNCS([setregid setresgid setreuid setresuid])
-AC_CHECK_FUNCS([explicit_bzero strlcat strlcpy strtonum])
+AC_CHECK_FUNCS([strlcat strlcpy strtonum])
 AC_CHECK_FUNCS([pledge unveil])
 AC_CHECK_FUNCS([getdtablecount])
 
@@ -118,12 +119,13 @@ AC_SEARCH_LIBS([fts_open],[fts])
 AC_CHECK_FUNCS([fts_open])
 
 # Share test results with automake
+AM_CONDITIONAL([HAVE_EXPLICIT_BZERO], [test "x$ac_cv_func_explicit_bzero" = xyes])
 AM_CONDITIONAL([HAVE_REALLOCARRAY], [test "x$ac_cv_func_reallocarray" = xyes])
 AM_CONDITIONAL([HAVE_RECALLOCARRAY], [test "x$ac_cv_func_recallocarray" = xyes])
+AM_CONDITIONAL([HAVE_FREEZERO], [test "x$ac_cv_func_freezero" = xyes])
 AM_CONDITIONAL([HAVE_SETGROUPS], [test "x$ac_cv_func_setgroups" = xyes])
 AM_CONDITIONAL([HAVE_SETRESGID], [test "x$ac_cv_func_setresgid" = xyes])
 AM_CONDITIONAL([HAVE_SETRESUID], [test "x$ac_cv_func_setresuid" = xyes])
-AM_CONDITIONAL([HAVE_EXPLICIT_BZERO], [test "x$ac_cv_func_explicit_bzero" = xyes])
 AM_CONDITIONAL([HAVE_STRLCAT], [test "x$ac_cv_func_strlcat" = xyes])
 AM_CONDITIONAL([HAVE_STRLCPY], [test "x$ac_cv_func_strlcpy" = xyes])
 AM_CONDITIONAL([HAVE_STRTONUM], [test "x$ac_cv_func_strtonum" = xyes])
