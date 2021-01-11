@@ -57,6 +57,11 @@ if !HAVE_SETRESUID
 libcompat_la_SOURCES += bsd-setresuid.c
 endif
 
+if !HAVE_IMSG
+libcompat_la_SOURCES += imsg.c
+libcompat_la_SOURCES += imsg-buffer.c
+endif
+
 if !HAVE_ASN1_TIME_PARSE
 libcompat_la_SOURCES += a_time_tm.c
 else

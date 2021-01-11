@@ -26,6 +26,7 @@ patches="${dir}/patches"
 etc_src="${dir}/openbsd/src/etc/rpki"
 libc_inc="${dir}/openbsd/src/include"
 libc_src="${dir}/openbsd/src/lib/libc"
+libutil_src="${dir}/openbsd/src/lib/libutil"
 rpkiclient_src="${dir}/openbsd/src/usr.sbin/rpki-client"
 
 do_cp_libc() {
@@ -41,6 +42,7 @@ ${CP} ${etc_src}/*.tal "${dir}"
 
 echo "copying includes"
 sed '/DECLS/d' "${libc_inc}/sha2.h" > include/sha2_openbsd.h
+sed '/DECLS/d' "${libutil_src}/imsg.h" > include/imsg.h
 
 for i in explicit_bzero.c strlcpy.c strlcat.c; do
 	${CP_LIBC} "${libc_src}/string/${i}" compat
@@ -49,6 +51,9 @@ for i in reallocarray.c recallocarray.c strtonum.c; do
 	${CP_LIBC} "${libc_src}/stdlib/${i}" compat
 done
 ${CP_LIBC} "${libc_src}/hash/sha2.c" compat
+${CP} "${libutil_src}/imsg.c" compat/
+${CP} "${libutil_src}/imsg-buffer.c" compat/
+(cd compat; ${PATCH} -p0 < "${patches}/patch-imsg.c")
 
 for i in as.c cert.c cms.c crl.c extern.h gbr.c io.c ip.c log.c main.c \
 	mft.c output-bgpd.c output-bird.c output-csv.c output-json.c \

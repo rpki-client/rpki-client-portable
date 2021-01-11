@@ -107,11 +107,17 @@ AC_CHECK_FUNCS([setgroups])
 AC_CHECK_FUNCS([setregid setresgid setreuid setresuid])
 AC_CHECK_FUNCS([explicit_bzero strlcat strlcpy strtonum])
 AC_CHECK_FUNCS([pledge unveil])
+AC_CHECK_FUNCS([getdtablecount])
 
-# Share test results with automake
+# check functions that are expected to be in libutil
+AC_SEARCH_LIBS([ibuf_open], [util])
+AC_CHECK_FUNCS([ibuf_open])
+
+# check functions that may be in different libs on other systems
 AC_SEARCH_LIBS([fts_open],[fts])
 AC_CHECK_FUNCS([fts_open])
 
+# Share test results with automake
 AM_CONDITIONAL([HAVE_REALLOCARRAY], [test "x$ac_cv_func_reallocarray" = xyes])
 AM_CONDITIONAL([HAVE_RECALLOCARRAY], [test "x$ac_cv_func_recallocarray" = xyes])
 AM_CONDITIONAL([HAVE_SETGROUPS], [test "x$ac_cv_func_setgroups" = xyes])
@@ -123,6 +129,8 @@ AM_CONDITIONAL([HAVE_STRLCPY], [test "x$ac_cv_func_strlcpy" = xyes])
 AM_CONDITIONAL([HAVE_STRTONUM], [test "x$ac_cv_func_strtonum" = xyes])
 AM_CONDITIONAL([HAVE_PLEDGE], [test "x$ac_cv_func_pledge" = xyes])
 AM_CONDITIONAL([HAVE_UNVEIL], [test "x$ac_cv_func_unveil" = xyes])
+AM_CONDITIONAL([HAVE_GETDTABLECOUNT], [test "x$ac_cv_func_getdtablecount" = xyes])
+AM_CONDITIONAL([HAVE_IMSG], [test "x$ac_cv_func_ibuf_open" = xyes])
 
 AC_CHECK_HEADERS([err.h sha2.h])
 
