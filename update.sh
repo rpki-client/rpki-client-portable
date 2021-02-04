@@ -56,7 +56,7 @@ ${CP} "${libutil_src}/imsg-buffer.c" compat/
 (cd compat; ${PATCH} -p0 < "${patches}/patch-imsg.c")
 
 for i in as.c cert.c cms.c crl.c extern.h gbr.c io.c ip.c log.c main.c \
-	mft.c output-bgpd.c output-bird.c output-csv.c output-json.c \
+	mft.c mkdir.c output-bgpd.c output-bird.c output-csv.c output-json.c \
 	output.c roa.c rpki-client.8 rsync.c tal.c validate.c x509.c; do
 	file=`basename ${i}`
 	echo Copying ${file}

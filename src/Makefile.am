@@ -43,6 +43,7 @@ rpki_client_SOURCES += ip.c
 rpki_client_SOURCES += log.c
 rpki_client_SOURCES += main.c
 rpki_client_SOURCES += mft.c
+rpki_client_SOURCES += mkdir.c
 rpki_client_SOURCES += output.c
 rpki_client_SOURCES += output-bgpd.c
 rpki_client_SOURCES += output-bird.c
