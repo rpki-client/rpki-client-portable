@@ -49,6 +49,7 @@ rpki_client_SOURCES += output-bgpd.c
 rpki_client_SOURCES += output-bird.c
 rpki_client_SOURCES += output-csv.c
 rpki_client_SOURCES += output-json.c
+rpki_client_SOURCES += parser.c
 rpki_client_SOURCES += roa.c
 rpki_client_SOURCES += rsync.c
 rpki_client_SOURCES += tal.c

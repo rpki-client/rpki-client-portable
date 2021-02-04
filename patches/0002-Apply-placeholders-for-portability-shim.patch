@@ -1,4 +1,4 @@
-From cd2fc6940f0210445357b0b4a2b221cb577c22a6 Mon Sep 17 00:00:00 2001
+From a571153b90df4ad31e079984a716ed679c6a03f9 Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Mon, 20 Apr 2020 12:16:46 +0200
 Subject: [PATCH 2/3] Apply placeholders for portability shim
@@ -9,7 +9,7 @@ From Robert Scheck
  1 file changed, 10 insertions(+), 10 deletions(-)
 
 diff --git src/usr.sbin/rpki-client/rpki-client.8 src/usr.sbin/rpki-client/rpki-client.8
-index 6585493de..5c453ac6c 100644
+index c5bdbc806..0d89aef0b 100644
 --- src/usr.sbin/rpki-client/rpki-client.8
 +++ src/usr.sbin/rpki-client/rpki-client.8
 @@ -34,7 +34,7 @@
@@ -83,5 +83,5 @@ index 6585493de..5c453ac6c 100644
  .Sh STANDARDS
  The following standards are used or referenced in
 -- 
-2.29.2
+2.30.0
 

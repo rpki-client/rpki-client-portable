@@ -1,4 +1,4 @@
-From ad3b952092c9cc10c549460a5d6ec660676737b7 Mon Sep 17 00:00:00 2001
+From 9e2366e3940e9cef0ddfbb6f6e7dafd0fa3d68cd Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Fri, 6 Nov 2020 13:19:45 +0100
 Subject: [PATCH 3/3] Emit all output formats on non-OpenBSD systems
@@ -9,10 +9,10 @@ Subject: [PATCH 3/3] Emit all output formats on non-OpenBSD systems
  2 files changed, 5 insertions(+), 6 deletions(-)
 
 diff --git src/usr.sbin/rpki-client/main.c src/usr.sbin/rpki-client/main.c
-index f4a61c019..d79b01f91 100644
+index ac1172bc5..59983564e 100644
 --- src/usr.sbin/rpki-client/main.c
 +++ src/usr.sbin/rpki-client/main.c
-@@ -1469,7 +1469,8 @@ main(int argc, char *argv[])
+@@ -860,7 +860,8 @@ main(int argc, char *argv[])
  	}
  
  	if (outformats == 0)
@@ -23,7 +23,7 @@ index f4a61c019..d79b01f91 100644
  	if (talsz == 0)
  		talsz = tal_load_default(tals, TALSZ_MAX);
 diff --git src/usr.sbin/rpki-client/rpki-client.8 src/usr.sbin/rpki-client/rpki-client.8
-index 5c453ac6c..565bdad69 100644
+index 0d89aef0b..c7788fea0 100644
 --- src/usr.sbin/rpki-client/rpki-client.8
 +++ src/usr.sbin/rpki-client/rpki-client.8
 @@ -135,11 +135,9 @@ Defaults to
@@ -42,5 +42,5 @@ index 5c453ac6c..565bdad69 100644
  .Nm
  should be run hourly by
 -- 
-2.29.2
+2.30.0
 
