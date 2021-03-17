@@ -1,4 +1,4 @@
-From a571153b90df4ad31e079984a716ed679c6a03f9 Mon Sep 17 00:00:00 2001
+From 9f97cd771728317f119ff6f3be0ca7f553074c1e Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Mon, 20 Apr 2020 12:16:46 +0200
 Subject: [PATCH 2/3] Apply placeholders for portability shim
@@ -83,5 +83,5 @@ index c5bdbc806..0d89aef0b 100644
  .Sh STANDARDS
  The following standards are used or referenced in
 -- 
-2.30.0
+2.30.1
 
