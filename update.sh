@@ -42,6 +42,7 @@ ${CP} ${etc_src}/*.tal "${dir}"
 
 echo "copying includes"
 sed '/DECLS/d' "${libc_inc}/sha2.h" > include/sha2_openbsd.h
+sed '/DECLS/d' "${libc_inc}/vis.h" > include/vis.h
 sed '/DECLS/d' "${libutil_src}/imsg.h" > include/imsg.h
 
 for i in explicit_bzero.c strlcpy.c strlcat.c; do
@@ -51,6 +52,7 @@ for i in reallocarray.c recallocarray.c strtonum.c; do
 	${CP_LIBC} "${libc_src}/stdlib/${i}" compat
 done
 ${CP_LIBC} "${libc_src}/hash/sha2.c" compat
+${CP_LIBC} "${libc_src}/gen/vis.c" compat
 ${CP} "${libutil_src}/imsg.c" compat/
 ${CP} "${libutil_src}/imsg-buffer.c" compat/
 (cd compat; ${PATCH} -p0 < "${patches}/patch-imsg.c")

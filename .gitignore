@@ -38,9 +38,11 @@ compat/sha2.c
 compat/strlcat.c
 compat/strlcpy.c
 compat/strtonum.c
+compat/vis.c
 
 include/sha2_openbsd.h
 include/imsg.h
+include/vis.h
 
 src/*.c
 src/*.h

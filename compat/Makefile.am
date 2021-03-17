@@ -61,6 +61,13 @@ if !HAVE_SETRESUID
 libcompat_la_SOURCES += bsd-setresuid.c
 endif
 
+if !HAVE_STRNVIS
+libcompat_la_SOURCES += vis.c
+endif
+if BROKEN_STRNVIS
+libcompat_la_SOURCES += vis.c
+endif
+
 if !HAVE_IMSG
 libcompat_la_SOURCES += imsg.c
 libcompat_la_SOURCES += imsg-buffer.c

@@ -109,6 +109,43 @@ AC_CHECK_FUNCS([setregid setresgid setreuid setresuid])
 AC_CHECK_FUNCS([strlcat strlcpy strtonum])
 AC_CHECK_FUNCS([pledge unveil])
 AC_CHECK_FUNCS([getdtablecount])
+AC_CHECK_FUNCS([strnvis])
+
+dnl NetBSD added an strnvis and unfortunately made it incompatible with the
+dnl existing one in OpenBSD and Linux's libbsd (the former having existed
+dnl for over ten years). Despite this incompatibility being reported during
+dnl development (see http://gnats.netbsd.org/44977) they still shipped it.
+dnl Even more unfortunately FreeBSD and later MacOS picked up this incompatible
+dnl implementation.  Try to detect this mess, and assume the only safe option
+dnl if we're cross compiling.
+dnl
+dnl OpenBSD, 2001: strnvis(char *dst, const char *src, size_t dlen, int flag);
+dnl NetBSD: 2012,  strnvis(char *dst, size_t dlen, const char *src, int flag);
+if test "x$ac_cv_func_strnvis" = "xyes"; then
+ AC_MSG_CHECKING([for working strnvis])
+ AC_RUN_IFELSE(
+  [AC_LANG_PROGRAM([[
+#include <signal.h>
+#include <stdlib.h>
+#include <string.h>
+#include <vis.h>
+static void sighandler(int sig) { _exit(1); }
+  ]], [[
+ char dst[16];
+
+ signal(SIGSEGV, sighandler);
+ if (strnvis(dst, "src", 4, 0) && strcmp(dst, "src") == 0)
+  exit(0);
+ exit(1)
+  ]])],
+  [AC_MSG_RESULT([yes])],
+  [AC_MSG_RESULT([no])
+   ac_cv_broken_strnvis="yes" ],
+  [AC_MSG_WARN([cross compiling: assuming broken])
+   ac_cv_broken_strnvis="yes" ]
+ )
+fi
+
 
 # check functions that are expected to be in libutil
 AC_SEARCH_LIBS([ibuf_open], [util])
@@ -132,6 +169,8 @@ AM_CONDITIONAL([HAVE_STRTONUM], [test "x$ac_cv_func_strtonum" = xyes])
 AM_CONDITIONAL([HAVE_PLEDGE], [test "x$ac_cv_func_pledge" = xyes])
 AM_CONDITIONAL([HAVE_UNVEIL], [test "x$ac_cv_func_unveil" = xyes])
 AM_CONDITIONAL([HAVE_GETDTABLECOUNT], [test "x$ac_cv_func_getdtablecount" = xyes])
+AM_CONDITIONAL([HAVE_STRNVIS], [test "x$ac_cv_func_strnvis" = xyes])
+AM_CONDITIONAL([BROKEN_STRNVIS], [test "x$ac_cv_broken_strnvis" = xyes])
 AM_CONDITIONAL([HAVE_IMSG], [test "x$ac_cv_func_ibuf_open" = xyes])
 
 AC_CHECK_HEADERS([err.h sha2.h])
