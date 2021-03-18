@@ -42,7 +42,7 @@ ${CP} ${etc_src}/*.tal "${dir}"
 
 echo "copying includes"
 sed '/DECLS/d' "${libc_inc}/sha2.h" > include/sha2_openbsd.h
-sed '/DECLS/d' "${libc_inc}/vis.h" > include/vis.h
+sed '/DECLS/d ; /cdefs.h/d' "${libc_inc}/vis.h" > include/vis.h
 sed '/DECLS/d' "${libutil_src}/imsg.h" > include/imsg.h
 
 for i in explicit_bzero.c strlcpy.c strlcat.c; do
