@@ -211,7 +211,7 @@ AM_CONDITIONAL([HAVE_ASN1_TIME_PARSE], [test "x$ac_cv_func_ASN1_time_parse" = xy
 AM_CONDITIONAL([HAVE_ASN1_TIME_TM_CMP], [test "x$ac_cv_func_ASN1_time_tm_cmp" = xyes])
 
 AC_CHECK_HEADERS([tls.h], [], [AC_MSG_ERROR([LibreSSL libtls headers required])])
-AC_CHECK_LIB([tls], [tls_read], [], [AC_MSG_ERROR([LibreSSL libtls library required])])
+AC_SEARCH_LIBS([tls_read],[tls-standalone tls retls], [], [AC_MSG_ERROR([LibreSSL libtls library required])], [-lssl -lcrypto])
 AC_CHECK_FUNCS([tls_default_ca_cert_file tls_config_set_ca_mem], [], [AC_MSG_ERROR([LibreSSL libtls library required])])
 
 AC_ARG_WITH([user],
