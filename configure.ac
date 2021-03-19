@@ -210,6 +210,33 @@ AC_CHECK_FUNCS([ASN1_time_parse ASN1_time_tm_cmp])
 AM_CONDITIONAL([HAVE_ASN1_TIME_PARSE], [test "x$ac_cv_func_ASN1_time_parse" = xyes])
 AM_CONDITIONAL([HAVE_ASN1_TIME_TM_CMP], [test "x$ac_cv_func_ASN1_time_tm_cmp" = xyes])
 
+AC_ARG_WITH([libtls],
+	AS_HELP_STRING([--with-libtls=pkg-name],
+		[Use pkg-config(1) pkg-name to find LibreSSL libtls files]),
+	PKG_NAME="$withval"
+)
+if test X"$PKG_NAME" != X; then
+	LIBTLS_CFLAGS=`pkg-config --cflags-only-I $PKG_NAME 2>/dev/null`
+	LIBTLS_LDFLAGS=`pkg-config --libs-only-L $PKG_NAME 2>/dev/null`
+fi
+
+AC_ARG_WITH([libtls-cflags],
+	AS_HELP_STRING([--with-libtls-cflags=STRING],
+		[Extra compiler flags to build with LibreSSL libtls]),
+	LIBTLS_CFLAGS="$withval"
+)
+AC_ARG_WITH([libtls-ldflags],
+	AS_HELP_STRING([--with-libtls-ldflags=STRING],
+		[Extra flags for linker to link with LibreSSL libtls libraries]),
+	LIBTLS_LDFLAGS="$withval"
+)
+AC_SUBST(LIBTLS_CFLAGS)
+AC_SUBST(LIBTLS_LDFLAGS)
+
+CFLAGS="$CFLAGS $LIBTLS_CFLAGS"
+CPPFLAGS="$CPPFLAGS $LIBTLS_CFLAGS"
+LDFLAGS="$LDFLAGS $LIBTLS_LDFLAGS"
+
 AC_CHECK_HEADERS([tls.h], [], [AC_MSG_ERROR([LibreSSL libtls headers required])])
 AC_SEARCH_LIBS([tls_read],[tls-standalone tls retls], [], [AC_MSG_ERROR([LibreSSL libtls library required])], [-lssl -lcrypto])
 AC_CHECK_FUNCS([tls_default_ca_cert_file tls_config_set_ca_mem], [], [AC_MSG_ERROR([LibreSSL libtls library required])])
