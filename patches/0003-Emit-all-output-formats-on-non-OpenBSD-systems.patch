@@ -1,4 +1,4 @@
-From 8060bc1b3be6ff95fdf83971206cb878a5f5aaa9 Mon Sep 17 00:00:00 2001
+From a1b5bddb4bc9f70e9615662e10ecd093ebdc5176 Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Fri, 6 Nov 2020 13:19:45 +0100
 Subject: [PATCH 3/3] Emit all output formats on non-OpenBSD systems
@@ -9,10 +9,10 @@ Subject: [PATCH 3/3] Emit all output formats on non-OpenBSD systems
  2 files changed, 5 insertions(+), 6 deletions(-)
 
 diff --git src/usr.sbin/rpki-client/main.c src/usr.sbin/rpki-client/main.c
-index c986b4c45..5582a4ff7 100644
+index 4fad87d57..594f603a4 100644
 --- src/usr.sbin/rpki-client/main.c
 +++ src/usr.sbin/rpki-client/main.c
-@@ -955,7 +955,8 @@ main(int argc, char *argv[])
+@@ -957,7 +957,8 @@ main(int argc, char *argv[])
  		err(1, "output directory %s", outputdir);
  
  	if (outformats == 0)
@@ -23,10 +23,10 @@ index c986b4c45..5582a4ff7 100644
  	if (talsz == 0)
  		talsz = tal_load_default(tals, TALSZ_MAX);
 diff --git src/usr.sbin/rpki-client/rpki-client.8 src/usr.sbin/rpki-client/rpki-client.8
-index 0d89aef0b..c7788fea0 100644
+index 533873398..8d308c99f 100644
 --- src/usr.sbin/rpki-client/rpki-client.8
 +++ src/usr.sbin/rpki-client/rpki-client.8
-@@ -135,11 +135,9 @@ Defaults to
+@@ -137,11 +137,9 @@ Defaults to
  .Pp
  By default
  .Nm
