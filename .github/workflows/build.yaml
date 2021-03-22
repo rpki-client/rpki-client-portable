@@ -21,6 +21,8 @@ jobs:
         run: $CC -v
         env:
           CC: ${{ matrix.compiler }}
+      - name: libtls
+	run: ./build_libtls.sh
       - name: configure
         run: ./configure
         env:
