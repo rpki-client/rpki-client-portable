@@ -15,19 +15,17 @@ cat <<EOF | sha256sum -c -
 SHA256 (libressl-${V}.tar.gz) = ${SUM}
 EOF
 
-wget https://www.zyd.ch/cert.pem
-cat <<EOF | sha256sum -c -
-SHA256 (cert.pem) = 2ea89861c7fb73506b6c74cc134952aa1fad4311b9b012f5e6d97e949868d045
-EOF
-
-sudo install -m 644 cert.pem /etc/ssl/cert.pem
-
 tar xzf libressl-${V}.tar.gz 
 
 cd libressl-${V}
 ./configure --prefix=/usr --sysconfdir=/etc
 make
+# install libtls
 cd tls
 sudo make install
+# tls.h include
 cd ../include
 sudo make install-includeHEADERS
+# and cert.pem
+cd ../apps/openssl
+sudo make install-exec-hook
