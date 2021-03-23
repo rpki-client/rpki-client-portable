@@ -101,6 +101,58 @@ AM_LDFLAGS="$LDFLAGS $CLANG_FLAGS"
 AC_SUBST(AM_CFLAGS)
 AC_SUBST(AM_LDFLAGS)
 
+AC_ARG_WITH([openssl],
+	AS_HELP_STRING([--with-openssl=pkg-name],
+		[Use pkg-config(1) pkg-name to find OpenSSL files]),
+	PKG_NAME="$withval"
+)
+if test X"$PKG_NAME" != X; then
+	OPENSSL_CFLAGS=`pkg-config --cflags-only-I $PKG_NAME 2>/dev/null`
+	OPENSSL_LDFLAGS=`pkg-config --libs-only-L $PKG_NAME 2>/dev/null`
+fi
+
+AC_ARG_WITH([openssl-cflags],
+	AS_HELP_STRING([--with-openssl-cflags=STRING],
+		[Extra compiler flags to build with OpenSSL]),
+	OPENSSL_CFLAGS="$withval"
+)
+AC_ARG_WITH([openssl-ldflags],
+	AS_HELP_STRING([--with-openssl-ldflags=STRING],
+		[Extra flags for linker to link with OpenSSL libraries]),
+	OPENSSL_LDFLAGS="$withval"
+)
+AC_SUBST(OPENSSL_CFLAGS)
+AC_SUBST(OPENSSL_LDFLAGS)
+
+CFLAGS="$CFLAGS $OPENSSL_CFLAGS"
+LDFLAGS="$LDFLAGS $OPENSSL_LDFLAGS"
+
+AC_ARG_WITH([libtls],
+	AS_HELP_STRING([--with-libtls=pkg-name],
+		[Use pkg-config(1) pkg-name to find LibreSSL libtls]),
+	PKG_NAME="$withval"
+)
+if test X"$PKG_NAME" != X; then
+	LIBTLS_CFLAGS=`pkg-config --cflags-only-I $PKG_NAME 2>/dev/null`
+	LIBTLS_LDFLAGS=`pkg-config --libs-only-L $PKG_NAME 2>/dev/null`
+fi
+
+AC_ARG_WITH([libtls-cflags],
+	AS_HELP_STRING([--with-libtls-cflags=STRING],
+		[Extra compiler flags to build with LibreSSL libtls]),
+	LIBTLS_CFLAGS="$withval"
+)
+AC_ARG_WITH([libtls-ldflags],
+	AS_HELP_STRING([--with-libtls-ldflags=STRING],
+		[Extra flags for linker to link with libtls library]),
+	LIBTLS_LDFLAGS="$withval"
+)
+AC_SUBST(LIBTLS_CFLAGS)
+AC_SUBST(LIBTLS_LDFLAGS)
+
+CFLAGS="$CFLAGS $LIBTLS_CFLAGS"
+LDFLAGS="$LDFLAGS $LIBTLS_LDFLAGS"
+
 # check functions that are expected to be in libc
 AC_CHECK_FUNCS([explicit_bzero])
 AC_CHECK_FUNCS([reallocarray recallocarray freezero])
@@ -174,33 +226,6 @@ AM_CONDITIONAL([BROKEN_STRNVIS], [test "x$ac_cv_broken_strnvis" = xyes])
 AM_CONDITIONAL([HAVE_IMSG], [test "x$ac_cv_func_ibuf_open" = xyes])
 
 AC_CHECK_HEADERS([err.h sha2.h])
-
-AC_ARG_WITH([openssl],
-	AS_HELP_STRING([--with-openssl=pkg-name],
-		[Use pkg-config(1) pkg-name to find OpenSSL files]),
-	PKG_NAME="$withval"
-)
-if test X"$PKG_NAME" != X; then
-	OPENSSL_CFLAGS=`pkg-config --cflags-only-I $PKG_NAME 2>/dev/null`
-	OPENSSL_LDFLAGS=`pkg-config --libs-only-L $PKG_NAME 2>/dev/null`
-fi
-
-AC_ARG_WITH([openssl-cflags],
-	AS_HELP_STRING([--with-openssl-cflags=STRING],
-		[Extra compiler flags to build with OpenSSL]),
-	OPENSSL_CFLAGS="$withval"
-)
-AC_ARG_WITH([openssl-ldflags],
-	AS_HELP_STRING([--with-openssl-ldflags=STRING],
-		[Extra flags for linker to link with OpenSSL libraries]),
-	OPENSSL_LDFLAGS="$withval"
-)
-AC_SUBST(OPENSSL_CFLAGS)
-AC_SUBST(OPENSSL_LDFLAGS)
-
-CFLAGS="$CFLAGS $OPENSSL_CFLAGS"
-CPPFLAGS="$CPPFLAGS $OPENSSL_CFLAGS"
-LDFLAGS="$LDFLAGS $OPENSSL_LDFLAGS"
 
 AC_CHECK_HEADERS([openssl/cms.h openssl/err.h openssl/evp.h openssl/ssl.h openssl/x509.h openssl/x509v3.h], [], [AC_MSG_ERROR([OpenSSL headers required])])
 AC_CHECK_LIB([crypto], [ASN1_STRING_get0_data], [], [AC_MSG_ERROR([OpenSSL libraries required])])
