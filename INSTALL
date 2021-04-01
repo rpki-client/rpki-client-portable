@@ -81,6 +81,20 @@ For example:
 
 CFLAGS="-O2 " LDFLAGS="-s" ./configure
 
+
+Building on MacOS requires to install libressl, which is available in brew.
+It is recommended to export the CFLAGS and LDFLAGS accordingly.
+
+brew install libressl
+export LDFLAGS="-L/usr/local/opt/libressl/lib"
+export CPPFLAGS="-I/usr/local/opt/libressl/include"
+./autogen.sh
+./configure
+make
+make install
+/usr/local/sbin/rpki-client
+
+
 3. Trust anchors
 ----------------
 
