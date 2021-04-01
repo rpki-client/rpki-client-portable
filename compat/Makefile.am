@@ -29,6 +29,8 @@ endif
 libcompat_la_SOURCES =
 libcompat_la_LIBADD = $(PLATFORM_LDADD)
 
+libcompat_la_SOURCES += socket.c
+
 if !HAVE_REALLOCARRAY
 libcompat_la_SOURCES += reallocarray.c
 endif
@@ -39,6 +41,14 @@ endif
 
 if !HAVE_FREEZERO
 libcompat_la_SOURCES += freezero.c
+endif
+
+if !HAVE_PPOLL
+libcompat_la_SOURCES += ppoll.c
+endif
+
+if !HAVE_MEMRCHR
+libcompat_la_SOURCES += memrchr.c
 endif
 
 if !HAVE_STRLCAT

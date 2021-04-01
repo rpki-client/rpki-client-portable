@@ -21,6 +21,10 @@
 void explicit_bzero(void *, size_t);
 #endif
 
+#ifndef HAVE_MEMRCHR
+void *memrchr(const void *b, int c, size_t len);
+#endif
+
 #ifndef HAVE_STRLCAT
 size_t strlcat(char *dst, const char *src, size_t siz);
 #endif

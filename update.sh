@@ -45,7 +45,7 @@ sed '/DECLS/d' "${libc_inc}/sha2.h" > include/sha2_openbsd.h
 sed '/DECLS/d ; /cdefs.h/d' "${libc_inc}/vis.h" > include/vis.h
 sed '/DECLS/d' "${libutil_src}/imsg.h" > include/imsg.h
 
-for i in explicit_bzero.c strlcpy.c strlcat.c; do
+for i in explicit_bzero.c memrchr.c strlcpy.c strlcat.c; do
 	${CP_LIBC} "${libc_src}/string/${i}" compat
 done
 for i in reallocarray.c recallocarray.c strtonum.c; do
