@@ -53,6 +53,10 @@ if !HAVE_STRTONUM
 libcompat_la_SOURCES += strtonum.c
 endif
 
+if !HAVE_SETPROCTITLE
+libcompat_la_SOURCES += setproctitle.c
+endif
+
 if !HAVE_SETRESGID
 libcompat_la_SOURCES += bsd-setresgid.c
 endif
