@@ -17,6 +17,7 @@ At the time of writing the portable version is known to build and work on:
  - Alpine 3.12
  - Debian 9, 10
  - Fedora 31, 32, 33
+ - macOS Catalina
  - RHEL/CentOS 7, 8
  - Windows Subsystem for Linux 2
 
