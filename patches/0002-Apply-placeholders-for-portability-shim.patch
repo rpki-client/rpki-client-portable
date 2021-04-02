@@ -1,4 +1,4 @@
-From 7c0b7f0575e5a177e6561c62cc1d3281e1b5c8f9 Mon Sep 17 00:00:00 2001
+From 80ad9cd06c5b846b16305ab86a163071b4d2b682 Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Mon, 20 Apr 2020 12:16:46 +0200
 Subject: [PATCH 2/3] Apply placeholders for portability shim
@@ -9,7 +9,7 @@ From Robert Scheck
  1 file changed, 10 insertions(+), 10 deletions(-)
 
 diff --git src/usr.sbin/rpki-client/rpki-client.8 src/usr.sbin/rpki-client/rpki-client.8
-index 54035053a..533873398 100644
+index 209dc96d..bae8662c 100644
 --- src/usr.sbin/rpki-client/rpki-client.8
 +++ src/usr.sbin/rpki-client/rpki-client.8
 @@ -34,7 +34,7 @@
@@ -21,7 +21,7 @@ index 54035053a..533873398 100644
  to fetch all X.509 certificates, manifests, and revocation lists under a given
  .Em Trust Anchor .
  .Nm
-@@ -69,12 +69,12 @@ The directory where
+@@ -73,12 +73,12 @@ The directory where
  .Nm
  will store the cached repository data.
  Defaults to
@@ -36,7 +36,7 @@ index 54035053a..533873398 100644
  to fetch repositories.
  It must accept the
  .Fl rt
-@@ -121,7 +121,7 @@ This option can be used multiple times to load multiple TALs.
+@@ -134,7 +134,7 @@ This option can be used multiple times to load multiple TALs.
  By default
  .Nm
  will load all TAL files in
@@ -45,7 +45,7 @@ index 54035053a..533873398 100644
  .It Fl V
  Show the version and exit.
  .It Fl v
-@@ -132,7 +132,7 @@ The directory where
+@@ -145,7 +145,7 @@ The directory where
  .Nm
  will write the output files.
  Defaults to
@@ -54,7 +54,7 @@ index 54035053a..533873398 100644
  .El
  .Pp
  By default
-@@ -152,14 +152,14 @@ to uncomment the entry in root's crontab.
+@@ -165,14 +165,14 @@ to uncomment the entry in root's crontab.
  .\" .Sh ENVIRONMENT
  .\" For sections 1, 6, 7, and 8 only.
  .Sh FILES
@@ -73,7 +73,7 @@ index 54035053a..533873398 100644
  default roa-set output file.
  .El
  .Sh EXIT STATUS
-@@ -169,7 +169,7 @@ default roa-set output file.
+@@ -182,7 +182,7 @@ default roa-set output file.
  .\" .Sh DIAGNOSTICS
  .\" For sections 1, 4, 6, 7, 8, and 9 printf/stderr messages only.
  .Sh SEE ALSO
@@ -83,5 +83,5 @@ index 54035053a..533873398 100644
  .Sh STANDARDS
  The following standards are used or referenced in
 -- 
-2.30.1
+2.31.1
 
