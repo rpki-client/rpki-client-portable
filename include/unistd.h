@@ -8,6 +8,10 @@
 #ifndef LIBCOMPAT_UNISTD_H
 #define LIBCOMPAT_UNISTD_H
 
+#ifndef HAVE_PIPE2
+int pipe2(int [2], int);
+#endif
+
 #ifndef HAVE_PLEDGE
 #define pledge(request, paths) 0
 #endif

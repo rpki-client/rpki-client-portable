@@ -43,6 +43,10 @@ if !HAVE_FREEZERO
 libcompat_la_SOURCES += freezero.c
 endif
 
+if !HAVE_PIPE2
+libcompat_la_SOURCES += pipe2.c
+endif
+
 if !HAVE_PPOLL
 libcompat_la_SOURCES += ppoll.c
 endif
