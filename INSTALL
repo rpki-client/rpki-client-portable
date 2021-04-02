@@ -11,7 +11,9 @@ prepare the source tree for building:
 
  1. ensure you have the following packages installed:
       automake, autoconf, git, libtool
- 2. run './autogen.sh' to prepare the source tree for building.
+ 2. The following dependencies are required to build rpki-client:
+      OpenSSL or LibreSSL, LibreSSL libtls or libretls, Expat
+ 3. run './autogen.sh' to prepare the source tree for building.
     './autogen.sh', will checkout a version of rpki-client-openbsd into the
     directory "openbsd". This is a stripped down version of the OpenBSD
     source tree with files needed to build rpki-client.
@@ -88,10 +90,9 @@ Building on macOS requires LibreSSL, which is available in brew.
 It is recommended to export the CFLAGS and LDFLAGS accordingly.
 
 brew install libressl
-export LDFLAGS="-L/usr/local/opt/libressl/lib"
-export CPPFLAGS="-I/usr/local/opt/libressl/include"
 ./autogen.sh
-./configure
+export PKG_CONFIG_PATH="/usr/local/opt/libressl/lib/pkgconfig"
+./configure --with-openssl=openssl
 make
 make install
 
