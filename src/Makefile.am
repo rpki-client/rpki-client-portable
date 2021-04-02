@@ -53,7 +53,12 @@ rpki_client_SOURCES += output-bird.c
 rpki_client_SOURCES += output-csv.c
 rpki_client_SOURCES += output-json.c
 rpki_client_SOURCES += parser.c
+rpki_client_SOURCES += repo.c
 rpki_client_SOURCES += roa.c
+rpki_client_SOURCES += rrdp.c
+rpki_client_SOURCES += rrdp_delta.c
+rpki_client_SOURCES += rrdp_notification.c
+rpki_client_SOURCES += rrdp_snapshot.c
 rpki_client_SOURCES += rsync.c
 rpki_client_SOURCES += tal.c
 rpki_client_SOURCES += validate.c
@@ -61,7 +66,7 @@ rpki_client_SOURCES += x509.c
 
 rpki_client_DEPENDENCIES = rpki-client.8
 
-noinst_HEADERS = extern.h
+noinst_HEADERS = extern.h rrdp.h
 
 rpki-client.8: rpki-client.8.in
 	$(SED) \
