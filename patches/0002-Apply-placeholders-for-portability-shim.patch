@@ -16,6 +16,7 @@ index 209dc96d..bae8662c 100644
  The
  .Nm
  utility queries the RPKI repository system with
+ a built-in HTTP client and
 -.Xr openrsync 1
 +.Xr @RSYNC@ 1
  to fetch all X.509 certificates, manifests, and revocation lists under a given
