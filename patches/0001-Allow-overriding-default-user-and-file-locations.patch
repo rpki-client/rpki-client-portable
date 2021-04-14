@@ -1,18 +1,18 @@
-From 2da8e151294adadddc8c395db053806a39654d11 Mon Sep 17 00:00:00 2001
+From f92d2f3d7fdd44157a4044d7f9aa4d65a28c3493 Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Tue, 14 Apr 2020 22:43:56 +0200
 Subject: [PATCH 1/3] Allow overriding default user and file locations
 
 ---
- src/usr.sbin/rpki-client/extern.h | 20 ++++++++++++++++++++
+ src/usr.sbin/rpki-client/extern.h | 17 +++++++++++++++++
  src/usr.sbin/rpki-client/main.c   | 12 ++++++------
- 2 files changed, 26 insertions(+), 6 deletions(-)
+ 2 files changed, 23 insertions(+), 6 deletions(-)
 
 diff --git src/usr.sbin/rpki-client/extern.h src/usr.sbin/rpki-client/extern.h
-index 47ef1afb2..eb13287ac 100644
+index 1323c33ff..c6b26b726 100644
 --- src/usr.sbin/rpki-client/extern.h
 +++ src/usr.sbin/rpki-client/extern.h
-@@ -539,8 +539,28 @@ void	logx(const char *fmt, ...)
+@@ -539,7 +539,24 @@ void	logx(const char *fmt, ...)
  
  int	mkpath(const char *);
  
@@ -28,10 +28,6 @@ index 47ef1afb2..eb13287ac 100644
  #define		RPKI_PATH_BASE_DIR	"/var/cache/rpki-client"
 +#endif
 +
-+#ifndef RPKI_VERSION
- #define		RPKI_VERSION		"OpenBSD"
-+#endif
-+
 +#ifndef RPKI_CLIENT_USER
 +#define		RPKI_CLIENT_USER	"_rpki-client"
 +#endif
@@ -42,10 +38,10 @@ index 47ef1afb2..eb13287ac 100644
  
  #endif /* ! EXTERN_H */
 diff --git src/usr.sbin/rpki-client/main.c src/usr.sbin/rpki-client/main.c
-index a290203c4..3efa0fe81 100644
+index 417f46262..e0b0e9b2b 100644
 --- src/usr.sbin/rpki-client/main.c
 +++ src/usr.sbin/rpki-client/main.c
-@@ -545,7 +545,7 @@ entity_process(int proc, struct stats *st, struct vrp_tree *tree)
+@@ -546,7 +546,7 @@ entity_process(int proc, struct stats *st, struct vrp_tree *tree)
  }
  
  /*
@@ -54,7 +50,7 @@ index a290203c4..3efa0fe81 100644
   * returning the number of files found and filled-in.
   * This may be zero.
   * Don't exceded "max" filenames.
-@@ -553,7 +553,7 @@ entity_process(int proc, struct stats *st, struct vrp_tree *tree)
+@@ -554,7 +554,7 @@ entity_process(int proc, struct stats *st, struct vrp_tree *tree)
  static size_t
  tal_load_default(const char *tals[], size_t max)
  {
@@ -63,7 +59,7 @@ index a290203c4..3efa0fe81 100644
  	size_t s = 0;
  	char *path;
  	DIR *dirp;
-@@ -595,7 +595,7 @@ main(int argc, char *argv[])
+@@ -596,7 +596,7 @@ main(int argc, char *argv[])
  	struct pollfd	 pfd[NPFD];
  	struct msgbuf	*queues[NPFD];
  	struct roa	**out = NULL;
@@ -72,7 +68,7 @@ index a290203c4..3efa0fe81 100644
  	char		*bind_addr = NULL;
  	const char	*cachedir = NULL, *outputdir = NULL;
  	const char	*tals[TALSZ_MAX], *errs, *name;
-@@ -609,9 +609,9 @@ main(int argc, char *argv[])
+@@ -610,9 +610,9 @@ main(int argc, char *argv[])
  	if (getuid() == 0) {
  		struct passwd *pw;
  
@@ -84,7 +80,7 @@ index a290203c4..3efa0fe81 100644
  		if (setgroups(1, &pw->pw_gid) == -1 ||
  		    setresgid(pw->pw_gid, pw->pw_gid, pw->pw_gid) == -1 ||
  		    setresuid(pw->pw_uid, pw->pw_uid, pw->pw_uid) == -1)
-@@ -712,7 +712,7 @@ main(int argc, char *argv[])
+@@ -713,7 +713,7 @@ main(int argc, char *argv[])
  	if (talsz == 0)
  		talsz = tal_load_default(tals, TALSZ_MAX);
  	if (talsz == 0)
@@ -94,5 +90,5 @@ index a290203c4..3efa0fe81 100644
  	/*
  	 * Create the file reader as a jailed child process.
 -- 
-2.30.1
+2.31.1
 

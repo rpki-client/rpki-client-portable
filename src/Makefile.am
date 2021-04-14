@@ -28,7 +28,6 @@ rpki_client_CFLAGS = $(AM_CFLAGS)
 rpki_client_CFLAGS += -DRPKI_PATH_TAL_DIR=\"$(RPKI_TAL_DIR)\"
 rpki_client_CFLAGS += -DRPKI_PATH_BASE_DIR=\"$(RPKI_BASE_DIR)\"
 rpki_client_CFLAGS += -DRPKI_PATH_OUT_DIR=\"$(RPKI_OUT_DIR)\"
-rpki_client_CFLAGS += -DRPKI_VERSION=\"$(VERSION)\"
 
 rpki_client_LDADD = $(PLATFORM_LDADD) $(PROG_LDADD)
 rpki_client_LDADD += $(top_builddir)/compat/libcompat.la
@@ -66,7 +65,7 @@ rpki_client_SOURCES += x509.c
 
 rpki_client_DEPENDENCIES = rpki-client.8
 
-noinst_HEADERS = extern.h rrdp.h
+noinst_HEADERS = extern.h rrdp.h version.h
 
 rpki-client.8: rpki-client.8.in
 	$(SED) \
