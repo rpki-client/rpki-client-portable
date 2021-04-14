@@ -1,8 +1,14 @@
 #!/bin/sh
 set -e
 
-openbsd_branch=`cat OPENBSD_BRANCH`
-openbgpd_version=`cat VERSION`
+openbsd_branch=master
+tag=`git tag --points-at | head -1`
+if [ -n "$tag" ]; then
+	openbsd_branch="rpki-client-$tag"
+fi
+if [ -n "$1" ]; then
+	openbsd_branch="$1"
+fi
 
 # pull in latest upstream code
 echo "pulling upstream openbsd source"
@@ -66,6 +72,8 @@ for i in as.c cert.c cms.c crl.c encoding.c extern.h gbr.c http.c io.c ip.c \
 	echo Copying ${file}
 	${CP} "${rpkiclient_src}/${i}" src
 done
+
+grep RPKI_VERSION "${rpkiclient_src}/version.h" | cut -d '"' -f 2 > VERSION
 
 if [ -n "$(ls -A patches/*.patch 2>/dev/null)" ]; then
 	for i in patches/*.patch; do
