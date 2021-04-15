@@ -35,3 +35,9 @@ jobs:
       - name: test run
         run: mkdir rpki-cache rpki; src/rpki-client -v -t afrinic.tal -t apnic.tal -t lacnic.tal -t ripe.tal -d rpki-cache rpki
         if: matrix.compiler == 'cc'
+      - name: test run rrdp single ta
+        run: mkdir rpki-cache-rrdp-1ta rpki-rrdp-1ta; src/rpki-client -r -v -t afrinic.tal -d rpki-cache-rrdp-1ta rpki-rrdp-1ta
+        if: matrix.compiler == 'cc'
+      - name: test run rrdp
+        run: mkdir rpki-cache-rrdp rpki-rrdp; src/rpki-client -r -v -t afrinic.tal -t apnic.tal -t lacnic.tal -t ripe.tal -d rpki-cache-rrdp rpki-rrdp
+        if: matrix.compiler == 'cc'
