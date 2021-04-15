@@ -1,4 +1,4 @@
-From d87da3877bd817a3dc72248955aaba4ca0302712 Mon Sep 17 00:00:00 2001
+From 4591d90777c05ac7284e6a032859a761b7acf28f Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Mon, 20 Apr 2020 12:16:46 +0200
 Subject: [PATCH 2/3] Apply placeholders for portability shim
@@ -9,7 +9,7 @@ From Robert Scheck
  1 file changed, 10 insertions(+), 10 deletions(-)
 
 diff --git src/usr.sbin/rpki-client/rpki-client.8 src/usr.sbin/rpki-client/rpki-client.8
-index 964e836de..78960d99d 100644
+index 964e836d..78960d99 100644
 --- src/usr.sbin/rpki-client/rpki-client.8
 +++ src/usr.sbin/rpki-client/rpki-client.8
 @@ -35,7 +35,7 @@ The
