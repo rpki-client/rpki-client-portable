@@ -2,10 +2,6 @@
 set -e
 
 openbsd_branch=master
-tag=`git tag --points-at | head -1`
-if [ -n "$tag" ]; then
-	openbsd_branch="rpki-client-$tag"
-fi
 if [ -n "$1" ]; then
 	openbsd_branch="$1"
 fi
@@ -20,7 +16,7 @@ if [ ! -d openbsd ]; then
 	fi
 fi
 if [ -d openbsd/.git ]; then
-	(cd openbsd/src
+	(cd openbsd
 	 git fetch
 	 git checkout "${openbsd_branch}"
 	 git pull --rebase)
