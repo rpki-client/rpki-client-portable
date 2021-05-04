@@ -3,6 +3,7 @@ noinst_HEADERS += sys/_null.h
 noinst_HEADERS += sys/queue.h
 noinst_HEADERS += sys/tree.h
 noinst_HEADERS += sys/types.h
+noinst_HEADERS += sys/wait.h
 noinst_HEADERS += openssl/asn1.h
 noinst_HEADERS += imsg.h
 noinst_HEADERS += poll.h
