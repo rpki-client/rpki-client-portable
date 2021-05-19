@@ -24,6 +24,10 @@ At the time of writing the portable version is known to build and work on:
 Building
 --------
 
+The offical release location is https://ftp.openbsd.org/pub/OpenBSD/rpki-client/
+Make sure you have an official release tarball!
+Use a previously fetched copy of the Signify key or GPG key to confirm authenticity.
+
     $ ./configure
     $ make
 
