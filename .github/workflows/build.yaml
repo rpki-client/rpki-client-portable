@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        compiler: [cc, clang-10, gcc-10]
+        compiler: [cc, clang-10, clang-11, gcc-10]
     steps:
       - uses: actions/checkout@v2
       - name: autogen
@@ -38,4 +38,4 @@ jobs:
         if: matrix.compiler == 'cc'
       - name: test run rrdp
         run: mkdir rpki-cache-rrdp rpki-rrdp; src/rpki-client -vr -t afrinic.tal -t apnic.tal -t lacnic.tal -t ripe.tal -d rpki-cache-rrdp rpki-rrdp
-        if: matrix.compiler == 'clang-10'
+        if: matrix.compiler == 'clang-11'
