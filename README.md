@@ -18,7 +18,7 @@ At the time of writing the portable version is known to build and work on:
  - CentOS/RHEL/Rocky 7, 8
  - Debian 9, 10
  - Fedora 32, 33, 34
- - Ubuntu 20.04 LTS
+ - Ubuntu 20.04 LTS, 21.04
  - macOS Catalina
  - Windows Subsystem for Linux 2
 
