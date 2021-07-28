@@ -19,6 +19,7 @@ At the time of writing the portable version is known to build and work on:
  - Debian 9, 10
  - Fedora 32, 33, 34
  - Ubuntu 20.04 LTS, 21.04
+ - FreeBSD 12 and 13
  - macOS Catalina
  - Windows Subsystem for Linux 2
 
