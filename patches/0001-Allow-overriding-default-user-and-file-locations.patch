@@ -1,7 +1,7 @@
-From 7855aff20601ee130ad635a604a62f0e4b10726d Mon Sep 17 00:00:00 2001
+From e3f2574c010dd6e376d2b73d2d39f7ac797f1e13 Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Tue, 14 Apr 2020 22:43:56 +0200
-Subject: [PATCH 1/3] Allow overriding default user and file locations
+Subject: [PATCH 1/4] Allow overriding default user and file locations
 
 Adjust version string for -portable
 ---
@@ -10,10 +10,10 @@ Adjust version string for -portable
  2 files changed, 25 insertions(+), 7 deletions(-)
 
 diff --git src/usr.sbin/rpki-client/extern.h src/usr.sbin/rpki-client/extern.h
-index 1323c33f..c6b26b72 100644
+index b1e08377..bd7f29e8 100644
 --- src/usr.sbin/rpki-client/extern.h
 +++ src/usr.sbin/rpki-client/extern.h
-@@ -539,7 +539,24 @@ void	logx(const char *fmt, ...)
+@@ -545,7 +545,24 @@ void	logx(const char *fmt, ...)
  
  int	mkpath(const char *);
  
@@ -39,10 +39,10 @@ index 1323c33f..c6b26b72 100644
  
  #endif /* ! EXTERN_H */
 diff --git src/usr.sbin/rpki-client/main.c src/usr.sbin/rpki-client/main.c
-index 618cdfe7..81641223 100644
+index ff6713d6..bac2daa1 100644
 --- src/usr.sbin/rpki-client/main.c
 +++ src/usr.sbin/rpki-client/main.c
-@@ -546,7 +546,7 @@ entity_process(int proc, struct stats *st, struct vrp_tree *tree)
+@@ -550,7 +550,7 @@ entity_process(int proc, struct stats *st, struct vrp_tree *tree)
  }
  
  /*
@@ -51,7 +51,7 @@ index 618cdfe7..81641223 100644
   * returning the number of files found and filled-in.
   * This may be zero.
   * Don't exceded "max" filenames.
-@@ -554,7 +554,7 @@ entity_process(int proc, struct stats *st, struct vrp_tree *tree)
+@@ -558,7 +558,7 @@ entity_process(int proc, struct stats *st, struct vrp_tree *tree)
  static size_t
  tal_load_default(const char *tals[], size_t max)
  {
@@ -60,7 +60,7 @@ index 618cdfe7..81641223 100644
  	size_t s = 0;
  	char *path;
  	DIR *dirp;
-@@ -596,7 +596,7 @@ main(int argc, char *argv[])
+@@ -625,7 +625,7 @@ main(int argc, char *argv[])
  	struct pollfd	 pfd[NPFD];
  	struct msgbuf	*queues[NPFD];
  	struct roa	**out = NULL;
@@ -69,7 +69,7 @@ index 618cdfe7..81641223 100644
  	char		*bind_addr = NULL;
  	const char	*cachedir = NULL, *outputdir = NULL;
  	const char	*tals[TALSZ_MAX], *errs, *name;
-@@ -610,9 +610,9 @@ main(int argc, char *argv[])
+@@ -639,9 +639,9 @@ main(int argc, char *argv[])
  	if (getuid() == 0) {
  		struct passwd *pw;
  
@@ -81,7 +81,7 @@ index 618cdfe7..81641223 100644
  		if (setgroups(1, &pw->pw_gid) == -1 ||
  		    setresgid(pw->pw_gid, pw->pw_gid, pw->pw_gid) == -1 ||
  		    setresuid(pw->pw_uid, pw->pw_uid, pw->pw_uid) == -1)
-@@ -675,7 +675,8 @@ main(int argc, char *argv[])
+@@ -704,7 +704,8 @@ main(int argc, char *argv[])
  			verbose++;
  			break;
  		case 'V':
@@ -91,7 +91,7 @@ index 618cdfe7..81641223 100644
  			return 0;
  		default:
  			goto usage;
-@@ -716,7 +717,7 @@ main(int argc, char *argv[])
+@@ -741,7 +742,7 @@ main(int argc, char *argv[])
  	if (talsz == 0)
  		talsz = tal_load_default(tals, TALSZ_MAX);
  	if (talsz == 0)
@@ -101,5 +101,5 @@ index 618cdfe7..81641223 100644
  	/*
  	 * Create the file reader as a jailed child process.
 -- 
-2.31.1
+2.32.0
 

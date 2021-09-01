@@ -1,0 +1,42 @@
+From 7dd0189c56d2ad5192c596e3f7c593047af5b039 Mon Sep 17 00:00:00 2001
+From: Claudio Jeker <claudio@openbsd.org>
+Date: Wed, 1 Sep 2021 16:23:36 +0200
+Subject: [PATCH 4/4] Only call tls_config_set_ca_mem() when pledge() is used.
+
+---
+ src/usr.sbin/rpki-client/http.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git src/usr.sbin/rpki-client/http.c src/usr.sbin/rpki-client/http.c
+index 7773ad60..7740ddf6 100644
+--- src/usr.sbin/rpki-client/http.c
++++ src/usr.sbin/rpki-client/http.c
+@@ -148,8 +148,10 @@ static size_t http_conn_count;
+ static struct msgbuf msgq;
+ static struct sockaddr_storage http_bindaddr;
+ static struct tls_config *tls_config;
++#ifdef HAVE_PLEDGE
+ static uint8_t *tls_ca_mem;
+ static size_t tls_ca_size;
++#endif
+ 
+ /* HTTP request API */
+ static void	http_req_new(size_t, char *, char *, int);
+@@ -1437,12 +1439,14 @@ http_setup(void)
+ 		    tls_config_error(tls_config));
+ #endif
+ 
++#ifdef HAVE_PLEDGE
+ 	/* load cert file from disk now */
+ 	tls_ca_mem = tls_load_file(tls_default_ca_cert_file(),
+ 	    &tls_ca_size, NULL);
+ 	if (tls_ca_mem == NULL)
+ 		err(1, "tls_load_file: %s", tls_default_ca_cert_file());
+ 	tls_config_set_ca_mem(tls_config, tls_ca_mem, tls_ca_size);
++#endif
+ 
+ 	/* TODO initalize proxy settings */
+ }
+-- 
+2.32.0
+
