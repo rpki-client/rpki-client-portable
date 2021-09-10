@@ -91,6 +91,8 @@ It is recommended to export the CFLAGS and LDFLAGS accordingly.
 
 brew install libressl
 ./autogen.sh
+export LDFLAGS="-L/usr/local/opt/libressl/lib"
+export CPPFLAGS="-I/usr/local/opt/libressl/include"
 export PKG_CONFIG_PATH="/usr/local/opt/libressl/lib/pkgconfig"
 ./configure --with-openssl=openssl
 make
