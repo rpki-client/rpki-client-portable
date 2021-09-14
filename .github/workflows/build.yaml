@@ -33,9 +33,9 @@ jobs:
       - name: make distcheck
         run: make distcheck
         if: matrix.compiler == 'cc'
-      - name: test run
+      - name: test run rrdp
         run: mkdir rpki-cache rpki; src/rpki-client -v -t afrinic.tal -t apnic.tal -t lacnic.tal -t ripe.tal -d rpki-cache rpki
         if: matrix.compiler == 'cc'
-      - name: test run rrdp
-        run: mkdir rpki-cache-rrdp rpki-rrdp; src/rpki-client -vr -t afrinic.tal -t apnic.tal -t lacnic.tal -t ripe.tal -d rpki-cache-rrdp rpki-rrdp
+      - name: test run rsync
+        run: mkdir rpki-cache-rrdp rpki-rrdp; src/rpki-client -vR -t afrinic.tal -t apnic.tal -t lacnic.tal -t ripe.tal -d rpki-cache-rrdp rpki-rrdp
         if: matrix.compiler == 'clang'
