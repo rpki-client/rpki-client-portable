@@ -1,4 +1,4 @@
-From fe0ed8146d8508c9248da6e87446b7afa3ca7931 Mon Sep 17 00:00:00 2001
+From 8bf1775d232e03c722dbb195dc4e8005ad786147 Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Fri, 6 Nov 2020 13:19:45 +0100
 Subject: [PATCH 3/4] Emit all output formats on non-OpenBSD systems
@@ -9,10 +9,10 @@ Subject: [PATCH 3/4] Emit all output formats on non-OpenBSD systems
  2 files changed, 5 insertions(+), 6 deletions(-)
 
 diff --git src/usr.sbin/rpki-client/main.c src/usr.sbin/rpki-client/main.c
-index 88db5404..f769249d 100644
+index 5777fee0..84397734 100644
 --- src/usr.sbin/rpki-client/main.c
 +++ src/usr.sbin/rpki-client/main.c
-@@ -747,7 +747,8 @@ main(int argc, char *argv[])
+@@ -792,7 +792,8 @@ main(int argc, char *argv[])
  	check_fs_size(cachefd, cachedir);
  
  	if (outformats == 0)
@@ -42,5 +42,5 @@ index 238d862c..79e4f31d 100644
  .Nm
  should be run hourly by
 -- 
-2.33.0
+2.33.1
 
