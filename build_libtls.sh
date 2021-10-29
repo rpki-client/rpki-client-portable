@@ -27,5 +27,5 @@ sudo make install
 cd ../include
 sudo make install-includeHEADERS
 # and cert.pem
-cd ../apps/openssl
+cd ..
 sudo make install-exec-hook
