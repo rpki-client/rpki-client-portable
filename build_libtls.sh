@@ -3,8 +3,8 @@
 # This script is only used to build a version of libtls on the CI systems.
 # Once there are offical packages available it will be removed again.
 
-V=3.2.5
-SUM=798a65fd61d385e09d559810cdfa46512f8def5919264cfef241a7b086ce7cfe
+V=3.4.1
+SUM=107ceae6ca800e81cb563584c16afa36d6c7138fade94a2b3e9da65456f7c61c
 
 set -e
 
