@@ -1,4 +1,4 @@
-From 940788a105a4429be02cbc7d0eb3138a2c9a5c74 Mon Sep 17 00:00:00 2001
+From 03e8811882cf231c5756e956e26bfce5c945b6d9 Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Wed, 1 Sep 2021 16:23:36 +0200
 Subject: [PATCH 4/4] Only call tls_config_set_ca_mem() when pledge() is used.
@@ -8,10 +8,10 @@ Subject: [PATCH 4/4] Only call tls_config_set_ca_mem() when pledge() is used.
  1 file changed, 4 insertions(+)
 
 diff --git src/usr.sbin/rpki-client/http.c src/usr.sbin/rpki-client/http.c
-index 2ab408a2..40cf9ea8 100644
+index f564e510..fc26e207 100644
 --- src/usr.sbin/rpki-client/http.c
 +++ src/usr.sbin/rpki-client/http.c
-@@ -153,8 +153,10 @@ static size_t http_conn_count;
+@@ -155,8 +155,10 @@ static size_t http_conn_count;
  static struct msgbuf msgq;
  static struct sockaddr_storage http_bindaddr;
  static struct tls_config *tls_config;
@@ -22,7 +22,7 @@ index 2ab408a2..40cf9ea8 100644
  
  /* HTTP request API */
  static void	http_req_new(size_t, char *, char *, int);
-@@ -1750,12 +1752,14 @@ http_setup(void)
+@@ -1746,12 +1748,14 @@ http_setup(void)
  		    tls_config_error(tls_config));
  #endif
  
