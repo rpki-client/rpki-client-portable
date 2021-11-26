@@ -58,6 +58,7 @@ rpki_client_SOURCES += rrdp.c
 rpki_client_SOURCES += rrdp_delta.c
 rpki_client_SOURCES += rrdp_notification.c
 rpki_client_SOURCES += rrdp_snapshot.c
+rpki_client_SOURCES += rrdp_util.c
 rpki_client_SOURCES += rsync.c
 rpki_client_SOURCES += tal.c
 rpki_client_SOURCES += validate.c
