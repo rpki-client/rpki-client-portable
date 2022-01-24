@@ -1,4 +1,4 @@
-From 03e8811882cf231c5756e956e26bfce5c945b6d9 Mon Sep 17 00:00:00 2001
+From 3ea5afc369a1560960bc7d15f84841d2037742fa Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Wed, 1 Sep 2021 16:23:36 +0200
 Subject: [PATCH 4/4] Only call tls_config_set_ca_mem() when pledge() is used.
@@ -8,10 +8,10 @@ Subject: [PATCH 4/4] Only call tls_config_set_ca_mem() when pledge() is used.
  1 file changed, 4 insertions(+)
 
 diff --git src/usr.sbin/rpki-client/http.c src/usr.sbin/rpki-client/http.c
-index f564e510..fc26e207 100644
+index 117c7068..9f52b032 100644
 --- src/usr.sbin/rpki-client/http.c
 +++ src/usr.sbin/rpki-client/http.c
-@@ -155,8 +155,10 @@ static size_t http_conn_count;
+@@ -155,8 +155,10 @@ static unsigned int http_conn_count;
  static struct msgbuf msgq;
  static struct sockaddr_storage http_bindaddr;
  static struct tls_config *tls_config;
@@ -21,8 +21,8 @@ index f564e510..fc26e207 100644
 +#endif
  
  /* HTTP request API */
- static void	http_req_new(size_t, char *, char *, int);
-@@ -1746,12 +1748,14 @@ http_setup(void)
+ static void	http_req_new(unsigned int, char *, char *, int, int);
+@@ -1751,12 +1753,14 @@ http_setup(void)
  		    tls_config_error(tls_config));
  #endif
  
@@ -38,5 +38,5 @@ index f564e510..fc26e207 100644
          if ((httpproxy = getenv("http_proxy")) != NULL && *httpproxy == '\0')
  		httpproxy = NULL;
 -- 
-2.33.1
+2.34.1
 

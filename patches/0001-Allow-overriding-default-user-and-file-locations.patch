@@ -1,4 +1,4 @@
-From 2125fd63d4c7b90da4629aed0f6a6e4dbf6a26f2 Mon Sep 17 00:00:00 2001
+From dcab5942e885cb6e47d7177c5924237b9fb4f499 Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Tue, 14 Apr 2020 22:43:56 +0200
 Subject: [PATCH 1/4] Allow overriding default user and file locations
@@ -10,10 +10,10 @@ Adjust version string for -portable
  2 files changed, 25 insertions(+), 7 deletions(-)
 
 diff --git src/usr.sbin/rpki-client/extern.h src/usr.sbin/rpki-client/extern.h
-index 35efc809..fd11a737 100644
+index 66a460c4..92c18633 100644
 --- src/usr.sbin/rpki-client/extern.h
 +++ src/usr.sbin/rpki-client/extern.h
-@@ -603,8 +603,25 @@ time_t		getmonotime(void);
+@@ -612,8 +612,25 @@ time_t		getmonotime(void);
  
  int	mkpath(const char *);
  
@@ -40,10 +40,10 @@ index 35efc809..fd11a737 100644
  /* Maximum number of IP and AS ranges accepted in any single file */
  #define MAX_IP_SIZE		200000
 diff --git src/usr.sbin/rpki-client/main.c src/usr.sbin/rpki-client/main.c
-index 4ea97df4..9fdd33f0 100644
+index 3955c776..b2d52f53 100644
 --- src/usr.sbin/rpki-client/main.c
 +++ src/usr.sbin/rpki-client/main.c
-@@ -604,7 +604,7 @@ rrdp_process(struct ibuf *b)
+@@ -646,7 +646,7 @@ rrdp_process(struct ibuf *b)
  }
  
  /*
@@ -52,7 +52,7 @@ index 4ea97df4..9fdd33f0 100644
   * returning the number of files found and filled-in.
   * This may be zero.
   * Don't exceded "max" filenames.
-@@ -612,7 +612,7 @@ rrdp_process(struct ibuf *b)
+@@ -654,7 +654,7 @@ rrdp_process(struct ibuf *b)
  static size_t
  tal_load_default(void)
  {
@@ -61,7 +61,7 @@ index 4ea97df4..9fdd33f0 100644
  	size_t s = 0;
  	char *path;
  	DIR *dirp;
-@@ -680,7 +680,7 @@ main(int argc, char *argv[])
+@@ -722,7 +722,7 @@ main(int argc, char *argv[])
  	struct msgbuf	*queues[NPFD];
  	struct ibuf	*b, *httpbuf = NULL, *procbuf = NULL;
  	struct ibuf	*rrdpbuf = NULL, *rsyncbuf = NULL;
@@ -70,7 +70,7 @@ index 4ea97df4..9fdd33f0 100644
  	char		*bind_addr = NULL;
  	const char	*cachedir = NULL, *outputdir = NULL;
  	const char	*errs, *name;
-@@ -696,9 +696,9 @@ main(int argc, char *argv[])
+@@ -737,9 +737,9 @@ main(int argc, char *argv[])
  	if (getuid() == 0) {
  		struct passwd *pw;
  
@@ -82,7 +82,7 @@ index 4ea97df4..9fdd33f0 100644
  		if (setgroups(1, &pw->pw_gid) == -1 ||
  		    setresgid(pw->pw_gid, pw->pw_gid, pw->pw_gid) == -1 ||
  		    setresuid(pw->pw_uid, pw->pw_uid, pw->pw_uid) == -1)
-@@ -765,7 +765,8 @@ main(int argc, char *argv[])
+@@ -813,7 +813,8 @@ main(int argc, char *argv[])
  			verbose++;
  			break;
  		case 'V':
@@ -92,7 +92,7 @@ index 4ea97df4..9fdd33f0 100644
  			return 0;
  		default:
  			goto usage;
-@@ -802,7 +803,7 @@ main(int argc, char *argv[])
+@@ -860,7 +861,7 @@ main(int argc, char *argv[])
  	if (talsz == 0)
  		talsz = tal_load_default();
  	if (talsz == 0)
@@ -102,5 +102,5 @@ index 4ea97df4..9fdd33f0 100644
  	/*
  	 * Create the file reader as a jailed child process.
 -- 
-2.33.1
+2.34.1
 
