@@ -83,27 +83,25 @@ For example:
 
 CFLAGS="-O2 " LDFLAGS="-s" ./configure
 
-Building on macOS
------------------
+3. Pre-built packages
+---------------------
 
-Building on macOS requires LibreSSL, which is available in brew.
-It is recommended to export the CFLAGS and LDFLAGS accordingly.
+Rpki-client is available as pre-built package for many distributions: https://repology.org/project/rpki-client
 
-brew install libressl
-./autogen.sh
-export PKG_CONFIG_PATH="/usr/local/opt/libressl/lib/pkgconfig"
-./configure --with-openssl=openssl
-make
-make install
+Alpine: apk add rpki-client
+CentOS/Fedora/Redhat: yum install rpki-client (via EPEL)
+Debian/Ubuntu: apt install rpki-client
+FreeBSD: pkg install rpki-client
+macOSX: port install rpki-client || brew install rpki-client
 
-3. Trust anchors
+4. Trust anchors
 ----------------
 
 The trust anchor files are installed in ${prefix}/etc/rpki or
 whatever you specified as your --with-tal-dir or --sysconfdir
 (/usr/local/etc/rpki by default).
 
-4. Problems?
+5. Problems?
 ------------
 
 If you experience problems compiling, installing or running rpki-client,
