@@ -98,3 +98,7 @@ if   !HAVE_ASN1_TIME_TM_CMP
 libcompat_la_SOURCES += a_time_tm.c
 endif
 endif
+
+if !HAVE_X509_GET_EXTENSION_FLAGS
+libcompat_la_SOURCES += x509_purp.c
+endif

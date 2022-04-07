@@ -6,6 +6,7 @@ noinst_HEADERS += sys/tree.h
 noinst_HEADERS += sys/types.h
 noinst_HEADERS += sys/wait.h
 noinst_HEADERS += openssl/asn1.h
+noinst_HEADERS += openssl/x509v3.h
 noinst_HEADERS += imsg.h
 noinst_HEADERS += poll.h
 noinst_HEADERS += sha2.h
