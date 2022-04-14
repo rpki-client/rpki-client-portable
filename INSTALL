@@ -89,8 +89,9 @@ CFLAGS="-O2 " LDFLAGS="-s" ./configure
 Rpki-client is available as pre-built package for many distributions: https://repology.org/project/rpki-client
 
 Alpine: apk add rpki-client
-CentOS/Fedora/Redhat: yum install rpki-client (via EPEL)
+CentOS/RHEL/Rocky: yum install epel-release; yum install rpki-client
 Debian/Ubuntu: apt install rpki-client
+Fedora: dnf install rpki-client
 FreeBSD: pkg install rpki-client
 macOSX: port install rpki-client || brew install rpki-client
 
