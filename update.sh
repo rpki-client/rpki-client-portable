@@ -59,11 +59,12 @@ ${CP} "${libutil_src}/imsg.c" compat/
 ${CP} "${libutil_src}/imsg-buffer.c" compat/
 (cd compat; ${PATCH} -p0 < "${patches}/patch-imsg.c")
 
-for i in as.c cert.c cms.c crl.c encoding.c extern.h gbr.c http.c io.c ip.c \
-	log.c main.c mft.c mkdir.c output-bgpd.c output-bird.c output-csv.c \
-	output-json.c output.c parser.c print.c repo.c roa.c rpki-client.8 \
-	rrdp.c rrdp.h rrdp_delta.c rrdp_notification.c rrdp_snapshot.c \
-	rrdp_util.c rsync.c tal.c validate.c version.h x509.c; do
+for i in as.c cert.c cms.c crl.c encoding.c extern.h filemode.c gbr.c http.c \
+	io.c ip.c log.c main.c mft.c mkdir.c output-bgpd.c output-bird.c \
+	output-csv.c output-json.c output.c parser.c print.c repo.c roa.c \
+	rpki-client.8 rrdp.c rrdp.h rrdp_delta.c rrdp_notification.c \
+	rrdp_snapshot.c rrdp_util.c rsync.c tal.c validate.c version.h \
+	x509.c; do
 	file=`basename ${i}`
 	echo Copying ${file}
 	${CP} "${rpkiclient_src}/${i}" src

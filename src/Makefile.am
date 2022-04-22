@@ -38,6 +38,7 @@ rpki_client_SOURCES += cert.c
 rpki_client_SOURCES += cms.c
 rpki_client_SOURCES += crl.c
 rpki_client_SOURCES += encoding.c
+rpki_client_SOURCES += filemode.c
 rpki_client_SOURCES += gbr.c
 rpki_client_SOURCES += http.c
 rpki_client_SOURCES += io.c
