@@ -1,32 +1,33 @@
-From 7bd0806934e7fabc937aa8d95d478d7554c713f3 Mon Sep 17 00:00:00 2001
+From 8f71601e9b1d86306d4f265904869cbe2fc2e1e6 Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Fri, 6 Nov 2020 13:19:45 +0100
 Subject: [PATCH 3/4] Emit all output formats on non-OpenBSD systems
 
 ---
- src/usr.sbin/rpki-client/main.c        | 3 +++
+ src/usr.sbin/rpki-client/main.c        | 4 ++++
  src/usr.sbin/rpki-client/rpki-client.8 | 8 +++-----
- 2 files changed, 6 insertions(+), 5 deletions(-)
+ 2 files changed, 7 insertions(+), 5 deletions(-)
 
 diff --git src/usr.sbin/rpki-client/main.c src/usr.sbin/rpki-client/main.c
-index b2d52f53..6a448f75 100644
+index a8b30c792..e6f91f1dd 100644
 --- src/usr.sbin/rpki-client/main.c
 +++ src/usr.sbin/rpki-client/main.c
-@@ -857,6 +857,9 @@ main(int argc, char *argv[])
+@@ -849,6 +849,10 @@ main(int argc, char *argv[])
  
  	check_fs_size(cachefd, cachedir);
  
 +	if (outformats == 0)
 +		outformats = FORMAT_OPENBGPD | FORMAT_JSON | FORMAT_CSV
 +		    | FORMAT_BIRD;
- 
++
  	if (talsz == 0)
  		talsz = tal_load_default();
+ 	if (talsz == 0)
 diff --git src/usr.sbin/rpki-client/rpki-client.8 src/usr.sbin/rpki-client/rpki-client.8
-index 99007fc2..2623df24 100644
+index 7aabc93ef..ad9ee7138 100644
 --- src/usr.sbin/rpki-client/rpki-client.8
 +++ src/usr.sbin/rpki-client/rpki-client.8
-@@ -181,11 +181,9 @@ Defaults to
+@@ -190,11 +190,9 @@ Defaults to
  .Pp
  By default
  .Nm
@@ -42,5 +43,5 @@ index 99007fc2..2623df24 100644
  .Nm
  should be run hourly by
 -- 
-2.34.1
+2.35.1
 

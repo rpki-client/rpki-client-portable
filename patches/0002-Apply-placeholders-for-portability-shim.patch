@@ -1,4 +1,4 @@
-From b0047047a9bae26841998864b35cddc852c0f349 Mon Sep 17 00:00:00 2001
+From a658de81e65a55bc9789b5203c1cc6ca6ebc3404 Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Mon, 20 Apr 2020 12:16:46 +0200
 Subject: [PATCH 2/4] Apply placeholders for portability shim
@@ -9,7 +9,7 @@ From Robert Scheck
  1 file changed, 10 insertions(+), 10 deletions(-)
 
 diff --git src/usr.sbin/rpki-client/rpki-client.8 src/usr.sbin/rpki-client/rpki-client.8
-index 04804ac0..99007fc2 100644
+index 537f7b029..7aabc93ef 100644
 --- src/usr.sbin/rpki-client/rpki-client.8
 +++ src/usr.sbin/rpki-client/rpki-client.8
 @@ -41,7 +41,7 @@ The
@@ -36,7 +36,7 @@ index 04804ac0..99007fc2 100644
  to fetch repositories.
  It must accept the
  .Fl rt
-@@ -165,7 +165,7 @@ This option can be used multiple times to load multiple TALs.
+@@ -174,7 +174,7 @@ This option can be used multiple times to load multiple TALs.
  By default
  .Nm
  will load all TAL files in
@@ -45,7 +45,7 @@ index 04804ac0..99007fc2 100644
  .It Fl V
  Show the version and exit.
  .It Fl v
-@@ -176,7 +176,7 @@ The directory where
+@@ -185,7 +185,7 @@ The directory where
  .Nm
  will write the output files.
  Defaults to
@@ -54,7 +54,7 @@ index 04804ac0..99007fc2 100644
  .El
  .Pp
  By default
-@@ -201,20 +201,20 @@ utilizes the following environment variables:
+@@ -210,20 +210,20 @@ utilizes the following environment variables:
  URL of HTTP proxy to use.
  .El
  .Sh FILES
@@ -81,5 +81,5 @@ index 04804ac0..99007fc2 100644
  .Sh STANDARDS
  The following standards are used or referenced in
 -- 
-2.34.1
+2.35.1
 
