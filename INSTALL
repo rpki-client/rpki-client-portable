@@ -1,7 +1,10 @@
 1. Prerequisites
 ----------------
 
-You will need libcrypto from LibreSSL or OpenSSL version 1.0.2e or newer.
+You will need the following libraries:
+ - libcrypto: LibreSSL (3.5.0 or newer) or OpenSSL (1.0.2e or newer).
+ - libtls: LibreSSL or libretls
+ - libexpat
 
 2. Building / Installation
 --------------------------
