@@ -264,6 +264,7 @@ AC_CHECK_HEADERS([err.h sha2.h])
 AC_CHECK_HEADERS([openssl/cms.h openssl/err.h openssl/evp.h openssl/ssl.h openssl/x509.h openssl/x509v3.h], [], [AC_MSG_ERROR([OpenSSL headers required])])
 AC_CHECK_LIB([crypto], [ASN1_STRING_get0_data], [], [AC_MSG_ERROR([OpenSSL libraries required])])
 AC_CHECK_FUNCS([X509_up_ref], [], [AC_MSG_ERROR([OpenSSL libraries required])])
+AC_CHECK_FUNCS([ASIdentifiers_free IPAddressRange_free X509v3_addr_is_canonical X509v3_asid_is_canonical], [], [AC_MSG_ERROR([libcrypto with RFC3779 support required])])
 
 AC_CHECK_FUNCS([ASN1_time_parse ASN1_time_tm_cmp X509_get_extension_flags])
 AM_CONDITIONAL([HAVE_ASN1_TIME_PARSE], [test "x$ac_cv_func_ASN1_time_parse" = xyes])
