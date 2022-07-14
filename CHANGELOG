@@ -1,0 +1,186 @@
+Version 7.6 - July 14th, 2022
+=============================
+
+- Add support for an operator-configurable skiplist facility. Operators
+  can specify a list of FQDNs which should not be contacted when
+  synchronizing the local cache to the network.
+
+- Emit a warning when a RRDP session serial number decreases.
+
+- DER decoding functions were refactored to leverage ASN.1 templates.
+
+- Add support to validate & inspect .sig files containing RPKI Signed
+  Checklists in filemode (-f). (draft-ietf-sidrops-rpki-rsc-08)
+
+- Print various statistics after the completion of the main process.
+
+- Add support to decode & print TAL (RFC 8630) details in filemode (-f).
+
+- Emit objects in Concatenated JSON format when filemode (-f) and the
+  JSON output flag (-j) are combined.
+
+Version 7.8 - April 9th, 2022
+=============================
+
+- Do not apply timezone offsets when converting X509 times.  X509 times
+  are in UTC and comparing them to times in different timezones would
+  cause validity problems.
+
+Version 7.7 - April 7th, 2022
+=============================
+
+- Add various RFC 6488 compliance checks to improve the CMS parser.
+
+- Improve RRDP replication through less aggressive cache cleanup.
+
+- Add a check whether a given Manifest EE certificate is listed on the
+  applicable CRL.
+
+- For forward compatibility permit ASPA object to appear on Manifests.
+
+- Various improvements to the '-f <file>' diagnostic option to now also
+  validate files containing Trust Anchor certs and CRLs.
+
+Version 7.6 - February 7th, 2022
+================================
+
+- Enforce the correct namespace of rrdp files.
+
+- Fail certificate verification if a certificate contains unknown
+  critical extensions.
+
+- Improve cleanup of rrdp directory contents.
+
+- Introduce a validated cache which holds all the files that have
+  successfully been verified by rpki-client.
+
+- Add a new option '-f <file>' to validate a signed object in a file
+  against the RPKI cache.
+
+Version 7.5 - November 9th, 2021
+================================
+
+- Make rpki-client more resilient regarding untrusted input:
+  * fail repository synchronisation after 15 min runtime.
+  * limit the number of repositories per TAL.
+  * don't allow DOCTYPE definitions in RRDP XML files.
+  * fix detection of HTTP redirect loops.
+
+- limit the number of concurrent rsync processes.
+
+- fix CRLF in TAL files.
+
+Version 7.4 - October 30th, 2021
+================================
+
+- Added support for validating BGPsec Router Public Keys.
+
+- Fix issues with chunked transfer encoding in the RRDP HTTP client.
+
+- Cleanup and improvement of how IO is handled.
+
+- Improvements in the way X509 certificates are verified.
+
+- Make rpki-client more resilient regarding untrusted input:
+  * Limit the allowed character set for filename listings on
+    Manifests.
+  * Limit the length of SIA URIs.
+  * Limit the size of certain untrusted inputs.
+  * Don't exit on failures to parse x509 objects.
+  * Limit the size of objects retreived via RRDP or RSYNC.
+  * Limit the number of FileAndHash entries on a manifest.
+  * Constrain RRDP such that the delta/snapshot files must be hosted
+    at the same host as the notification file.
+
+Version 7.3 - September 23rd, 2021
+==================================
+
+- Improve the HTTP client code (status code handling, http proxy
+  support, keep-alive).
+
+- In RRDP, do not access URI with userinfo (@-sign)
+
+- Improve RRDP syncing by considering a notification file serial
+  jumping backwards as synced repository.
+
+- Make -R (rsync only) also apply to the fetching of TA files.
+
+- Only sync *.{cer,crl,gbr,mft,roa} files via rsync and exclude all others.
+
+- When producing output for OpenBGPd, make use of the 'roa-set expires'
+  attribute to prevent machines from loading outdated roa-sets.
+
+- In RRDP, limit the number of deltas to 300 per repo. If more deltas
+  exist, downloading a full snapshot is faster.
+
+- Limit the validation depth of X509 certificate chains to 12, double
+  the current depth seen in RPKI.
+
+Version 7.2 - July 28th, 2021
+=============================
+
+- Use RRDP as default protocol for syncronizing the RPKI repository
+  data, with rsync used as secondary.
+
+- At startup, warn if the filesystem containing the cache directory is
+  probably too small. 500 MB is the suggested minimum size.
+
+- Handle running out of disk space more gracefully, including cleanup of
+  temporary and old files before exiting.
+
+- Improve the HTTP/1.1 request headers being sent.
+
+- Improved validation checks for ROA and MFT objects.
+
+Version 7.1 - May 18th, 2021
+============================
+
+- Add keep-alive support to the HTTP client code for RRDP.
+
+- Reference-count and delete unused files synced via RRDP, as far as
+  possible.
+
+- In the JSON output, change the AS Number from a string ("AS123") to an
+  integer ("123") to make processing of the output easier.
+
+- Add an 'expires' column to CSV & JSON output, based on certificate and
+  CRL validity times. The 'expires' value can be used to avoid route
+  selection based on stale data when generating VRP sets, when faced
+  with loss of communication between consumer and valdiator, or
+  validator and CA repository.
+
+- Make the runtime timeout (-s option) also triggers in child processes.
+
+- Improved RRDP support, we encourage testing of RRDP with the -r option
+  so that RRDP can be enabled by default in a future release.  Please
+  report any issues found.
+
+- Improved RRDP support, we encourage testing of RRDP with the -r option
+  so that RRDP can be enabled by default in a future release.  Please
+  report any issues found.
+
+Version 7.0 - April 15th, 2021
+==============================
+
+- Added RRDP (The RPKI Repository Delta Protocol, RFC 8182) support as a
+  'technology preview'. To use it, the "-r" flag needs to be used.
+
+- Support the use of more than one URI in the TAL file sorting with a
+  preference for https.
+
+- Validation of ghostbuster records (RFC 6493).
+
+- Fixed checks of the manifest validity interval.
+
+- The rsync connection is now killed when the rsync server stalls.
+
+- Limited the URL embedded in .cer files to alphanumeric characters and
+  punctuation.
+
+- Added a "-V" option to show version.
+
+- Included the default cert.pem file path in tls_load_file error
+  messages.
+
+- Use of the ibuf (imsg) API for data exchange between the rpki-client
+  processes.
