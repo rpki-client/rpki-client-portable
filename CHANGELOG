@@ -184,3 +184,37 @@ Version 7.0 - April 15th, 2021
 
 - Use of the ibuf (imsg) API for data exchange between the rpki-client
   processes.
+
+Version 6.8 - November 12th, 2020
+=================================
+
+- incorporate OpenBSD 6.8 errata 006 of November 10, 2020: rpki-client
+  incorrectly checks the manifest validity interval.
+
+In the portable version,
+
+- Add compat code for the LibreSSL ASN1_time_parse() and
+  ASN1_time_tm_cmp() functions. Those are needed to properly check the
+  validity of MFT files.
+
+Version 6.7 - May 19th, 2020
+============================
+
+- Document the suggested interval for running rpki-client in man page.
+
+- Always initialize cachedir and outputdir.
+
+- Print statistics as comments at the top of the output files which can
+  take comments, including the date and time when the files were
+  produced, and runtime statistics when producing them.
+
+- Improve log messages to clarify what's happening.
+
+- Fix a bug where rpki-client would not properly wait for exiting rsync
+  processes, causing rpki-client to hang.
+
+Version 6.6 - April 19th, 2020
+==============================
+
+- First release, based on the OpenBSD source code available in the
+  OpenBSD CVS repository as of 2020-04-19.
