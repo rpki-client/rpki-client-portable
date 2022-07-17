@@ -2,7 +2,7 @@
 ----------------
 
 You will need the following libraries:
- - libcrypto: LibreSSL (3.5.0 or newer) or OpenSSL (1.0.2e or newer).
+ - libcrypto: LibreSSL (3.5.0 or newer) or OpenSSL (1.1.0a or newer).
  - libtls: LibreSSL or libretls
  - libexpat
 
