@@ -109,3 +109,15 @@ endif
 if !HAVE_X509_GET_EXTENSION_FLAGS
 libcompat_la_SOURCES += x509_purp.c
 endif
+
+if !HAVE_PLEDGE
+libcompat_la_SOURCES += pledge.c
+endif
+
+if !HAVE_UNVEIL
+if HAVE_LANDLOCK
+libcompat_la_SOURCES += unveil_landlock.c
+else
+libcompat_la_SOURCES += unveil.c
+endif
+endif
