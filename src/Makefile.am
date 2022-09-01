@@ -34,6 +34,7 @@ rpki_client_LDADD += $(top_builddir)/compat/libcompat.la
 rpki_client_LDADD += $(top_builddir)/compat/libcompatnoopt.la
 
 rpki_client_SOURCES = as.c
+rpki_client_SOURCES += aspa.c
 rpki_client_SOURCES += cert.c
 rpki_client_SOURCES += cms.c
 rpki_client_SOURCES += crl.c
