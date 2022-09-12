@@ -1,3 +1,46 @@
+Version 8.0 - September 11th, 2022
+==================================
+
+- Add suport for validating Autonomous System Provider Authorization
+  (ASPA) objects conforming to draft-ietf-sidrops-aspa-profile-10.
+  Validated ASPA payloads are visible in JSON and filemode (-f) output.
+
+- Set rsync connection I/O idle timeout to 15 seconds.
+
+- Unify the maximum idle I/O and connect timeouts for RSYNC & HTTPS.
+
+- Rpki-client now performs stricter EE certificate validation:
+    - Disallow AS Resources extensions in ROA EE certificates.
+    - Disallow Subject Information Access (SIA) extensions in RPKI
+      Signed Checklist (RSC) EE certs.
+    - Check the resources in ROAs and RSCs against EE certs.
+
+- Improve readability and add various information being printed in
+  verbose mode.
+
+- Extend filemode (-f) output and print X.509 certificates in PEM format
+  when increased verbosity (-vv) is specified.
+
+- Shorten the RRDP I/O idle timeout.
+
+- Introduce a deadline timer that aborts all repository synchronization
+  after seven eights of timeout (-s). With this rpki-client has improved
+  chances to complete and produce an output even when a CA is excessivly
+  slow.
+
+- Abort a currently running RRDP request process when the per-repository
+  timeout is reached.
+
+- Permit multiple AccessDescription entries in SIA X.509 extensions.
+  While fetching from secondary locations is not yet supported,
+  rpki-client will not treat occurence as a fatal error.
+
+- Resolve a potential for a race condition in non-atomic RRDP deltas.
+
+- Fix some memory leaks.
+
+- Improve compliance with the HTTP protocol specification.
+
 Version 7.9 - July 14th, 2022
 =============================
 
