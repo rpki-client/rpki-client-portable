@@ -15,7 +15,7 @@ jobs:
       matrix:
         compiler: [cc, clang, clang-12, gcc-10]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: autogen
         run: ./autogen.sh
       - name: compiler
