@@ -64,6 +64,7 @@ rpki_client_SOURCES += rrdp_snapshot.c
 rpki_client_SOURCES += rrdp_util.c
 rpki_client_SOURCES += rsc.c
 rpki_client_SOURCES += rsync.c
+rpki_client_SOURCES += tak.c
 rpki_client_SOURCES += tal.c
 rpki_client_SOURCES += validate.c
 rpki_client_SOURCES += x509.c
