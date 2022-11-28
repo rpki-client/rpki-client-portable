@@ -41,6 +41,7 @@ rpki_client_SOURCES += crl.c
 rpki_client_SOURCES += encoding.c
 rpki_client_SOURCES += filemode.c
 rpki_client_SOURCES += gbr.c
+rpki_client_SOURCES += geofeed.c
 rpki_client_SOURCES += http.c
 rpki_client_SOURCES += io.c
 rpki_client_SOURCES += ip.c
