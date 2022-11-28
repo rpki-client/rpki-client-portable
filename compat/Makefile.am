@@ -43,6 +43,10 @@ if !HAVE_FREEZERO
 libcompat_la_SOURCES += freezero.c
 endif
 
+if !HAVE_INET_NET_PTON
+libcompat_la_SOURCES += inet_net_pton.c
+endif
+
 if !HAVE_PIPE2
 libcompat_la_SOURCES += pipe2.c
 endif

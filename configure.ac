@@ -233,6 +233,10 @@ fi
 AC_SEARCH_LIBS([ibuf_open], [util])
 AC_CHECK_FUNCS([ibuf_open])
 
+# check functions that are expected to be in libresolv
+AC_SEARCH_LIBS([inet_net_pton],[resolv])
+AC_CHECK_FUNCS([inet_net_pton])
+
 # check functions that may be in different libs on other systems
 AC_SEARCH_LIBS([fts_open],[fts])
 AC_CHECK_FUNCS([fts_open])
@@ -255,6 +259,7 @@ AM_CONDITIONAL([HAVE_UNVEIL], [test "x$ac_cv_func_unveil" = xyes])
 AM_CONDITIONAL([HAVE_GETDTABLECOUNT], [test "x$ac_cv_func_getdtablecount" = xyes])
 AM_CONDITIONAL([HAVE_PIPE2], [test "x$ac_cv_func_pipe2" = xyes])
 AM_CONDITIONAL([HAVE_PPOLL], [test "x$ac_cv_func_ppoll" = xyes])
+AM_CONDITIONAL([HAVE_INET_NET_PTON], [test "x$ac_cv_func_inet_net_pton" = xyes])
 AM_CONDITIONAL([HAVE_STRNVIS], [test "x$ac_cv_func_strnvis" = xyes])
 AM_CONDITIONAL([BROKEN_STRNVIS], [test "x$ac_cv_broken_strnvis" = xyes])
 AM_CONDITIONAL([HAVE_IMSG], [test "x$ac_cv_func_ibuf_open" = xyes])
