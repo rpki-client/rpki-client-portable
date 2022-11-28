@@ -1,4 +1,5 @@
 noinst_HEADERS =
+noinst_HEADERS += arpa/inet.h
 noinst_HEADERS += sys/_null.h
 noinst_HEADERS += sys/queue.h
 noinst_HEADERS += sys/socket.h

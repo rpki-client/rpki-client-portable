@@ -55,6 +55,7 @@ for i in reallocarray.c recallocarray.c strtonum.c; do
 done
 ${CP_LIBC} "${libc_src}/hash/sha2.c" compat
 ${CP_LIBC} "${libc_src}/gen/vis.c" compat
+${CP_LIBC} "${libc_src}/net/inet_net_pton.c" compat
 ${CP} "${libutil_src}/imsg.c" compat/
 ${CP} "${libutil_src}/imsg-buffer.c" compat/
 (cd compat; ${PATCH} -p0 < "${patches}/patch-imsg.c")
