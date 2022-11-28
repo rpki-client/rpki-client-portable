@@ -1,4 +1,4 @@
-From 4720d051928686f8ab20601d4d41bc52a5c16f5f Mon Sep 17 00:00:00 2001
+From 80ecdc94795bdc9eeb7d8841fab362f806ff60fb Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Mon, 20 Apr 2020 12:16:46 +0200
 Subject: [PATCH 2/4] Apply placeholders for portability shim
@@ -9,10 +9,10 @@ From Robert Scheck
  1 file changed, 11 insertions(+), 11 deletions(-)
 
 diff --git src/usr.sbin/rpki-client/rpki-client.8 src/usr.sbin/rpki-client/rpki-client.8
-index 5c30428fb..e204ae6bc 100644
+index ccdbb114e..66e570e0c 100644
 --- src/usr.sbin/rpki-client/rpki-client.8
 +++ src/usr.sbin/rpki-client/rpki-client.8
-@@ -42,7 +42,7 @@ The
+@@ -44,7 +44,7 @@ The
  .Nm
  utility queries the RPKI repository system with
  a built-in HTTPS client and
@@ -21,7 +21,7 @@ index 5c30428fb..e204ae6bc 100644
  to fetch all X.509 certificates, manifests, and revocation lists under a given
  .Em Trust Anchor .
  .Nm
-@@ -87,12 +87,12 @@ The directory where
+@@ -90,12 +90,12 @@ The directory where
  .Nm
  will store the cached repository data.
  Defaults to
@@ -36,7 +36,7 @@ index 5c30428fb..e204ae6bc 100644
  to fetch repositories.
  It must accept the
  .Fl rt
-@@ -192,7 +192,7 @@ This option can be used multiple times to load multiple TALs.
+@@ -207,7 +207,7 @@ This option can be used multiple times to load multiple TALs.
  By default
  .Nm
  will load all TAL files in
@@ -45,7 +45,7 @@ index 5c30428fb..e204ae6bc 100644
  .It Fl V
  Show the version and exit.
  .It Fl v
-@@ -203,7 +203,7 @@ The directory where
+@@ -223,7 +223,7 @@ The directory where
  .Nm
  will write the output files.
  Defaults to
@@ -54,7 +54,7 @@ index 5c30428fb..e204ae6bc 100644
  .El
  .Pp
  By default
-@@ -228,24 +228,24 @@ utilizes the following environment variables:
+@@ -248,24 +248,24 @@ utilizes the following environment variables:
  URL of HTTP proxy to use.
  .El
  .Sh FILES
@@ -86,5 +86,5 @@ index 5c30428fb..e204ae6bc 100644
  .Sh STANDARDS
  The following standards are used or referenced in
 -- 
-2.36.1
+2.38.1
 
