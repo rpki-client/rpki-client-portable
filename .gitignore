@@ -33,6 +33,7 @@ rpki-client-*
 compat/explicit_bzero.c
 compat/imsg-buffer.c
 compat/imsg.c
+compat/inet_net_pton.c
 compat/memrchr.c
 compat/reallocarray.c
 compat/recallocarray.c
