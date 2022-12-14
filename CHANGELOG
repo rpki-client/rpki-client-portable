@@ -1,3 +1,57 @@
+Version 8.2 - December 14th, 2022
+=================================
+
+- Add a new '-H' command line option to create a shortlist of repositories to
+  synchronize to. For example, when invoking "rpki-client -H rpki.ripe.net -H
+  chloe.sobornost.net", the utility will not connect to any other hosts other
+  than the two specified through the -H option.
+
+- Add support for validating Geofeed (RFC 9092) authenticators.  To see an
+  example download https://sobornost.net/geofeed.csv and run
+  "rpki-client -f geofeed.csv"
+
+- Add support for validating Trust Anchor Key (TAK) objects. TAK objects can be
+  used to produce new Trust Anchor Locators (TALs) signed by and verified
+  against the previous Trust Anchor. See draft-ietf-sidrops-signed-tal for the
+  full specification.
+
+- Log lines related to RRDP/HTTPS connection problems now include the IP
+  address of the problematic endpoint (in brackets).
+
+- Improve the error message when an invalid filename is encountered in the
+  rpkiManifest field in the Subject Access Information (SIA) extension.
+
+- Emit a warning when unexpected X.509 extensions are encountered.
+
+- Restrict the ROA ipAddrBlocks field to only allow two ROAIPAddressFamily
+  structures (one per address family). See draft-ietf-sidrops-rfc6482bis.
+
+- Check the absence of the Path Length constraint in the Basic Constraints
+  extension.
+
+- Restrict the SIA extension to only allow the signedObject and rpkiNotify
+  accessMethods.
+
+- Check that the Signed Object access method is present in ROA, MFT, ASPA, TAK,
+  and GBR End-Entity certificates.
+
+- In addition to the 'rsync://' scheme, also permit other schemes (such as
+  'https://') in the SIA signedObject access method.
+
+- Check that the KeyUsage extension is set to nothing but digitalSignature on
+  End-Entity certificates.
+
+- Chect that the KeyUsage extension is set to nothing but keyCertSign and
+  CRLSign on CA certificates.
+
+- Check that the ExtendedKeyUsage extension is absent on CA certificates.
+
+- Fix a bug in the handling of the port of http_proxy.
+
+- The '-r' command line option has been deprecated.
+
+- Filemode (-f) output is now presented as a text based table.
+
 Version 8.0 - September 11th, 2022
 ==================================
 
