@@ -35,7 +35,7 @@ Use a previously fetched copy of the Signify key or GPG key to confirm authentic
     $ make
 
 rpki-client may work on other operating systems, newer and older, but the above
-ones are tested regularly by the developer.
+ones are tested regularly by the developers.
 
 If you install from a github repository checkout please read the [INSTALL](./INSTALL) file instead.
 
