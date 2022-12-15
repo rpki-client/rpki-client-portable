@@ -49,11 +49,13 @@ rpki_client_SOURCES += log.c
 rpki_client_SOURCES += main.c
 rpki_client_SOURCES += mft.c
 rpki_client_SOURCES += mkdir.c
-rpki_client_SOURCES += output.c
+rpki_client_SOURCES += ometric.c
 rpki_client_SOURCES += output-bgpd.c
 rpki_client_SOURCES += output-bird.c
 rpki_client_SOURCES += output-csv.c
 rpki_client_SOURCES += output-json.c
+rpki_client_SOURCES += output-ometric.c
+rpki_client_SOURCES += output.c
 rpki_client_SOURCES += parser.c
 rpki_client_SOURCES += print.c
 rpki_client_SOURCES += repo.c
@@ -72,7 +74,7 @@ rpki_client_SOURCES += x509.c
 
 rpki_client_DEPENDENCIES = rpki-client.8
 
-noinst_HEADERS = extern.h rrdp.h version.h
+noinst_HEADERS = extern.h ometric.h rrdp.h version.h
 
 rpki-client.8: rpki-client.8.in
 	$(SED) \
