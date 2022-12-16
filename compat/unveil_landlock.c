@@ -73,7 +73,7 @@ static int landlock_abi;
  * initalize landlock, which is stupidly complicated.
  */
 static int
-landlock_init(void)
+landlock_init(const char *permissions)
 {
 	struct landlock_ruleset_attr rattr = {
 		/*
@@ -105,9 +105,15 @@ landlock_init(void)
 	    LANDLOCK_CREATE_RULESET_VERSION);
 	if (landlock_abi == -1)
 		return -1;
-	if (landlock_abi < 2)
+	if (landlock_abi < 2) {
 		rattr.handled_access_fs &= ~LANDLOCK_ACCESS_FS_REFER;
+		if (permissions != NULL && strcmp(permissions, "rwc") == 0) {
+			landlock_state = -1;
+			return 0;
+		}
+	}
 
+	landlock_state = 1;
 	return landlock_create_ruleset(&rattr, sizeof(rattr), 0);
 }
 
@@ -160,15 +166,18 @@ unveil(const char *path, const char *permissions)
 	int fd, saved_errno;
 
 	if (landlock_state == 0) {
-		if ((landlock_fd = landlock_init()) == -1) {
+		if ((landlock_fd = landlock_init(permissions)) == -1) {
+			landlock_state = -1;
 			/* this kernel doesn't have landlock built in */
 			if (errno == ENOSYS || errno == EOPNOTSUPP)
 				return 0;
-			landlock_state = -1;
 			return -1;
 		}
-		landlock_state = 1;
 	}
+
+	/* no landlock available */
+	if (landlock_state == -1)
+		return 0;
 
 	if (path == NULL && permissions == NULL) {
 		return landlock_lock();
