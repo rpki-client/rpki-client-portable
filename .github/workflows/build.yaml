@@ -22,8 +22,8 @@ jobs:
         run: $CC -v
         env:
           CC: ${{ matrix.compiler }}
-      - name: libtls
-        run: ./build_libtls.sh
+      - name: install missing deps
+	run: sudo apt-get install libtls-dev
       - name: configure
         run: ./configure
         env:
