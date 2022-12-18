@@ -23,7 +23,7 @@ jobs:
         env:
           CC: ${{ matrix.compiler }}
       - name: install missing deps
-	run: sudo apt-get install libtls-dev
+        run: sudo apt-get install libtls-dev
       - name: configure
         run: ./configure
         env:
