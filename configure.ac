@@ -236,6 +236,32 @@ AC_CHECK_FUNCS([ibuf_open])
 # check functions that are expected to be in libresolv
 AC_SEARCH_LIBS([inet_net_pton],[resolv])
 AC_CHECK_FUNCS([inet_net_pton])
+# check if inet_net_pton code can be used
+if test "x$ac_cv_func_inet_net_pton" = "xyes"; then
+  AC_MSG_CHECKING([for working inet_net_pton])
+  AC_RUN_IFELSE(
+  [AC_LANG_PROGRAM([[
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <stdlib.h>
+  ]], [[
+  struct in_addr ia;
+  struct in6_addr ia6;
+
+  if (inet_net_pton(AF_INET, "192.0.2.0/24", &ia, sizeof(ia)) != 24)
+	  exit(1);
+  if (inet_net_pton(AF_INET6, "2001:db8::/32", &ia6, sizeof(ia6)) != 32)
+	  exit(1);
+  exit(0);
+  ]])],
+  [AC_MSG_RESULT([yes])],
+  [AC_MSG_RESULT([no])
+    ac_cv_broken_inet_net_pton="yes" ],
+  [AC_MSG_WARN([cross compiling: assuming broken])
+    ac_cv_broken_inet_net_pton="yes" ]
+  )
+fi
 
 # check functions that may be in different libs on other systems
 AC_SEARCH_LIBS([fts_open],[fts])
@@ -260,6 +286,8 @@ AM_CONDITIONAL([HAVE_GETDTABLECOUNT], [test "x$ac_cv_func_getdtablecount" = xyes
 AM_CONDITIONAL([HAVE_PIPE2], [test "x$ac_cv_func_pipe2" = xyes])
 AM_CONDITIONAL([HAVE_PPOLL], [test "x$ac_cv_func_ppoll" = xyes])
 AM_CONDITIONAL([HAVE_INET_NET_PTON], [test "x$ac_cv_func_inet_net_pton" = xyes])
+AM_CONDITIONAL([BROKEN_INET_NET_PTON], [test "x$ac_cv_broken_inet_net_pton" = xyes])
+
 AM_CONDITIONAL([HAVE_STRNVIS], [test "x$ac_cv_func_strnvis" = xyes])
 AM_CONDITIONAL([BROKEN_STRNVIS], [test "x$ac_cv_broken_strnvis" = xyes])
 AM_CONDITIONAL([HAVE_IMSG], [test "x$ac_cv_func_ibuf_open" = xyes])
