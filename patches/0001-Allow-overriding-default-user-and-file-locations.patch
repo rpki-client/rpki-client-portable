@@ -1,4 +1,4 @@
-From ca4dd3158bd3692ce6c36e32632830f250755d91 Mon Sep 17 00:00:00 2001
+From d731f24db58307a139c74061166a05c49b5e0bf5 Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Tue, 14 Apr 2020 22:43:56 +0200
 Subject: [PATCH 1/4] Allow overriding default user and file locations
@@ -10,10 +10,10 @@ Adjust version string for -portable
  2 files changed, 26 insertions(+), 8 deletions(-)
 
 diff --git src/usr.sbin/rpki-client/extern.h src/usr.sbin/rpki-client/extern.h
-index d6c3b93de..349956d53 100644
+index 9470d77e3..a0167a780 100644
 --- src/usr.sbin/rpki-client/extern.h
 +++ src/usr.sbin/rpki-client/extern.h
-@@ -856,10 +856,27 @@ time_t		getmonotime(void);
+@@ -857,10 +857,27 @@ time_t		getmonotime(void);
  int	mkpath(const char *);
  int	mkpathat(int, const char *);
  
@@ -43,10 +43,10 @@ index d6c3b93de..349956d53 100644
  /* Maximum number of TAL files we'll load. */
  #define	TALSZ_MAX		8
 diff --git src/usr.sbin/rpki-client/main.c src/usr.sbin/rpki-client/main.c
-index d93aaeb1a..2309cb8e2 100644
+index 7150511f6..1332c1564 100644
 --- src/usr.sbin/rpki-client/main.c
 +++ src/usr.sbin/rpki-client/main.c
-@@ -736,7 +736,7 @@ sum_stats(const struct repo *rp, const struct repostats *in, void *arg)
+@@ -738,7 +738,7 @@ sum_stats(const struct repo *rp, const struct repostats *in, void *arg)
  }
  
  /*
@@ -55,7 +55,7 @@ index d93aaeb1a..2309cb8e2 100644
   * returning the number of files found and filled-in.
   * This may be zero.
   * Don't exceed "max" filenames.
-@@ -744,7 +744,7 @@ sum_stats(const struct repo *rp, const struct repostats *in, void *arg)
+@@ -746,7 +746,7 @@ sum_stats(const struct repo *rp, const struct repostats *in, void *arg)
  static int
  tal_load_default(void)
  {
@@ -64,7 +64,7 @@ index d93aaeb1a..2309cb8e2 100644
  	int s = 0;
  	char *path;
  	DIR *dirp;
-@@ -907,7 +907,7 @@ main(int argc, char *argv[])
+@@ -909,7 +909,7 @@ main(int argc, char *argv[])
  	struct msgbuf	*queues[NPFD];
  	struct ibuf	*b, *httpbuf = NULL, *procbuf = NULL;
  	struct ibuf	*rrdpbuf = NULL, *rsyncbuf = NULL;
@@ -73,7 +73,7 @@ index d93aaeb1a..2309cb8e2 100644
  	char		*bind_addr = NULL;
  	const char	*cachedir = NULL, *outputdir = NULL;
  	const char	*errs, *name;
-@@ -924,9 +924,9 @@ main(int argc, char *argv[])
+@@ -926,9 +926,9 @@ main(int argc, char *argv[])
  	if (getuid() == 0) {
  		struct passwd *pw;
  
@@ -85,7 +85,7 @@ index d93aaeb1a..2309cb8e2 100644
  		if (setgroups(1, &pw->pw_gid) == -1 ||
  		    setresgid(pw->pw_gid, pw->pw_gid, pw->pw_gid) == -1 ||
  		    setresuid(pw->pw_uid, pw->pw_uid, pw->pw_uid) == -1)
-@@ -1008,7 +1008,8 @@ main(int argc, char *argv[])
+@@ -1013,7 +1013,8 @@ main(int argc, char *argv[])
  			verbose++;
  			break;
  		case 'V':
@@ -95,7 +95,7 @@ index d93aaeb1a..2309cb8e2 100644
  			return 0;
  		default:
  			goto usage;
-@@ -1054,7 +1055,7 @@ main(int argc, char *argv[])
+@@ -1059,7 +1060,7 @@ main(int argc, char *argv[])
  	if (talsz == 0)
  		talsz = tal_load_default();
  	if (talsz == 0)
@@ -105,5 +105,5 @@ index d93aaeb1a..2309cb8e2 100644
  	/*
  	 * Create the file reader as a jailed child process.
 -- 
-2.38.1
+2.39.0
 

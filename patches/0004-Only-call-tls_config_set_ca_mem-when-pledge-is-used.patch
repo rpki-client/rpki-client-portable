@@ -1,4 +1,4 @@
-From b260db346021c2d27a3b05894808c92a1afa8771 Mon Sep 17 00:00:00 2001
+From 205fb32508dde4792d695b70dd40b21fa6204f3a Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Wed, 1 Sep 2021 16:23:36 +0200
 Subject: [PATCH 4/4] Only call tls_config_set_ca_mem() when pledge() is used.
@@ -38,5 +38,5 @@ index 6c78bc06c..432e11bc0 100644
  	if ((httpproxy = getenv("http_proxy")) != NULL && *httpproxy == '\0')
  		httpproxy = NULL;
 -- 
-2.38.1
+2.39.0
 

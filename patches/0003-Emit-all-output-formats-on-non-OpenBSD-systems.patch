@@ -1,4 +1,4 @@
-From 01cd944c2fd05512e2a131693df91be2b993b7a3 Mon Sep 17 00:00:00 2001
+From f792ce14e27625447309f7d12b2839da34fa36f8 Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Fri, 6 Nov 2020 13:19:45 +0100
 Subject: [PATCH 3/4] Emit all output formats on non-OpenBSD systems
@@ -9,24 +9,24 @@ Subject: [PATCH 3/4] Emit all output formats on non-OpenBSD systems
  2 files changed, 5 insertions(+), 6 deletions(-)
 
 diff --git src/usr.sbin/rpki-client/main.c src/usr.sbin/rpki-client/main.c
-index 2309cb8e2..e9a2f8318 100644
+index 1332c1564..26e4154c7 100644
 --- src/usr.sbin/rpki-client/main.c
 +++ src/usr.sbin/rpki-client/main.c
-@@ -1047,7 +1047,8 @@ main(int argc, char *argv[])
+@@ -1052,7 +1052,8 @@ main(int argc, char *argv[])
  		if ((outdirfd = open(outputdir, O_RDONLY | O_DIRECTORY)) == -1)
  			err(1, "output directory %s", outputdir);
  		if (outformats == 0)
 -			outformats = FORMAT_OPENBGPD;
 +			outformats = FORMAT_OPENBGPD | FORMAT_JSON |
-+			    FORMAT_CSV | FORMAT_BIRD;
++			    FORMAT_CSV | FORMAT_BIRD | FORMAT_OMETRIC;
  	}
  
  	check_fs_size(cachefd, cachedir);
 diff --git src/usr.sbin/rpki-client/rpki-client.8 src/usr.sbin/rpki-client/rpki-client.8
-index 9fff0c4ad..f785af315 100644
+index 7d83d2401..28edc9bc5 100644
 --- src/usr.sbin/rpki-client/rpki-client.8
 +++ src/usr.sbin/rpki-client/rpki-client.8
-@@ -232,11 +232,9 @@ Defaults to
+@@ -234,11 +234,9 @@ Defaults to
  .Pp
  By default
  .Nm
@@ -36,11 +36,11 @@ index 9fff0c4ad..f785af315 100644
 -.Fl o
 -(OpenBGPD compatible) output.
 +produces a list of unique VRPs in
-+.Fl joBc
-+JSON, OpenBGPD, BIRD and CSV compatible output.
++.Fl joBcm
++JSON, OpenBGPD, BIRD, CSV and OpenMetric output.
  .Pp
  .Nm
  should be run hourly by
 -- 
-2.38.1
+2.39.0
 

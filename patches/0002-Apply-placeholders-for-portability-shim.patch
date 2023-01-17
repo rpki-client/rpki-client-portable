@@ -1,4 +1,4 @@
-From 3d02d16d9e52e2aa51ece633dc91ce9d7830754d Mon Sep 17 00:00:00 2001
+From 289af17e71e65c571abdce4518cffa18bed9bc19 Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Mon, 20 Apr 2020 12:16:46 +0200
 Subject: [PATCH 2/4] Apply placeholders for portability shim
@@ -9,7 +9,7 @@ From Robert Scheck
  1 file changed, 11 insertions(+), 11 deletions(-)
 
 diff --git src/usr.sbin/rpki-client/rpki-client.8 src/usr.sbin/rpki-client/rpki-client.8
-index 4c8fdd887..9fff0c4ad 100644
+index e5431a953..7d83d2401 100644
 --- src/usr.sbin/rpki-client/rpki-client.8
 +++ src/usr.sbin/rpki-client/rpki-client.8
 @@ -44,7 +44,7 @@ The
@@ -21,7 +21,7 @@ index 4c8fdd887..9fff0c4ad 100644
  to fetch all X.509 certificates, manifests, and revocation lists under a given
  .Em Trust Anchor .
  .Nm
-@@ -90,12 +90,12 @@ The directory where
+@@ -92,12 +92,12 @@ The directory where
  .Nm
  will store the cached repository data.
  Defaults to
@@ -36,7 +36,7 @@ index 4c8fdd887..9fff0c4ad 100644
  to fetch repositories.
  It must accept the
  .Fl rt
-@@ -211,7 +211,7 @@ This option can be used multiple times to load multiple TALs.
+@@ -213,7 +213,7 @@ This option can be used multiple times to load multiple TALs.
  By default
  .Nm
  will load all TAL files in
@@ -45,7 +45,7 @@ index 4c8fdd887..9fff0c4ad 100644
  .It Fl V
  Show the version and exit.
  .It Fl v
-@@ -227,7 +227,7 @@ The directory where
+@@ -229,7 +229,7 @@ The directory where
  .Nm
  will write the output files.
  Defaults to
@@ -54,7 +54,7 @@ index 4c8fdd887..9fff0c4ad 100644
  .El
  .Pp
  By default
-@@ -252,24 +252,24 @@ utilizes the following environment variables:
+@@ -254,24 +254,24 @@ utilizes the following environment variables:
  URL of HTTP proxy to use.
  .El
  .Sh FILES
@@ -86,5 +86,5 @@ index 4c8fdd887..9fff0c4ad 100644
  .Sh STANDARDS
  The following standards are used or referenced in
 -- 
-2.38.1
+2.39.0
 
