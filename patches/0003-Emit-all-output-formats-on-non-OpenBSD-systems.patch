@@ -1,4 +1,4 @@
-From f792ce14e27625447309f7d12b2839da34fa36f8 Mon Sep 17 00:00:00 2001
+From 3b0845b47977908a5dc3314449319ce403933a33 Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Fri, 6 Nov 2020 13:19:45 +0100
 Subject: [PATCH 3/4] Emit all output formats on non-OpenBSD systems
@@ -23,7 +23,7 @@ index 1332c1564..26e4154c7 100644
  
  	check_fs_size(cachefd, cachedir);
 diff --git src/usr.sbin/rpki-client/rpki-client.8 src/usr.sbin/rpki-client/rpki-client.8
-index 7d83d2401..28edc9bc5 100644
+index 7d83d2401..9d7a7d8bc 100644
 --- src/usr.sbin/rpki-client/rpki-client.8
 +++ src/usr.sbin/rpki-client/rpki-client.8
 @@ -234,11 +234,9 @@ Defaults to
@@ -35,9 +35,9 @@ index 7d83d2401..28edc9bc5 100644
 -statements in
 -.Fl o
 -(OpenBGPD compatible) output.
-+produces a list of unique VRPs in
++outputs validated payloads in
 +.Fl joBcm
-+JSON, OpenBGPD, BIRD, CSV and OpenMetric output.
++(JSON, OpenBGPD, BIRD, CSV and OpenMetric) formats.
  .Pp
  .Nm
  should be run hourly by
