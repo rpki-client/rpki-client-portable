@@ -1,4 +1,4 @@
-From 289af17e71e65c571abdce4518cffa18bed9bc19 Mon Sep 17 00:00:00 2001
+From 561e4838fc9072b74834535a15edb1e7b8155190 Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Mon, 20 Apr 2020 12:16:46 +0200
 Subject: [PATCH 2/4] Apply placeholders for portability shim
@@ -9,7 +9,7 @@ From Robert Scheck
  1 file changed, 11 insertions(+), 11 deletions(-)
 
 diff --git src/usr.sbin/rpki-client/rpki-client.8 src/usr.sbin/rpki-client/rpki-client.8
-index e5431a953..7d83d2401 100644
+index 85f617d4c..015891664 100644
 --- src/usr.sbin/rpki-client/rpki-client.8
 +++ src/usr.sbin/rpki-client/rpki-client.8
 @@ -44,7 +44,7 @@ The
@@ -54,7 +54,7 @@ index e5431a953..7d83d2401 100644
  .El
  .Pp
  By default
-@@ -254,24 +254,24 @@ utilizes the following environment variables:
+@@ -252,24 +252,24 @@ utilizes the following environment variables:
  URL of HTTP proxy to use.
  .El
  .Sh FILES

@@ -1,12 +1,12 @@
-From 3b0845b47977908a5dc3314449319ce403933a33 Mon Sep 17 00:00:00 2001
+From 7ee2fea3795b7512a748a30728a2a5df42fcdfd4 Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Fri, 6 Nov 2020 13:19:45 +0100
 Subject: [PATCH 3/4] Emit all output formats on non-OpenBSD systems
 
 ---
  src/usr.sbin/rpki-client/main.c        | 3 ++-
- src/usr.sbin/rpki-client/rpki-client.8 | 8 +++-----
- 2 files changed, 5 insertions(+), 6 deletions(-)
+ src/usr.sbin/rpki-client/rpki-client.8 | 4 ++--
+ 2 files changed, 4 insertions(+), 3 deletions(-)
 
 diff --git src/usr.sbin/rpki-client/main.c src/usr.sbin/rpki-client/main.c
 index 1332c1564..26e4154c7 100644
@@ -23,19 +23,15 @@ index 1332c1564..26e4154c7 100644
  
  	check_fs_size(cachefd, cachedir);
 diff --git src/usr.sbin/rpki-client/rpki-client.8 src/usr.sbin/rpki-client/rpki-client.8
-index 7d83d2401..9d7a7d8bc 100644
+index 015891664..6f458eb37 100644
 --- src/usr.sbin/rpki-client/rpki-client.8
 +++ src/usr.sbin/rpki-client/rpki-client.8
-@@ -234,11 +234,9 @@ Defaults to
- .Pp
+@@ -235,8 +235,8 @@ Defaults to
  By default
  .Nm
--produces a list of unique
--.Li roa-set
--statements in
+ outputs validated payloads in
 -.Fl o
--(OpenBGPD compatible) output.
-+outputs validated payloads in
+-(OpenBGPD compatible) format.
 +.Fl joBcm
 +(JSON, OpenBGPD, BIRD, CSV and OpenMetric) formats.
  .Pp
