@@ -1,4 +1,4 @@
-From 7ee2fea3795b7512a748a30728a2a5df42fcdfd4 Mon Sep 17 00:00:00 2001
+From 8a016a868acf1fb655b661c67b07e990885cc2d8 Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Fri, 6 Nov 2020 13:19:45 +0100
 Subject: [PATCH 3/4] Emit all output formats on non-OpenBSD systems
@@ -23,10 +23,10 @@ index 1332c1564..26e4154c7 100644
  
  	check_fs_size(cachefd, cachedir);
 diff --git src/usr.sbin/rpki-client/rpki-client.8 src/usr.sbin/rpki-client/rpki-client.8
-index 015891664..6f458eb37 100644
+index d2a0bb60d..c1f4d61a9 100644
 --- src/usr.sbin/rpki-client/rpki-client.8
 +++ src/usr.sbin/rpki-client/rpki-client.8
-@@ -235,8 +235,8 @@ Defaults to
+@@ -236,8 +236,8 @@ Defaults to
  By default
  .Nm
  outputs validated payloads in
@@ -38,5 +38,5 @@ index 015891664..6f458eb37 100644
  .Nm
  should be run hourly by
 -- 
-2.39.0
+2.39.1
 

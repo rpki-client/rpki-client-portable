@@ -1,4 +1,4 @@
-From 561e4838fc9072b74834535a15edb1e7b8155190 Mon Sep 17 00:00:00 2001
+From 7ce50a0c289e141b68997eca6d85f939c5ac197c Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Mon, 20 Apr 2020 12:16:46 +0200
 Subject: [PATCH 2/4] Apply placeholders for portability shim
@@ -9,7 +9,7 @@ From Robert Scheck
  1 file changed, 11 insertions(+), 11 deletions(-)
 
 diff --git src/usr.sbin/rpki-client/rpki-client.8 src/usr.sbin/rpki-client/rpki-client.8
-index 85f617d4c..015891664 100644
+index ed9a42dbd..d2a0bb60d 100644
 --- src/usr.sbin/rpki-client/rpki-client.8
 +++ src/usr.sbin/rpki-client/rpki-client.8
 @@ -44,7 +44,7 @@ The
@@ -42,10 +42,10 @@ index 85f617d4c..015891664 100644
  will load all TAL files in
 -.Pa /etc/rpki .
 +.Pa @RPKI_TAL_DIR@ .
+ TAL are small files containing a public key and URL endpoint address.
  .It Fl V
  Show the version and exit.
- .It Fl v
-@@ -229,7 +229,7 @@ The directory where
+@@ -230,7 +230,7 @@ The directory where
  .Nm
  will write the output files.
  Defaults to
@@ -54,7 +54,7 @@ index 85f617d4c..015891664 100644
  .El
  .Pp
  By default
-@@ -252,24 +252,24 @@ utilizes the following environment variables:
+@@ -253,18 +253,18 @@ utilizes the following environment variables:
  URL of HTTP proxy to use.
  .El
  .Sh FILES
@@ -77,6 +77,8 @@ index 85f617d4c..015891664 100644
 +.It Pa @RPKI_OUT_DIR@/openbgpd
  default roa-set output file.
  .El
+ .Pp
+@@ -275,7 +275,7 @@ agreement regarding ARIN service restrictions.
  .Sh EXIT STATUS
  .Ex -std
  .Sh SEE ALSO
@@ -84,7 +86,7 @@ index 85f617d4c..015891664 100644
 +.Xr @RSYNC@ 1 ,
  .Xr bgpd.conf 5
  .Sh STANDARDS
- The following standards are used or referenced in
+ .Rs
 -- 
-2.39.0
+2.39.1
 
