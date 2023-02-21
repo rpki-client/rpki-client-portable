@@ -264,6 +264,7 @@ if test "x$ac_cv_func_inet_net_pton" = "xyes"; then
 fi
 
 # check functions that may be in different libs on other systems
+AC_CHECK_HEADERS([fts.h], [], [AC_MSG_ERROR([fts.h is required])])
 AC_SEARCH_LIBS([fts_open],[fts])
 AC_CHECK_FUNCS([fts_open])
 
