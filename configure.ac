@@ -315,6 +315,24 @@ AC_CHECK_HEADERS([expat.h], [], [AC_MSG_ERROR([Expat headers required])])
 AC_CHECK_LIB([expat], [XML_Parse], [], [AC_MSG_ERROR([Expat library required])])
 AC_CHECK_FUNCS([XML_Parse XML_SetUserData], [], [AC_MSG_ERROR([Expat library required])])
 
+AC_ARG_ENABLE(landlock,
+	AS_HELP_STRING([--disable-landlock],
+		[ use landlock if available  [default=enabled]]),
+	[case $enableval in
+		yes) enable_landlock=yes;;
+		no) enable_landlock=no;;
+		*) enable_landlock=yes;; esac],
+	enable_landlock=yes)
+
+
+if test "x$enable_landlock" = "xyes"; then
+	AC_CHECK_HEADERS([linux/landlock.h])
+	if test "x$ac_cv_header_linux_landlock_h" = xyes; then
+		AC_DEFINE([HAVE_LANDLOCK])
+	fi
+	AM_CONDITIONAL([HAVE_LANDLOCK], [test "x$ac_cv_header_linux_landlock_h" = xyes])
+fi
+
 AC_ARG_WITH([user],
 	AS_HELP_STRING([--with-user=user],
 		[User for rpki-client to use when run as root]),

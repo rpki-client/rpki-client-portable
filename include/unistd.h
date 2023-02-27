@@ -13,11 +13,15 @@ int pipe2(int [2], int);
 #endif
 
 #ifndef HAVE_PLEDGE
-#define pledge(request, paths) 0
+int pledge(const char *, const char *);
+
+#ifdef HAVE_LANDLOCK
+void pledge_landlock(const char *);
+#endif
 #endif
 
 #ifndef HAVE_UNVEIL
-#define unveil(path, permissions) 0
+int unveil(const char *, const char *);
 #endif
 
 #include <grp.h>
