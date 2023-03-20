@@ -1,3 +1,65 @@
+Version 8.3 - March 19th, 2023
+==============================
+
+- The 'expires' key in the JSON/CSV/OpenBGPD output formats is now
+  calculated with more accuracy. The calculation takes into account the
+  nextUpdate value of all intermediate CRLs in the signature path
+  towards the trust anchor, in addition to the expiry moment of the
+  leaf-CRL and CAs.
+
+- Handling of CRLs and Manifests in the face of inconsistent RRDP delta
+  publications has been improved. A copy of an alternative version of
+  the applicable CRL is kept in the staging area of the cache directory,
+  in order to increase the potential for establishing a complete
+  publication point, in cases where a single publication point update
+  was smeared across multiple RRDP delta files.
+
+- The OpenBGPD configuration output now includes validated Autonomous
+  System Provider Authorization (ASPA) payloads as an 'aspa-set {}'
+  configuration block.
+
+- When rpki-client is invoked with increased verbosity ('-v'), the
+  current RRDP Serial & Session ID are shown to aid debugging.
+
+- Self-signed X.509 certificates (such as Trust Anchor certificates)
+  now are considered invalid if they contain an X.509
+  AuthorityInfoAccess extension.
+
+- Signed Objects where the CMS signing-time attribute contains a
+  timestamp later then the X.509 certificate's notAfter timestamp are
+  considered invalid.
+
+- Manifests where the CMS signing-time attribute contains a timestamp
+  later then the Manifest eContent nextUpdate timestamp are considered
+  invalid.
+
+- Any objects whose CRL Distribution Points extension contains a
+  CRLIssuer, CRL Reasons, or nameRelativeToCRLIssuer field are
+  considered invalid in accordance with RFC 6487 section 4.8.6.
+
+- For every X.509 certificate the SHA-1 of the Subject Public Key is
+  calculated and compared to the Subject Key Identifier (SKI), if a
+  mismatch is found the certificate is not trusted.
+
+- Require the outside-TBS signature OID for every X.509 intermediate
+  CA certificate and CRL to be sha256WithRSAEncryption.
+
+- Require the RSA key pair modulus and public exponent parameters to
+  strictly conform to the RFC 7935 profile.
+ 
+- Ensure there is no trailing garbage present in Signed Objects beyond
+  the self-embedded length field.
+
+- Require RRDP Session IDs to strictly be version 4 UUIDs.
+
+- When decoding and validating an individual RPKI file using filemode
+  (rpki-client -f file), display the signature path towards the trust
+  anchor, and the timestamp when the signature path will expire.
+
+- When decoding and validating an individual RPKI file using filemode
+  (rpki-client -f file), display the optional CMS signing-time, and
+  non-optional X.509 notBefore, and X.509 notAfter timestamps.
+
 Version 8.2 - December 14th, 2022
 =================================
 
