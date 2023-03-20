@@ -263,6 +263,20 @@ if test "x$ac_cv_func_inet_net_pton" = "xyes"; then
   )
 fi
 
+# check if HOST_NAME_MAX is available
+AC_MSG_CHECKING([for HOST_NAME_MAX])
+AC_COMPILE_IFELSE(
+ [AC_LANG_PROGRAM([[
+#include <limits.h>
+#include <unistd.h>
+]], [[
+  char buf[HOST_NAME_MAX + 1];
+]])],
+ [AC_MSG_RESULT([yes])
+  AC_DEFINE(HAVE_HOST_NAME_MAX) ],
+ [AC_MSG_RESULT([no])]
+)
+
 # check functions that may be in different libs on other systems
 AC_CHECK_HEADERS([fts.h], [], [AC_MSG_ERROR([fts.h is required])])
 AC_SEARCH_LIBS([fts_open],[fts])
