@@ -4,7 +4,7 @@ Version 8.3 - March 19th, 2023
 - Repository statistics (for example, how long it took to synchronize
   a repository) are now tracked and available in OpenMetrics format.
   Use the new '-m' command line option to emit various statistics
-  into the 'metrics' file in the output director.
+  into the 'metrics' file in the output directory.
 
 - The 'expires' key in the JSON/CSV/OpenBGPD output formats is now
   calculated with more accuracy. The calculation takes into account the
