@@ -13,15 +13,13 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        compiler: [cc, clang, clang-12, gcc-10]
+        compiler: [cc, clang, gcc-12]
         os: [ubuntu-latest, macos-latest]
         exclude:
           - os: macos-latest
             compiler: cc
           - os: macos-latest
-            compiler: clang-12
-          - os: macos-latest
-            compiler: gcc-10
+            compiler: gcc-12
     steps:
       - uses: actions/checkout@v3
       - name: install macOS autogen prerequisites
@@ -53,7 +51,7 @@ jobs:
         if: matrix.compiler == 'cc'
       - name: test run rrdp
         run: mkdir rpki-cache rpki; src/rpki-client -v -t afrinic.tal -t apnic.tal -t lacnic.tal -t ripe.tal -d rpki-cache rpki
-        if: matrix.compiler == 'cc'
+        if: runner.os == 'Linux' && matrix.compiler == 'cc'
       - name: test run rsync
         run: mkdir rpki-cache-rrdp rpki-rrdp; src/rpki-client -vR -t afrinic.tal -t apnic.tal -t lacnic.tal -t ripe.tal -d rpki-cache-rrdp rpki-rrdp
-        if: matrix.compiler == 'clang'
+        if: runner.os == 'Linux' && matrix.compiler == 'clang'
