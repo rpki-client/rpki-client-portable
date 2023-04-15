@@ -110,6 +110,10 @@ if !HAVE_X509_GET_EXTENSION_FLAGS
 libcompat_la_SOURCES += x509_purp.c
 endif
 
+if !HAVE_X509_GET0_UIDS
+libcompat_la_SOURCES += x509_get0_uids.c
+endif
+
 if !HAVE_PLEDGE
 libcompat_la_SOURCES += pledge.c
 endif
