@@ -274,8 +274,7 @@ unveil(const char *path, const char *permissions)
 			LANDLOCK_ACCESS_FS_REMOVE_DIR |
 			LANDLOCK_ACCESS_FS_REMOVE_FILE |
 			LANDLOCK_ACCESS_FS_MAKE_DIR |
-			LANDLOCK_ACCESS_FS_MAKE_REG |
-			LANDLOCK_ACCESS_FS_REFER,
+			LANDLOCK_ACCESS_FS_MAKE_REG,
 		    .parent_fd = fd,
 		};
 		if (landlock_abi >= 2)
