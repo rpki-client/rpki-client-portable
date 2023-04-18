@@ -62,7 +62,7 @@ landlock_restrict_self(int ruleset_fd, __u32 flags)
 #endif
 
 #ifndef LANDLOCK_ACCESS_FS_REFER
-#define LANDLOCK_ACCESS_FS_REFER	0
+#define LANDLOCK_ACCESS_FS_REFER	(1ULL << 13)
 #endif
 
 static int landlock_state;
