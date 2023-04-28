@@ -61,8 +61,8 @@ ${CP} "${libutil_src}/imsg-buffer.c" compat/
 (cd compat; ${PATCH} -p0 < "${patches}/patch-imsg.c")
 
 for i in as.c aspa.c cert.c cms.c crl.c encoding.c extern.h filemode.c \
-	gbr.c geofeed.c http.c io.c ip.c log.c main.c mft.c mkdir.c \
-	ometric.c ometric.h output-bgpd.c output-bird.c output-csv.c \
+	gbr.c geofeed.c http.c io.c ip.c json.c json.h log.c main.c mft.c \
+	mkdir.c ometric.c ometric.h output-bgpd.c output-bird.c output-csv.c \
 	output-json.c output-ometric.c output.c parser.c print.c \
 	repo.c roa.c rpki-client.8 rrdp.c rrdp.h rrdp_delta.c \
 	rrdp_notification.c rrdp_snapshot.c rrdp_util.c rsc.c rsync.c \

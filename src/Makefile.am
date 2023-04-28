@@ -45,6 +45,7 @@ rpki_client_SOURCES += geofeed.c
 rpki_client_SOURCES += http.c
 rpki_client_SOURCES += io.c
 rpki_client_SOURCES += ip.c
+rpki_client_SOURCES += json.c
 rpki_client_SOURCES += log.c
 rpki_client_SOURCES += main.c
 rpki_client_SOURCES += mft.c
@@ -74,7 +75,7 @@ rpki_client_SOURCES += x509.c
 
 rpki_client_DEPENDENCIES = rpki-client.8
 
-noinst_HEADERS = extern.h ometric.h rrdp.h version.h
+noinst_HEADERS = extern.h json.h ometric.h rrdp.h version.h
 
 rpki-client.8: rpki-client.8.in
 	$(SED) \
