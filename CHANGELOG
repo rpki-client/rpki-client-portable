@@ -1,3 +1,32 @@
+Version 8.4 - May 2nd, 2023
+==============================
+
+- The synchronisation protocol used to sync the repository is now
+  included in the OpenMetrics output.
+
+- In filemode (-f option) the applicable manifests are now shown as
+  part of the signature path.
+
+- A new -P option was added to manually specify a moment in time
+  to use when parsing the validity window of certificates. Useful
+  for regression testing. Default is invocation time of rpki-client.
+
+- The -A option will now also exclude ASPA data from the JSON output.
+
+- Improved accounting by tracking objects both by repo and tal.
+
+- For consistency, emit an explicit 'AS 0' Provider entry for ASPAs
+  containing implicit information for one AFI.
+
+- Fix missing whitespace in ASPA-set output for OpenBGPD.
+  (This bugfix was also released as OpenBSD 7.3 errata 001.)
+
+- Disallow X.509 v2 issuer and subject unique identifiers in certs.
+  RPKI CAs will never issue certificates with V2 unique identifiers.
+
+- Check whether products listed on a manifest were issued by the same
+  authority as the manifest itself.
+
 Version 8.3 - March 19th, 2023
 ==============================
 
