@@ -320,9 +320,10 @@ AC_CHECK_FUNCS([tls_default_ca_cert_file tls_config_set_ca_mem], [], [AC_MSG_ERR
 
 # check for libressl special functions after including libtls in case
 # these are present in that library
-AC_CHECK_FUNCS([ASN1_time_parse ASN1_time_tm_cmp X509_get0_uids])
+AC_CHECK_FUNCS([ASN1_time_parse ASN1_time_tm_cmp OPENSSL_cleanup X509_get0_uids])
 AM_CONDITIONAL([HAVE_ASN1_TIME_PARSE], [test "x$ac_cv_func_ASN1_time_parse" = xyes])
 AM_CONDITIONAL([HAVE_ASN1_TIME_TM_CMP], [test "x$ac_cv_func_ASN1_time_tm_cmp" = xyes])
+AM_CONDITIONAL([HAVE_OPENSSL_CLEANUP], [test "x$ac_cv_func_OPENSSL_cleanup" = xyes])
 AM_CONDITIONAL([HAVE_X509_GET0_UIDS], [test "x$ac_cv_func_X509_get0_uids" = xyes])
 
 AC_CHECK_HEADERS([expat.h], [], [AC_MSG_ERROR([Expat headers required])])
