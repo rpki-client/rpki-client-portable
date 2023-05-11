@@ -98,18 +98,6 @@ libcompat_la_SOURCES += imsg.c
 libcompat_la_SOURCES += imsg-buffer.c
 endif
 
-if !HAVE_ASN1_TIME_PARSE
-libcompat_la_SOURCES += a_time_tm.c
-else
-if   !HAVE_ASN1_TIME_TM_CMP
-libcompat_la_SOURCES += a_time_tm.c
-endif
-endif
-
-if !HAVE_OPENSSL_CLEANUP
-libcompat_la_SOURCES += crypto_init.c
-endif
-
 if !HAVE_X509_GET0_UIDS
 libcompat_la_SOURCES += x509_get0_uids.c
 endif
