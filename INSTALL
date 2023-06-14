@@ -5,6 +5,7 @@ You will need the following libraries:
  - libcrypto: LibreSSL (3.6.0 or newer) or OpenSSL (1.1.0a or newer).
  - libtls: LibreSSL or libretls
  - libexpat
+ - zlib
 
 2. Building / Installation
 --------------------------
@@ -15,7 +16,7 @@ prepare the source tree for building:
  1. ensure you have the following packages installed:
       automake, autoconf, git, libtool
  2. The following dependencies are required to build rpki-client:
-      OpenSSL or LibreSSL, LibreSSL libtls or libretls, Expat
+      OpenSSL or LibreSSL, LibreSSL libtls or libretls, Expat, zlib
  3. run './autogen.sh' to prepare the source tree for building.
     './autogen.sh', will checkout a version of rpki-client-openbsd into the
     directory "openbsd". This is a stripped down version of the OpenBSD
