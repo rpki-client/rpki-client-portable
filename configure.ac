@@ -171,7 +171,7 @@ AC_ARG_WITH([expat-cflags],
 	LIBEXPAT_CFLAGS="$withval"
 )
 AC_ARG_WITH([expat-ldflags],
-	AS_HELP_STRING([--with-libtls-ldflags=STRING],
+	AS_HELP_STRING([--with-expat-ldflags=STRING],
 		[Extra flags for linker to link with Expat library]),
 	LIBEXPAT_LDFLAGS="$withval"
 )
@@ -181,6 +181,33 @@ AC_SUBST(LIBEXPAT_LDFLAGS)
 CFLAGS="$CFLAGS $LIBEXPAT_CFLAGS"
 CPPFLAGS="$CPPFLAGS $LIBEXPAT_CFLAGS"
 LDFLAGS="$LDFLAGS $LIBEXPAT_LDFLAGS"
+
+AC_ARG_WITH([zlib],
+	AS_HELP_STRING([--with-zlib=pkg-name],
+		[Use pkg-config(1) pkg-name to find zlib]),
+	PKG_NAME="$withval"
+)
+if test X"$PKG_NAME" != X; then
+	ZLIB_CFLAGS=`pkg-config --cflags-only-I $PKG_NAME 2>/dev/null`
+	ZLIB_LDFLAGS=`pkg-config --libs-only-L $PKG_NAME 2>/dev/null`
+fi
+
+AC_ARG_WITH([zlib-cflags],
+	AS_HELP_STRING([--with-zlib-cflags=STRING],
+		[Extra compiler flags to build with zlib]),
+	ZLIB_CFLAGS="$withval"
+)
+AC_ARG_WITH([zlib-ldflags],
+	AS_HELP_STRING([--with-zlib-ldflags=STRING],
+		[Extra flags for linker to link with zlib library]),
+	ZLIB_LDFLAGS="$withval"
+)
+AC_SUBST(ZLIB_CFLAGS)
+AC_SUBST(ZLIB_LDFLAGS)
+
+CFLAGS="$CFLAGS $ZLIB_CFLAGS"
+CPPFLAGS="$CPPFLAGS $ZLIB_CFLAGS"
+LDFLAGS="$LDFLAGS $ZLIB_LDFLAGS"
 
 # check functions that are expected to be in libc
 AC_CHECK_FUNCS([explicit_bzero])
@@ -327,6 +354,10 @@ AM_CONDITIONAL([HAVE_X509_GET0_UIDS], [test "x$ac_cv_func_X509_get0_uids" = xyes
 AC_CHECK_HEADERS([expat.h], [], [AC_MSG_ERROR([Expat headers required])])
 AC_CHECK_LIB([expat], [XML_Parse], [], [AC_MSG_ERROR([Expat library required])])
 AC_CHECK_FUNCS([XML_Parse XML_SetUserData], [], [AC_MSG_ERROR([Expat library required])])
+
+AC_CHECK_HEADERS([zlib.h], [], [AC_MSG_ERROR([zlib headers required])])
+AC_CHECK_LIB([z], [inflate], [], [AC_MSG_ERROR([zlib library required])])
+AC_CHECK_FUNCS([inflate inflateEnd inflateReset], [], [AC_MSG_ERROR([zlib library required])])
 
 AC_ARG_ENABLE(landlock,
 	AS_HELP_STRING([--disable-landlock],
