@@ -9,6 +9,7 @@ noinst_HEADERS += sys/types.h
 noinst_HEADERS += sys/wait.h
 noinst_HEADERS += openssl/safestack.h
 noinst_HEADERS += openssl/x509.h
+noinst_HEADERS += endian.h
 noinst_HEADERS += imsg.h
 noinst_HEADERS += poll.h
 noinst_HEADERS += sha2.h

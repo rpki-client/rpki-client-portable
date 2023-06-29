@@ -209,6 +209,8 @@ CFLAGS="$CFLAGS $ZLIB_CFLAGS"
 CPPFLAGS="$CPPFLAGS $ZLIB_CFLAGS"
 LDFLAGS="$LDFLAGS $ZLIB_LDFLAGS"
 
+AC_CHECK_HEADERS([endian.h])
+
 # check functions that are expected to be in libc
 AC_CHECK_FUNCS([explicit_bzero])
 AC_CHECK_FUNCS([reallocarray recallocarray freezero])
