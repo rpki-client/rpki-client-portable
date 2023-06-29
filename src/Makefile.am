@@ -46,7 +46,6 @@ rpki_client_SOURCES += http.c
 rpki_client_SOURCES += io.c
 rpki_client_SOURCES += ip.c
 rpki_client_SOURCES += json.c
-rpki_client_SOURCES += log.c
 rpki_client_SOURCES += main.c
 rpki_client_SOURCES += mft.c
 rpki_client_SOURCES += mkdir.c
