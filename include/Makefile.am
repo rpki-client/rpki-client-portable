@@ -7,6 +7,7 @@ noinst_HEADERS += sys/time.h
 noinst_HEADERS += sys/tree.h
 noinst_HEADERS += sys/types.h
 noinst_HEADERS += sys/wait.h
+noinst_HEADERS += openssl/cms.h
 noinst_HEADERS += openssl/safestack.h
 noinst_HEADERS += openssl/x509.h
 noinst_HEADERS += endian.h
