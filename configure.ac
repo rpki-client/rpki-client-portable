@@ -485,8 +485,8 @@ if test "x$enable_landlock" = "xyes"; then
 	if test "x$ac_cv_header_linux_landlock_h" = xyes; then
 		AC_DEFINE([HAVE_LANDLOCK])
 	fi
-	AM_CONDITIONAL([HAVE_LANDLOCK], [test "x$ac_cv_header_linux_landlock_h" = xyes])
 fi
+AM_CONDITIONAL([HAVE_LANDLOCK], [test "x$ac_cv_header_linux_landlock_h" = xyes])
 
 AC_ARG_WITH([user],
 	AS_HELP_STRING([--with-user=user],
