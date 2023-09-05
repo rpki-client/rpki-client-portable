@@ -117,3 +117,38 @@ else
 libcompat_la_SOURCES += unveil.c
 endif
 endif
+
+if !HAVE_ARC4RANDOM
+libcompat_la_SOURCES += arc4random.c
+libcompat_la_SOURCES += arc4random_uniform.c
+
+if !HAVE_GETENTROPY
+if HOST_FREEBSD
+libcompat_la_SOURCES += getentropy_freebsd.c
+endif
+if HOST_LINUX
+libcompat_la_SOURCES += getentropy_linux.c
+libcompat_la_SOURCES += sha2.c
+endif
+if HOST_NETBSD
+libcompat_la_SOURCES += getentropy_netbsd.c
+endif
+if HOST_DARWIN
+libcompat_la_SOURCES += getentropy_osx.c
+libcompat_la_SOURCES += sha2.c
+endif
+if HOST_SOLARIS
+libcompat_la_SOURCES += getentropy_solaris.c
+libcompat_la_SOURCES += sha2.c
+endif
+endif
+endif
+
+noinst_HEADERS = arc4random.h
+noinst_HEADERS += arc4random_freebsd.h
+noinst_HEADERS += arc4random_linux.h
+noinst_HEADERS += arc4random_netbsd.h
+noinst_HEADERS += arc4random_osx.h
+noinst_HEADERS += arc4random_solaris.h
+noinst_HEADERS += arc4random_win.h
+noinst_HEADERS += chacha_private.h

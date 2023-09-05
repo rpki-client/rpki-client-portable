@@ -8,6 +8,14 @@
 #ifndef LIBCOMPAT_STDLIB_H
 #define LIBCOMPAT_STDLIB_H
 
+#include <stdint.h>
+
+#ifndef HAVE_ARC4RANDOM_
+uint32_t arc4random(void);
+uint32_t arc4random_uniform(uint32_t);
+void arc4random_buf(void *buf, size_t nbytes);
+#endif
+
 #ifndef HAVE_REALLOCARRAY
 void *reallocarray(void *, size_t, size_t);
 #endif

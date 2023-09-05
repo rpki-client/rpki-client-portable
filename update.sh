@@ -28,6 +28,7 @@ patches="${dir}/patches"
 etc_src="${dir}/openbsd/src/etc/rpki"
 libc_inc="${dir}/openbsd/src/include"
 libc_src="${dir}/openbsd/src/lib/libc"
+arc4random_src="${dir}/openbsd/src/lib/libcrypto/arc4random"
 libutil_src="${dir}/openbsd/src/lib/libutil"
 rpkiclient_src="${dir}/openbsd/src/usr.sbin/rpki-client"
 
@@ -56,6 +57,14 @@ done
 ${CP_LIBC} "${libc_src}/hash/sha2.c" compat
 ${CP_LIBC} "${libc_src}/gen/vis.c" compat
 ${CP_LIBC} "${libc_src}/net/inet_net_pton.c" compat
+${CP_LIBC} "${libc_src}/crypt/arc4random.c" compat
+${CP_LIBC} "${libc_src}/crypt/arc4random_uniform.c" compat
+${CP_LIBC} "${libc_src}/crypt/chacha_private.h" compat
+for i in "${arc4random_src}"/getentropy_*.c; do
+	sed -e 's/openssl\/sha.h/sha2.h/' < "${i}" > compat/`basename "${i}"`
+done
+${CP} "${arc4random_src}"/arc4random_*.h compat
+
 ${CP} "${libutil_src}/imsg.c" compat/
 ${CP} "${libutil_src}/imsg-buffer.c" compat/
 (cd compat; ${PATCH} -p0 < "${patches}/patch-imsg.c")

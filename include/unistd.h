@@ -24,6 +24,10 @@ void pledge_landlock(const char *);
 int unveil(const char *, const char *);
 #endif
 
+#ifndef HAVE_GETENTROPY
+int getentropy(void *, size_t);
+#endif
+
 #include <grp.h>
 
 #ifndef HAVE_SETGROUPS

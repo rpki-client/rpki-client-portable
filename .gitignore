@@ -30,7 +30,11 @@ Makefile.in
 rpki-client-*
 
 *.tal
+compat/arc4random.c
+compat/arc4random_*
+compat/chacha_private.h
 compat/explicit_bzero.c
+compat/getentropy_*
 compat/imsg-buffer.c
 compat/imsg.c
 compat/inet_net_pton.c
