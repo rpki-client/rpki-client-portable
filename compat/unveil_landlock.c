@@ -107,6 +107,7 @@ landlock_init(const char *permissions)
 		return -1;
 	if (landlock_abi < 2) {
 		rattr.handled_access_fs &= ~LANDLOCK_ACCESS_FS_REFER;
+		/* The "rwc" permissions require ABI v2 or greater */
 		if (permissions != NULL && strcmp(permissions, "rwc") == 0) {
 			landlock_state = -1;
 			return 0;
@@ -155,8 +156,8 @@ pledge_landlock(const char *promises)
 
 /*
  * This is by no means a proper implementation of unveil() but it is
- * good enough for rpki-client which uses only a few featrues.
- * rpki-client only uses 'r' and 'x' and for 'x' we need to do
+ * good enough for rpki-client which uses only a few features.
+ * rpki-client only uses 'r', 'rwc' and 'x' and for 'x' we need to do
  * some horrible hacks.
  */
 int
