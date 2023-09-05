@@ -25,9 +25,49 @@ case $host_os in
 	*darwin*)
 		HOST_OS=darwin
 		AC_DEFINE([SPT_TYPE], [SPT_REUSEARGV])
+		#
+		# Don't use arc4random on systems before 10.12 because of
+		# weak seed on failure to open /dev/random, based on latest
+		# public source:
+		# http://www.opensource.apple.com/source/Libc/Libc-997.90.3/gen/FreeBSD/arc4random.c
+		#
+		# We use the presence of getentropy() to detect 10.12. The
+		# following check take into account that:
+		#
+		#   - iOS <= 10.1 fails because of missing getentropy and
+		#     hence they miss sys/random.h
+		#
+		#   - in macOS 10.12 getentropy is not tagged as introduced in
+		#     10.12 so we cannot use it for target < 10.12
+		#
+		AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+#include <AvailabilityMacros.h>
+#include <unistd.h>
+#include <sys/random.h>  /* Systems without getentropy() should die here */
+
+/* Based on: https://gitweb.torproject.org/tor.git/commit/?id=16fcbd21 */
+#ifndef MAC_OS_X_VERSION_10_12
+#  define MAC_OS_X_VERSION_10_12 101200
+#endif
+#if defined(MAC_OS_X_VERSION_MIN_REQUIRED)
+#  if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_12
+#    error "Running on Mac OSX 10.11 or earlier"
+#  endif
+#endif
+                       ]], [[
+char buf[1]; getentropy(buf, 1);
+					   ]])],
+                       [ USE_BUILTIN_ARC4RANDOM=no ],
+                       [ USE_BUILTIN_ARC4RANDOM=yes ]
+		)
+		AC_MSG_CHECKING([whether to use builtin arc4random])
+		AC_MSG_RESULT([$USE_BUILTIN_ARC4RANDOM])
 		;;
 	*freebsd*)
 		HOST_OS=freebsd
+		# fork detection missing, weak seed on failure
+		# https://svnweb.freebsd.org/base/head/lib/libc/gen/arc4random.c?revision=268642&view=markup
+		USE_BUILTIN_ARC4RANDOM=yes
 		;;
 	*linux*)
 		HOST_OS=linux
@@ -36,6 +76,15 @@ case $host_os in
 		;;
 	*netbsd*)
 		HOST_OS=netbsd
+		AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+#include <sys/param.h>
+#if __NetBSD_Version__ < 700000001
+        undefined
+#endif
+                       ]], [[]])],
+                       [ USE_BUILTIN_ARC4RANDOM=no ],
+                       [ USE_BUILTIN_ARC4RANDOM=yes ]
+		)
 		;;
 	*openbsd*)
 		HOST_OS=openbsd
@@ -220,6 +269,52 @@ AC_CHECK_FUNCS([memrchr strlcat strlcpy strtonum])
 AC_CHECK_FUNCS([pledge unveil])
 AC_CHECK_FUNCS([getdtablecount pipe2 ppoll])
 AC_CHECK_FUNCS([strnvis])
+AC_CHECK_FUNCS([arc4random_uniform])
+
+AC_CACHE_CHECK([for getentropy], ac_cv_func_getentropy, [
+	AC_LINK_IFELSE([AC_LANG_PROGRAM([[
+#include <sys/types.h>
+#include <unistd.h>
+
+/*
+ * Explanation:
+ *
+ *   - iOS <= 10.1 fails because of missing sys/random.h
+ *
+ *   - in macOS 10.12 getentropy is not tagged as introduced in
+ *     10.12 so we cannot use it for target < 10.12
+ */
+#ifdef __APPLE__
+#  include <AvailabilityMacros.h>
+#  include <TargetConditionals.h>
+
+# if (TARGET_OS_IPHONE || TARGET_OS_SIMULATOR)
+#  include <sys/random.h> /* Not available as of iOS <= 10.1 */
+# else
+
+#  include <sys/random.h> /* Pre 10.12 systems should die here */
+
+/* Based on: https://gitweb.torproject.org/tor.git/commit/?id=16fcbd21 */
+#  ifndef MAC_OS_X_VERSION_10_12
+#    define MAC_OS_X_VERSION_10_12 101200 /* Robustness */
+#  endif
+#  if defined(MAC_OS_X_VERSION_MIN_REQUIRED)
+#    if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_12
+#      error "Targeting on Mac OSX 10.11 or earlier"
+#    endif
+#  endif
+
+# endif
+#endif /* __APPLE__ */
+		]], [[
+	char buffer;
+	(void)getentropy(&buffer, sizeof (buffer));
+]])],
+	[ ac_cv_func_getentropy="yes" ],
+	[ ac_cv_func_getentropy="no"
+	])
+])
+
 
 dnl NetBSD added an strnvis and unfortunately made it incompatible with the
 dnl existing one in OpenBSD and Linux's libbsd (the former having existed
@@ -313,6 +408,7 @@ AC_CHECK_FUNCS([fts_open])
 
 # Share test results with automake
 AM_CONDITIONAL([HAVE_EXPLICIT_BZERO], [test "x$ac_cv_func_explicit_bzero" = xyes])
+AM_CONDITIONAL([HAVE_GETENTROPY], [test "x$ac_cv_func_getentropy" = xyes])
 AM_CONDITIONAL([HAVE_REALLOCARRAY], [test "x$ac_cv_func_reallocarray" = xyes])
 AM_CONDITIONAL([HAVE_RECALLOCARRAY], [test "x$ac_cv_func_recallocarray" = xyes])
 AM_CONDITIONAL([HAVE_FREEZERO], [test "x$ac_cv_func_freezero" = xyes])
@@ -335,6 +431,11 @@ AM_CONDITIONAL([BROKEN_INET_NET_PTON], [test "x$ac_cv_broken_inet_net_pton" = xy
 AM_CONDITIONAL([HAVE_STRNVIS], [test "x$ac_cv_func_strnvis" = xyes])
 AM_CONDITIONAL([BROKEN_STRNVIS], [test "x$ac_cv_broken_strnvis" = xyes])
 AM_CONDITIONAL([HAVE_IMSG], [test "x$ac_cv_func_ibuf_open" = xyes])
+
+# overrides for arc4random implementations with known issues
+AM_CONDITIONAL([HAVE_ARC4RANDOM],
+	[test "x$USE_BUILTIN_ARC4RANDOM" != xyes \
+		   -a "x$ac_cv_func_arc4random_uniform" = xyes])
 
 AC_CHECK_HEADERS([err.h sha2.h])
 
