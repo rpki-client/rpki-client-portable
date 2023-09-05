@@ -31,15 +31,15 @@ int getentropy(void *, size_t);
 #include <grp.h>
 
 #ifndef HAVE_SETGROUPS
-int setgroups(int ngroups, const gid_t *gidset);
+int setgroups(int, const gid_t *);
 #endif
 
 #ifndef HAVE_SETRESGID
-int setresgid(gid_t rgid, gid_t egid, gid_t sgid);
+int setresgid(gid_t, gid_t, gid_t);
 #endif
 
 #ifndef HAVE_SETRESUID
-int setresuid(uid_t ruid, uid_t euid, uid_t suid);
+int setresuid(uid_t, uid_t, uid_t);
 #endif
 
 #ifndef HAVE_HOST_NAME_MAX
