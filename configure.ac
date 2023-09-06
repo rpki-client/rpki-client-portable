@@ -65,9 +65,15 @@ char buf[1]; getentropy(buf, 1);
 		;;
 	*freebsd*)
 		HOST_OS=freebsd
-		# fork detection missing, weak seed on failure
-		# https://svnweb.freebsd.org/base/head/lib/libc/gen/arc4random.c?revision=268642&view=markup
-		USE_BUILTIN_ARC4RANDOM=yes
+		AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+#include <sys/param.h>
+#if __FreeBSD_version < 1200000
+        undefined
+#endif
+                       ]], [[]])],
+                       [ USE_BUILTIN_ARC4RANDOM=no ],
+                       [ USE_BUILTIN_ARC4RANDOM=yes ]
+		)
 		;;
 	*linux*)
 		HOST_OS=linux
@@ -435,7 +441,7 @@ AM_CONDITIONAL([HAVE_IMSG], [test "x$ac_cv_func_ibuf_open" = xyes])
 # overrides for arc4random implementations with known issues
 AM_CONDITIONAL([HAVE_ARC4RANDOM],
 	[test "x$USE_BUILTIN_ARC4RANDOM" != xyes \
-		   -a "x$ac_cv_func_arc4random_uniform" = xyes])
+	   -a "x$ac_cv_func_arc4random_uniform" = xyes])
 
 AC_CHECK_HEADERS([err.h sha2.h])
 
