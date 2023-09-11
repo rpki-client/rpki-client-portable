@@ -21,7 +21,7 @@ index ed9a42dbd..d2a0bb60d 100644
  to fetch all X.509 certificates, manifests, and revocation lists under a given
  .Em Trust Anchor .
  .Nm
-@@ -92,12 +92,12 @@ The directory where
+@@ -93,12 +93,12 @@ The directory where
  .Nm
  will store the cached repository data.
  Defaults to
@@ -36,7 +36,16 @@ index ed9a42dbd..d2a0bb60d 100644
  to fetch repositories.
  It must accept the
  .Fl rt
-@@ -213,7 +213,7 @@ This option can be used multiple times to load multiple TALs.
+@@ -193,7 +193,7 @@ The skip filter is enforced during processing of the
+ .Em Subject Information Access Pq SIA
+ extension in CA certificates, thus applies to both RSYNC and RRDP connections.
+ By default load entries from
+-.Pa /etc/rpki/skiplist .
++.Pa @RPKI_TAL_DIR@/skiplist .
+ .It Fl s Ar timeout
+ Terminate after
+ .Ar timeout
+@@ -219,7 +219,7 @@ This option can be used multiple times to load multiple TALs.
  By default
  .Nm
  will load all TAL files in
@@ -45,7 +54,7 @@ index ed9a42dbd..d2a0bb60d 100644
  TAL are small files containing a public key and URL endpoint address.
  .It Fl V
  Show the version and exit.
-@@ -230,7 +230,7 @@ The directory where
+@@ -236,7 +236,7 @@ The directory where
  .Nm
  will write the output files.
  Defaults to
@@ -54,7 +63,7 @@ index ed9a42dbd..d2a0bb60d 100644
  .El
  .Pp
  By default
-@@ -253,18 +253,18 @@ utilizes the following environment variables:
+@@ -259,18 +259,18 @@ utilizes the following environment variables:
  URL of HTTP proxy to use.
  .El
  .Sh FILES
@@ -78,7 +87,7 @@ index ed9a42dbd..d2a0bb60d 100644
  default roa-set output file.
  .El
  .Pp
-@@ -275,7 +275,7 @@ agreement regarding ARIN service restrictions.
+@@ -281,7 +281,7 @@ agreement regarding ARIN service restrictions.
  .Sh EXIT STATUS
  .Ex -std
  .Sh SEE ALSO
