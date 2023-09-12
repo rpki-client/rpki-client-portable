@@ -8,10 +8,10 @@ Subject: [PATCH 3/4] Emit all output formats on non-OpenBSD systems
  src/usr.sbin/rpki-client/rpki-client.8 | 4 ++--
  2 files changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/src/usr.sbin/rpki-client/main.c b/src/usr.sbin/rpki-client/main.c
+diff --git src/usr.sbin/rpki-client/main.c src/usr.sbin/rpki-client/main.c
 index 297b12cf9..0afd86d89 100644
---- a/src/usr.sbin/rpki-client/main.c
-+++ b/src/usr.sbin/rpki-client/main.c
+--- src/usr.sbin/rpki-client/main.c
++++ src/usr.sbin/rpki-client/main.c
 @@ -1085,7 +1085,8 @@ main(int argc, char *argv[])
  		if ((outdirfd = open(outputdir, O_RDONLY | O_DIRECTORY)) == -1)
  			err(1, "output directory %s", outputdir);
@@ -22,10 +22,10 @@ index 297b12cf9..0afd86d89 100644
  	}
  
  	check_fs_size(cachefd, cachedir);
-diff --git a/src/usr.sbin/rpki-client/rpki-client.8 b/src/usr.sbin/rpki-client/rpki-client.8
+diff --git src/usr.sbin/rpki-client/rpki-client.8 src/usr.sbin/rpki-client/rpki-client.8
 index 9544525de..8f7a0b8c5 100644
---- a/src/usr.sbin/rpki-client/rpki-client.8
-+++ b/src/usr.sbin/rpki-client/rpki-client.8
+--- src/usr.sbin/rpki-client/rpki-client.8
++++ src/usr.sbin/rpki-client/rpki-client.8
 @@ -242,8 +242,8 @@ Defaults to
  By default
  .Nm

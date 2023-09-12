@@ -8,10 +8,10 @@ From Robert Scheck
  src/usr.sbin/rpki-client/rpki-client.8 | 24 ++++++++++++------------
  1 file changed, 12 insertions(+), 12 deletions(-)
 
-diff --git a/src/usr.sbin/rpki-client/rpki-client.8 b/src/usr.sbin/rpki-client/rpki-client.8
+diff --git src/usr.sbin/rpki-client/rpki-client.8 src/usr.sbin/rpki-client/rpki-client.8
 index 0644f3309..9544525de 100644
---- a/src/usr.sbin/rpki-client/rpki-client.8
-+++ b/src/usr.sbin/rpki-client/rpki-client.8
+--- src/usr.sbin/rpki-client/rpki-client.8
++++ src/usr.sbin/rpki-client/rpki-client.8
 @@ -44,7 +44,7 @@ The
  .Nm
  utility queries the RPKI repository system with

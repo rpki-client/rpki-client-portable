@@ -9,10 +9,10 @@ Adjust version string for -portable
  src/usr.sbin/rpki-client/main.c   | 15 ++++++++-------
  2 files changed, 26 insertions(+), 8 deletions(-)
 
-diff --git a/src/usr.sbin/rpki-client/extern.h b/src/usr.sbin/rpki-client/extern.h
+diff --git src/usr.sbin/rpki-client/extern.h src/usr.sbin/rpki-client/extern.h
 index e41baff2f..53f01a5dc 100644
---- a/src/usr.sbin/rpki-client/extern.h
-+++ b/src/usr.sbin/rpki-client/extern.h
+--- src/usr.sbin/rpki-client/extern.h
++++ src/usr.sbin/rpki-client/extern.h
 @@ -889,10 +889,27 @@ time_t		getmonotime(void);
  int	mkpath(const char *);
  int	mkpathat(int, const char *);
@@ -42,10 +42,10 @@ index e41baff2f..53f01a5dc 100644
  
  /* Maximum number of TAL files we'll load. */
  #define	TALSZ_MAX		8
-diff --git a/src/usr.sbin/rpki-client/main.c b/src/usr.sbin/rpki-client/main.c
+diff --git src/usr.sbin/rpki-client/main.c src/usr.sbin/rpki-client/main.c
 index 6c39865e0..297b12cf9 100644
---- a/src/usr.sbin/rpki-client/main.c
-+++ b/src/usr.sbin/rpki-client/main.c
+--- src/usr.sbin/rpki-client/main.c
++++ src/usr.sbin/rpki-client/main.c
 @@ -765,7 +765,7 @@ sum_repostats(const struct repo *rp, const struct repostats *in, void *arg)
  }
  

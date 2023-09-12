@@ -10,10 +10,10 @@ This is one giant hole but landlock is not capable to do proper protection.
  src/usr.sbin/rpki-client/http.c | 16 ++++++++++++++++
  1 file changed, 16 insertions(+)
 
-diff --git a/src/usr.sbin/rpki-client/http.c b/src/usr.sbin/rpki-client/http.c
+diff --git src/usr.sbin/rpki-client/http.c src/usr.sbin/rpki-client/http.c
 index c460c2056..43dfbed35 100644
---- a/src/usr.sbin/rpki-client/http.c
-+++ b/src/usr.sbin/rpki-client/http.c
+--- src/usr.sbin/rpki-client/http.c
++++ src/usr.sbin/rpki-client/http.c
 @@ -64,6 +64,9 @@
  #include <vis.h>
  #include <zlib.h>
