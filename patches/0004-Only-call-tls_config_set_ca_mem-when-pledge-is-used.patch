@@ -1,4 +1,4 @@
-From d61e1a0ae918e8688b4bb577a081a69c43dd4a03 Mon Sep 17 00:00:00 2001
+From 2f4e64e110e06d6f47e050cad8bc98800b775e1c Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Wed, 1 Sep 2021 16:23:36 +0200
 Subject: [PATCH 4/4] Only call tls_config_set_ca_mem() when pledge() is used.
@@ -10,13 +10,13 @@ This is one giant hole but landlock is not capable to do proper protection.
  src/usr.sbin/rpki-client/http.c | 16 ++++++++++++++++
  1 file changed, 16 insertions(+)
 
-diff --git src/usr.sbin/rpki-client/http.c src/usr.sbin/rpki-client/http.c
-index 6c78bc06c..830d62738 100644
---- src/usr.sbin/rpki-client/http.c
-+++ src/usr.sbin/rpki-client/http.c
-@@ -63,6 +63,9 @@
+diff --git a/src/usr.sbin/rpki-client/http.c b/src/usr.sbin/rpki-client/http.c
+index c460c2056..43dfbed35 100644
+--- a/src/usr.sbin/rpki-client/http.c
++++ b/src/usr.sbin/rpki-client/http.c
+@@ -64,6 +64,9 @@
  #include <vis.h>
- #include <imsg.h>
+ #include <zlib.h>
  
 +#ifndef HAVE_PLEDGE
 +#include <openssl/x509.h>
@@ -24,7 +24,7 @@ index 6c78bc06c..830d62738 100644
  #include <tls.h>
  
  #include "extern.h"
-@@ -154,8 +157,10 @@ static unsigned int		http_conn_count;
+@@ -166,8 +169,10 @@ static unsigned int		http_conn_count;
  static struct msgbuf msgq;
  static struct sockaddr_storage http_bindaddr;
  static struct tls_config *tls_config;
@@ -35,7 +35,7 @@ index 6c78bc06c..830d62738 100644
  
  /* HTTP request API */
  static void	http_req_new(unsigned int, char *, char *, int, int);
-@@ -1799,12 +1804,23 @@ http_setup(void)
+@@ -2014,12 +2019,23 @@ http_setup(void)
  		    tls_config_error(tls_config));
  #endif
  
@@ -60,5 +60,5 @@ index 6c78bc06c..830d62738 100644
  	if ((httpproxy = getenv("http_proxy")) != NULL && *httpproxy == '\0')
  		httpproxy = NULL;
 -- 
-2.39.1
+2.42.0
 

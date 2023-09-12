@@ -1,4 +1,4 @@
-From f599ed442644e3c5bc4b7306dcdc3a6fe1f99c71 Mon Sep 17 00:00:00 2001
+From 836670a8124a3dc91bbc7e6a70ac8988720524ab Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Fri, 6 Nov 2020 13:19:45 +0100
 Subject: [PATCH 3/4] Emit all output formats on non-OpenBSD systems
@@ -8,11 +8,11 @@ Subject: [PATCH 3/4] Emit all output formats on non-OpenBSD systems
  src/usr.sbin/rpki-client/rpki-client.8 | 4 ++--
  2 files changed, 4 insertions(+), 3 deletions(-)
 
-diff --git src/usr.sbin/rpki-client/main.c src/usr.sbin/rpki-client/main.c
-index 8808871b3..36ffebc2c 100644
---- src/usr.sbin/rpki-client/main.c
-+++ src/usr.sbin/rpki-client/main.c
-@@ -1054,7 +1054,8 @@ main(int argc, char *argv[])
+diff --git a/src/usr.sbin/rpki-client/main.c b/src/usr.sbin/rpki-client/main.c
+index 297b12cf9..0afd86d89 100644
+--- a/src/usr.sbin/rpki-client/main.c
++++ b/src/usr.sbin/rpki-client/main.c
+@@ -1085,7 +1085,8 @@ main(int argc, char *argv[])
  		if ((outdirfd = open(outputdir, O_RDONLY | O_DIRECTORY)) == -1)
  			err(1, "output directory %s", outputdir);
  		if (outformats == 0)
@@ -22,11 +22,11 @@ index 8808871b3..36ffebc2c 100644
  	}
  
  	check_fs_size(cachefd, cachedir);
-diff --git src/usr.sbin/rpki-client/rpki-client.8 src/usr.sbin/rpki-client/rpki-client.8
-index d2a0bb60d..c1f4d61a9 100644
---- src/usr.sbin/rpki-client/rpki-client.8
-+++ src/usr.sbin/rpki-client/rpki-client.8
-@@ -236,8 +236,8 @@ Defaults to
+diff --git a/src/usr.sbin/rpki-client/rpki-client.8 b/src/usr.sbin/rpki-client/rpki-client.8
+index 9544525de..8f7a0b8c5 100644
+--- a/src/usr.sbin/rpki-client/rpki-client.8
++++ b/src/usr.sbin/rpki-client/rpki-client.8
+@@ -242,8 +242,8 @@ Defaults to
  By default
  .Nm
  outputs validated payloads in
@@ -38,5 +38,5 @@ index d2a0bb60d..c1f4d61a9 100644
  .Nm
  should be run hourly by
 -- 
-2.39.1
+2.42.0
 
