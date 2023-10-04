@@ -1,3 +1,22 @@
+Version 8.6 - Oct 4th, 2023
+==============================
+
+- A compliance check was added to ensure the X.509 Subject only
+  contains commonName and optionally serialNumber.
+
+- A compliance check was added to ensure the CMS SignedData and
+  SignerInfo versions to be 3.
+                                                                                                                
+- Fisher-Yates shuffle the order in which Manifest entries are
+  processed. Previously, work items were enqueued in the order the CA
+  intended them to appear on a Manifest. However, there is no obvious
+  benefit to third parties deciding the order in which things are
+  processed. Now the Manifest ordering is randomized (as the order has
+  no meaning anyway), and the number of concurrent repository
+  synchronization operations is limited & timeboxed.
+
+- Various refactoring work.
+
 Version 8.5 - Jul 29th, 2023
 ==============================
 
