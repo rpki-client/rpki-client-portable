@@ -18,7 +18,7 @@
 #include <signal.h>
 #include <time.h>
 
-static sig_atomic_t signaled;
+static volatile sig_atomic_t signaled;
 static void (*sigfunc)(int);
 static int initalized;
 
@@ -62,10 +62,9 @@ ppoll(struct pollfd *fds, nfds_t nfds, const struct timespec *timeout,
 	/* check if signal was pending and fired */
 	if (signaled) {
 		errno = EINTR;
-		return -1;
-	}
-
-	rc = poll(fds, nfds, t);
+		rc = -1;
+	} else
+		rc = poll(fds, nfds, t);
 
 	saved_errno = errno;
 	if (mask)
