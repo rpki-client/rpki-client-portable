@@ -1,4 +1,4 @@
-From 59f110fb896aaef102af16b416af248c1b79c6f3 Mon Sep 17 00:00:00 2001
+From 201b9892b2a37ecf08518e2e60b6abcc9d6b8db4 Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Tue, 14 Apr 2020 22:43:56 +0200
 Subject: [PATCH 1/4] Allow overriding default user and file locations
@@ -10,10 +10,10 @@ Adjust version string for -portable
  2 files changed, 26 insertions(+), 8 deletions(-)
 
 diff --git src/usr.sbin/rpki-client/extern.h src/usr.sbin/rpki-client/extern.h
-index e41baff2f..53f01a5dc 100644
+index 52df7f8e0..56ae748ea 100644
 --- src/usr.sbin/rpki-client/extern.h
 +++ src/usr.sbin/rpki-client/extern.h
-@@ -889,10 +889,27 @@ time_t		getmonotime(void);
+@@ -910,10 +910,27 @@ time_t		getmonotime(void);
  int	mkpath(const char *);
  int	mkpathat(int, const char *);
  
@@ -43,7 +43,7 @@ index e41baff2f..53f01a5dc 100644
  /* Maximum number of TAL files we'll load. */
  #define	TALSZ_MAX		8
 diff --git src/usr.sbin/rpki-client/main.c src/usr.sbin/rpki-client/main.c
-index 6c39865e0..297b12cf9 100644
+index f91a9d693..390928e9e 100644
 --- src/usr.sbin/rpki-client/main.c
 +++ src/usr.sbin/rpki-client/main.c
 @@ -765,7 +765,7 @@ sum_repostats(const struct repo *rp, const struct repostats *in, void *arg)
@@ -102,8 +102,8 @@ index 6c39865e0..297b12cf9 100644
 -		err(1, "no TAL files found in %s", "/etc/rpki");
 +		err(1, "no TAL files found in %s", RPKI_PATH_TAL_DIR);
  
- 	/*
- 	 * Create the file reader as a jailed child process.
+ 	/* Load optional constraint files sitting next to the TALs. */
+ 	constraints_load();
 -- 
 2.42.0
 
