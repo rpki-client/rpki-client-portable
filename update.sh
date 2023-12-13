@@ -40,8 +40,9 @@ CP='cp -p'
 MV='mv -f'
 PATCH='patch -s'
 
-echo "copying tal"
+echo "copying tal and constraints"
 ${CP} ${etc_src}/*.tal "${dir}"
+${CP} ${etc_src}/*.constraints "${dir}"
 
 echo "copying includes"
 sed '/DECLS/d' "${libc_inc}/sha2.h" > include/sha2_openbsd.h
