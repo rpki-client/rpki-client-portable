@@ -30,6 +30,7 @@ Makefile.in
 rpki-client-*
 
 *.tal
+*.constraints
 compat/arc4random.c
 compat/arc4random_*
 compat/chacha_private.h
