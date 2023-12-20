@@ -1,15 +1,15 @@
 Version 8.7 - Dec 20th, 2023
 ============================
 
-- Introduction of an ability to constrain a RPKI Trust Anchor's
-  effective signing authority to a limited set of Internet numbers. This
-  allows Relying Parties to enjoy the potential benefits of assuming
-  trust, but within a bounded scope. This distribution includes curated
-  constraints files. More information:
+- Add ability to constrain an RPKI Trust Anchor's effective signing
+  authority to a limited set of Internet numbers. This allows Relying
+  Parties to enjoy the potential benefits of assuming trust, but within
+  a bounded scope. This distribution includes curated constraints files.
+  More information:
   https://datatracker.ietf.org/doc/html/draft-snijders-constraining-rpki-trust-anchors
 
 - Following a 'failed fetch' (described in RFC 9286), emit a warning and
-  continue with a previously cached Manifest file, iff present & still
+  continue with a previously cached Manifest file, if present and still
   valid.
 
 - Emit a warning when the same manifestNumber is re-used across multiple
@@ -17,11 +17,10 @@ Version 8.7 - Dec 20th, 2023
 
 - Emit a warning when the remote repository presents a Manifest with an
   unexpected manifestNumber. Purported new manifests are expected to
-  have a higher manifestNumber than previously validated manifests. If
-  the purported new manifest contains a manifestNumber value equal to or
-  lower than the manifestNumber of the previously validated & cached
-  manifest, the previously cached Manifest file is used. This warning
-  can be indicative of manifest replays or out-of-order publishing.
+  have a higher manifestNumber than previously validated manifests.
+  Otherwise fall back to the previously cached manifest, if it is still
+  valid. This warning can be indicative of manifest replays or of
+  out-of-order publishing.
 
 - Require RPKI object files to be of a minimum of 100 bytes in both the
   RRDP and RSYNC transports.
@@ -31,7 +30,7 @@ Version 8.7 - Dec 20th, 2023
 
 - Improved CRL extension checking.
 
-- Experimental support for the P-256 signature algorithm was added.
+- Experimental support for the P-256 signature algorithm.
 
 - Various refactoring work.
 
