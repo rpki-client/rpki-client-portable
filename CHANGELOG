@@ -4,7 +4,9 @@ Version 8.8 - Dec 29th, 2023
   a use after free.
 
 - Reject non-conforming RRDP delta elements that contain neither publish
-  nor a withdraw element.
+  nor a withdraw element and fall back to the RRDP snapshot.
+
+- Refactoring and minor bug fixes in the warning display functions.
 
 Version 8.7 - Dec 20th, 2023
 ============================
