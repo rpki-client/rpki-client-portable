@@ -1,3 +1,8 @@
+Version 8.8 - Dec 29th, 2023
+
+- This is a bug fix release. A problem was identified in which a failed
+  manifest fetch could result in a NULL dereference or a use after free.
+
 Version 8.7 - Dec 20th, 2023
 ============================
 
