@@ -1,10 +1,10 @@
-Version 8.9 - Feb, 2024
+Version 8.9 - Feb 13th, 2024
+============================
 
-- The handling of manifests fetched via rsync or RRDP was reworked.
-  If there is a cached manifest of the same name, both issuance date and
-  manifest number must have been increased, otherwise the manifest must
-  not have changed at all. Invalid manifests are now also discarded from
-  the cache.
+- The handling of manifests fetched via rsync or RRDP was reworked to
+  fully conform to RFC 9286. The issuance date and manifest number of
+  the purported new manifest file must have been increased, otherwise
+  the cached version is used.
 
 - As a consequence of the above changes, some warnings for .mft files
   were reworded. The notion of a stale manifest is no longer used.
