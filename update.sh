@@ -76,7 +76,7 @@ for i in as.c aspa.c cert.c cms.c crl.c constraints.c encoding.c extern.h filemo
 	output-json.c output-ometric.c output.c parser.c print.c \
 	repo.c rfc3779.c roa.c rpki-client.8 rrdp.c rrdp.h rrdp_delta.c \
 	rrdp_notification.c rrdp_snapshot.c rrdp_util.c rsc.c rsync.c \
-	tak.c tal.c validate.c version.h x509.c
+	spl.c tak.c tal.c validate.c version.h x509.c
 do
 	file=`basename ${i}`
 	echo Copying ${file}
