@@ -3,7 +3,7 @@ Version 9.0 - Mar 2nd, 2024
 
 - Added support for RPKI Signed Prefix Lists
 
-  Signed Prefix Lists carry he complete list of prefixes which an Autonomous
+  Signed Prefix Lists carry the complete list of prefixes which an Autonomous
   System may originate its routing peers. The validation of a Signed Prefix
   List confirms that the holder of the listed ASN produced the object. This
   list is a current, accurate and complete description of address prefixes
