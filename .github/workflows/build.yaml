@@ -41,7 +41,7 @@ jobs:
           echo "CPPFLAGS=-I$(brew --prefix openssl@3)/include" >> $GITHUB_ENV
         if: runner.os == 'macOS'
       - name: configure
-        run: ./configure
+        run: ./configure --with-libtls=libtls
         env:
           CC: ${{ matrix.compiler }}
       - name: make
