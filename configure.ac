@@ -156,6 +156,11 @@ AM_LDFLAGS="$LDFLAGS $CLANG_FLAGS"
 AC_SUBST(AM_CFLAGS)
 AC_SUBST(AM_LDFLAGS)
 
+AC_CHECK_SIZEOF([time_t], [time.h])
+if test "$ac_cv_sizeof_time_t" -lt "8"; then
+	AC_MSG_ERROR([rpki-client doesn't support broken OS with small time_t])
+fi
+
 AC_ARG_WITH([openssl],
 	AS_HELP_STRING([--with-openssl=pkg-name],
 		[Use pkg-config(1) pkg-name to find OpenSSL files]),
