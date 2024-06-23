@@ -1,27 +1,17 @@
-From 7e234b2e7d66b1cff1875fef49011c74ed0de291 Mon Sep 17 00:00:00 2001
-From: Claudio Jeker <claudio@openbsd.org>
-Date: Mon, 20 Apr 2020 12:16:46 +0200
-Subject: [PATCH 2/4] Apply placeholders for portability shim
-
-From Robert Scheck
----
- src/usr.sbin/rpki-client/rpki-client.8 | 26 +++++++++++++-------------
- 1 file changed, 13 insertions(+), 13 deletions(-)
-
-diff --git src/usr.sbin/rpki-client/rpki-client.8 src/usr.sbin/rpki-client/rpki-client.8
-index 8fd47548f..014825693 100644
---- src/usr.sbin/rpki-client/rpki-client.8
-+++ src/usr.sbin/rpki-client/rpki-client.8
-@@ -44,7 +44,7 @@ The
- .Nm
- utility queries the RPKI repository system with
- a built-in HTTPS client and
+diff --git a/usr.sbin/rpki-client/rpki-client.8 b/usr.sbin/rpki-client/rpki-client.8
+index f74d9dceb72..67237c57151 100644
+--- a/usr.sbin/rpki-client/rpki-client.8
++++ b/usr.sbin/rpki-client/rpki-client.8
+@@ -45,7 +45,7 @@ The
+ utility queries the
+ .Em Resource Public Key Infrastructure Pq RPKI
+ repository system with a built-in HTTPS client and
 -.Xr openrsync 1
 +.Xr @RSYNC@ 1
  to fetch all X.509 certificates, manifests, and revocation lists under a given
  .Em Trust Anchor .
  .Nm
-@@ -93,12 +93,12 @@ The directory where
+@@ -94,12 +94,12 @@ The directory where
  .Nm
  will store the cached repository data.
  Defaults to
@@ -36,7 +26,7 @@ index 8fd47548f..014825693 100644
  to fetch repositories.
  It must accept the
  .Fl rt
-@@ -193,7 +193,7 @@ The skip filter is enforced during processing of the
+@@ -194,7 +194,7 @@ The skip filter is enforced during processing of the
  .Em Subject Information Access Pq SIA
  extension in CA certificates, thus applies to both RSYNC and RRDP connections.
  By default load entries from
@@ -45,7 +35,7 @@ index 8fd47548f..014825693 100644
  .It Fl s Ar timeout
  Terminate after
  .Ar timeout
-@@ -219,7 +219,7 @@ This option can be used multiple times to load multiple TALs.
+@@ -220,7 +220,7 @@ This option can be used multiple times to load multiple TALs.
  By default
  .Nm
  will load all TAL files in
@@ -54,7 +44,7 @@ index 8fd47548f..014825693 100644
  TAL are small files containing a public key and URL endpoint address.
  .It Fl V
  Show the version and exit.
-@@ -236,7 +236,7 @@ The directory where
+@@ -241,7 +241,7 @@ The directory where
  .Nm
  will write the output files.
  Defaults to
@@ -63,7 +53,7 @@ index 8fd47548f..014825693 100644
  .El
  .Pp
  By default
-@@ -297,22 +297,22 @@ utilizes the following environment variables:
+@@ -303,22 +303,22 @@ utilizes the following environment variables:
  URL of HTTP proxy to use.
  .El
  .Sh FILES
@@ -92,7 +82,7 @@ index 8fd47548f..014825693 100644
  default roa-set output file.
  .El
  .Pp
-@@ -323,7 +323,7 @@ agreement regarding ARIN service restrictions.
+@@ -329,7 +329,7 @@ agreement regarding ARIN service restrictions.
  .Sh EXIT STATUS
  .Ex -std
  .Sh SEE ALSO
@@ -101,6 +91,3 @@ index 8fd47548f..014825693 100644
  .Xr bgpd.conf 5
  .Sh STANDARDS
  .Rs
--- 
-2.42.0
-
