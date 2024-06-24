@@ -1,4 +1,4 @@
-From b39b577caf4be22d23d225a4bafdc0b6045fa39b Mon Sep 17 00:00:00 2001
+From 95ac765c21c3d792fc45c1c3054480bdbed11bbe Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Wed, 1 Sep 2021 16:23:36 +0200
 Subject: [PATCH 4/4] Only call tls_config_set_ca_mem() when pledge() is used.
@@ -11,7 +11,7 @@ This is one giant hole but landlock is not capable to do proper protection.
  1 file changed, 16 insertions(+)
 
 diff --git src/usr.sbin/rpki-client/http.c src/usr.sbin/rpki-client/http.c
-index c460c2056..43dfbed35 100644
+index 78ee91e57..02ebf8184 100644
 --- src/usr.sbin/rpki-client/http.c
 +++ src/usr.sbin/rpki-client/http.c
 @@ -64,6 +64,9 @@
@@ -35,7 +35,7 @@ index c460c2056..43dfbed35 100644
  
  /* HTTP request API */
  static void	http_req_new(unsigned int, char *, char *, int, int);
-@@ -2014,12 +2019,23 @@ http_setup(void)
+@@ -2025,12 +2030,23 @@ http_setup(void)
  		    tls_config_error(tls_config));
  #endif
  
@@ -60,5 +60,5 @@ index c460c2056..43dfbed35 100644
  	if ((httpproxy = getenv("http_proxy")) != NULL && *httpproxy == '\0')
  		httpproxy = NULL;
 -- 
-2.42.0
+2.45.2
 

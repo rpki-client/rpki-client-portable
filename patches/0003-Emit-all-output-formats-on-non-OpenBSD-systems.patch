@@ -1,4 +1,4 @@
-From 60c58baca92fed8a10ca22c6f3a2b8a2f35ae9d3 Mon Sep 17 00:00:00 2001
+From f2687537fce37c1fda73eebf926cfd327dbcc7ec Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Fri, 6 Nov 2020 13:19:45 +0100
 Subject: [PATCH 3/4] Emit all output formats on non-OpenBSD systems
@@ -9,10 +9,10 @@ Subject: [PATCH 3/4] Emit all output formats on non-OpenBSD systems
  2 files changed, 4 insertions(+), 3 deletions(-)
 
 diff --git src/usr.sbin/rpki-client/main.c src/usr.sbin/rpki-client/main.c
-index 390928e9e..fca51766b 100644
+index 6b3c9e4f3..322150a12 100644
 --- src/usr.sbin/rpki-client/main.c
 +++ src/usr.sbin/rpki-client/main.c
-@@ -1085,7 +1085,8 @@ main(int argc, char *argv[])
+@@ -1124,7 +1124,8 @@ main(int argc, char *argv[])
  		if ((outdirfd = open(outputdir, O_RDONLY | O_DIRECTORY)) == -1)
  			err(1, "output directory %s", outputdir);
  		if (outformats == 0)
@@ -23,10 +23,10 @@ index 390928e9e..fca51766b 100644
  
  	check_fs_size(cachefd, cachedir);
 diff --git src/usr.sbin/rpki-client/rpki-client.8 src/usr.sbin/rpki-client/rpki-client.8
-index 014825693..119bc83e2 100644
+index 67237c571..13eaea94f 100644
 --- src/usr.sbin/rpki-client/rpki-client.8
 +++ src/usr.sbin/rpki-client/rpki-client.8
-@@ -242,8 +242,8 @@ Defaults to
+@@ -247,8 +247,8 @@ Defaults to
  By default
  .Nm
  outputs validated payloads in
@@ -38,5 +38,5 @@ index 014825693..119bc83e2 100644
  .Nm
  should be run hourly by
 -- 
-2.42.0
+2.45.2
 

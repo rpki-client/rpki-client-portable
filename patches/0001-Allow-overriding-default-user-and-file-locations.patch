@@ -1,4 +1,4 @@
-From 201b9892b2a37ecf08518e2e60b6abcc9d6b8db4 Mon Sep 17 00:00:00 2001
+From 7b01108679335ba29111a27e85375f0ca62c55ce Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Tue, 14 Apr 2020 22:43:56 +0200
 Subject: [PATCH 1/4] Allow overriding default user and file locations
@@ -10,10 +10,10 @@ Adjust version string for -portable
  2 files changed, 26 insertions(+), 8 deletions(-)
 
 diff --git src/usr.sbin/rpki-client/extern.h src/usr.sbin/rpki-client/extern.h
-index 52df7f8e0..56ae748ea 100644
+index b811b485e..f2518f180 100644
 --- src/usr.sbin/rpki-client/extern.h
 +++ src/usr.sbin/rpki-client/extern.h
-@@ -910,10 +910,27 @@ time_t		getmonotime(void);
+@@ -979,10 +979,27 @@ time_t		 get_current_time(void);
  int	mkpath(const char *);
  int	mkpathat(int, const char *);
  
@@ -43,10 +43,10 @@ index 52df7f8e0..56ae748ea 100644
  /* Maximum number of TAL files we'll load. */
  #define	TALSZ_MAX		8
 diff --git src/usr.sbin/rpki-client/main.c src/usr.sbin/rpki-client/main.c
-index f91a9d693..390928e9e 100644
+index 342548ce3..6b3c9e4f3 100644
 --- src/usr.sbin/rpki-client/main.c
 +++ src/usr.sbin/rpki-client/main.c
-@@ -765,7 +765,7 @@ sum_repostats(const struct repo *rp, const struct repostats *in, void *arg)
+@@ -800,7 +800,7 @@ sum_repostats(const struct repo *rp, const struct repostats *in, void *arg)
  }
  
  /*
@@ -55,7 +55,7 @@ index f91a9d693..390928e9e 100644
   * returning the number of files found and filled-in.
   * This may be zero.
   * Don't exceed "max" filenames.
-@@ -773,7 +773,7 @@ sum_repostats(const struct repo *rp, const struct repostats *in, void *arg)
+@@ -808,7 +808,7 @@ sum_repostats(const struct repo *rp, const struct repostats *in, void *arg)
  static int
  tal_load_default(void)
  {
@@ -64,7 +64,7 @@ index f91a9d693..390928e9e 100644
  	int s = 0;
  	char *path;
  	DIR *dirp;
-@@ -936,7 +936,7 @@ main(int argc, char *argv[])
+@@ -971,7 +971,7 @@ main(int argc, char *argv[])
  	struct msgbuf	*queues[NPFD];
  	struct ibuf	*b, *httpbuf = NULL, *procbuf = NULL;
  	struct ibuf	*rrdpbuf = NULL, *rsyncbuf = NULL;
@@ -73,7 +73,7 @@ index f91a9d693..390928e9e 100644
  	char		*bind_addr = NULL;
  	const char	*cachedir = NULL, *outputdir = NULL;
  	const char	*errs, *name;
-@@ -953,9 +953,9 @@ main(int argc, char *argv[])
+@@ -989,9 +989,9 @@ main(int argc, char *argv[])
  	if (getuid() == 0) {
  		struct passwd *pw;
  
@@ -85,7 +85,7 @@ index f91a9d693..390928e9e 100644
  		if (setgroups(1, &pw->pw_gid) == -1 ||
  		    setresgid(pw->pw_gid, pw->pw_gid, pw->pw_gid) == -1 ||
  		    setresuid(pw->pw_uid, pw->pw_uid, pw->pw_uid) == -1)
-@@ -1046,7 +1046,8 @@ main(int argc, char *argv[])
+@@ -1082,7 +1082,8 @@ main(int argc, char *argv[])
  			verbose++;
  			break;
  		case 'V':
@@ -93,9 +93,9 @@ index f91a9d693..390928e9e 100644
 +			fprintf(stderr, "rpki-client-portable %s\n",
 +			    RPKI_VERSION);
  			return 0;
- 		default:
- 			goto usage;
-@@ -1092,7 +1093,7 @@ main(int argc, char *argv[])
+ 		case 'x':
+ 			experimental = 1;
+@@ -1131,7 +1132,7 @@ main(int argc, char *argv[])
  	if (talsz == 0)
  		talsz = tal_load_default();
  	if (talsz == 0)
@@ -105,5 +105,5 @@ index f91a9d693..390928e9e 100644
  	/* Load optional constraint files sitting next to the TALs. */
  	constraints_load();
 -- 
-2.42.0
+2.45.2
 
