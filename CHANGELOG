@@ -1,3 +1,19 @@
+Version 9.2 - Aug 21st, 2024
+============================
+
+- Ensure synchronization jobs are stopped when the timeout is reached.
+
+- Fix a corner case in repository handling. If the last RRDP repository
+  failed to load, rpki-client would fail to fall back to rsync due to an
+  ordering bug in the event loop.
+
+- Improve detection of duplicate file paths. Only trigger a duplicate
+  error if a valid path is revisited otherwise a bad CA could prevent
+  legitimate files from being considered valid.
+
+- Normalize internal representation of the caRepository to have a
+  trailing slash and ensure that the rpkiManifest is a file inside it.
+
 Version 9.1 - Jun 22nd, 2024
 ============================
 
