@@ -1,3 +1,31 @@
+Version 9.3 - Sep 19th, 2024
+============================
+
+- Avoid a quadratic complexity issue in ibuf_realloc() due to misuse of
+  recallocarray(). Transferring a manifest with a large FileAndHash
+  list across a privsep boundary could cost significant resources.
+
+- RRDP sessions are periodically reinitialized to snapshot at random
+  intervals. RRDP deltas and snapshots can diverge content-wise over
+  time, leaving stale files in the cache. Reinitialization is triggered
+  at random with increasing probability with increasing snapshot age, at
+  least once every three months. this helps garbage collection.
+
+- The internal state file format changed. The first run after an upgrade
+  may produce harmless warning messages about invalid last_reset.
+
+- Signed Prefix List statistics are now only emitted when rpki-client
+  is run with -x.
+  This changes the JSON output: without -x some keys are missing from
+  'metadata'.
+
+- The -r command line option formerly enabling RRDP has long been the
+  default and is now removed.
+
+- The CRL number extension in CRLs is checked to be in the range [0..2^159-1]
+  and otherwise the CRL is considered invalid, see
+  https://datatracker.ietf.org/doc/html/draft-ietf-sidrops-rpki-crl-numbers
+
 Version 9.2 - Aug 21st, 2024
 ============================
 
