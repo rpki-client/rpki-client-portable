@@ -366,7 +366,7 @@ fi
 
 # check functions that are expected to be in libutil
 AC_SEARCH_LIBS([ibuf_open], [util])
-AC_CHECK_FUNCS([ibuf_open ibuf_add ibuf_get])
+AC_CHECK_FUNCS([ibuf_open ibuf_add ibuf_get msgbuf_init])
 
 # check functions that are expected to be in libresolv
 AC_SEARCH_LIBS([inet_net_pton],[resolv])
@@ -441,7 +441,7 @@ AM_CONDITIONAL([BROKEN_INET_NET_PTON], [test "x$ac_cv_broken_inet_net_pton" = xy
 
 AM_CONDITIONAL([HAVE_STRNVIS], [test "x$ac_cv_func_strnvis" = xyes])
 AM_CONDITIONAL([BROKEN_STRNVIS], [test "x$ac_cv_broken_strnvis" = xyes])
-AM_CONDITIONAL([HAVE_IMSG], [test "x$ac_cv_func_ibuf_open" = xyes -a x$ac_cv_func_ibuf_add" = xyes -a x$ac_cv_func_ibuf_get" = xyes])
+AM_CONDITIONAL([HAVE_IMSG], [test "x$ac_cv_func_ibuf_open" = xyes -a "x$ac_cv_func_ibuf_add" = xyes -a "x$ac_cv_func_ibuf_get" = xyes -a "x$ac_cv_func_msgbuf_init" = xyes])
 
 # overrides for arc4random implementations with known issues
 AM_CONDITIONAL([HAVE_ARC4RANDOM],
