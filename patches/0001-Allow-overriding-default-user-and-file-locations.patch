@@ -1,4 +1,4 @@
-From 7b01108679335ba29111a27e85375f0ca62c55ce Mon Sep 17 00:00:00 2001
+From 894d81f3775e8ecfb56b93c9202aa0d790069e51 Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Tue, 14 Apr 2020 22:43:56 +0200
 Subject: [PATCH 1/4] Allow overriding default user and file locations
@@ -10,10 +10,10 @@ Adjust version string for -portable
  2 files changed, 26 insertions(+), 8 deletions(-)
 
 diff --git src/usr.sbin/rpki-client/extern.h src/usr.sbin/rpki-client/extern.h
-index b811b485e..f2518f180 100644
+index ab86f44fa..dd7393488 100644
 --- src/usr.sbin/rpki-client/extern.h
 +++ src/usr.sbin/rpki-client/extern.h
-@@ -979,10 +979,27 @@ time_t		 get_current_time(void);
+@@ -989,10 +989,27 @@ time_t		 get_current_time(void);
  int	mkpath(const char *);
  int	mkpathat(int, const char *);
  
@@ -40,13 +40,13 @@ index b811b485e..f2518f180 100644
 -#define DEFAULT_SKIPLIST_FILE	"/etc/rpki/skiplist"
 +#define DEFAULT_SKIPLIST_FILE	RPKI_PATH_TAL_DIR "/skiplist"
  
- /* Maximum number of TAL files we'll load. */
- #define	TALSZ_MAX		8
+ /* Interval in which random reinitialization to an RRDP snapshot happens. */
+ #define RRDP_RANDOM_REINIT_MAX	12 /* weeks */
 diff --git src/usr.sbin/rpki-client/main.c src/usr.sbin/rpki-client/main.c
-index 342548ce3..6b3c9e4f3 100644
+index 3dd01dad3..da1237e10 100644
 --- src/usr.sbin/rpki-client/main.c
 +++ src/usr.sbin/rpki-client/main.c
-@@ -800,7 +800,7 @@ sum_repostats(const struct repo *rp, const struct repostats *in, void *arg)
+@@ -806,7 +806,7 @@ sum_repostats(const struct repo *rp, const struct repostats *in, void *arg)
  }
  
  /*
@@ -55,7 +55,7 @@ index 342548ce3..6b3c9e4f3 100644
   * returning the number of files found and filled-in.
   * This may be zero.
   * Don't exceed "max" filenames.
-@@ -808,7 +808,7 @@ sum_repostats(const struct repo *rp, const struct repostats *in, void *arg)
+@@ -814,7 +814,7 @@ sum_repostats(const struct repo *rp, const struct repostats *in, void *arg)
  static int
  tal_load_default(void)
  {
@@ -64,16 +64,16 @@ index 342548ce3..6b3c9e4f3 100644
  	int s = 0;
  	char *path;
  	DIR *dirp;
-@@ -971,7 +971,7 @@ main(int argc, char *argv[])
+@@ -979,7 +979,7 @@ main(int argc, char *argv[])
+ 	struct pollfd	 pfd[NPFD];
  	struct msgbuf	*queues[NPFD];
- 	struct ibuf	*b, *httpbuf = NULL, *procbuf = NULL;
- 	struct ibuf	*rrdpbuf = NULL, *rsyncbuf = NULL;
+ 	struct ibuf	*b;
 -	char		*rsync_prog = "openrsync";
 +	char		*rsync_prog = RPKI_RSYNC_CMD;
  	char		*bind_addr = NULL;
  	const char	*cachedir = NULL, *outputdir = NULL;
  	const char	*errs, *name;
-@@ -989,9 +989,9 @@ main(int argc, char *argv[])
+@@ -997,9 +997,9 @@ main(int argc, char *argv[])
  	if (getuid() == 0) {
  		struct passwd *pw;
  
@@ -85,7 +85,7 @@ index 342548ce3..6b3c9e4f3 100644
  		if (setgroups(1, &pw->pw_gid) == -1 ||
  		    setresgid(pw->pw_gid, pw->pw_gid, pw->pw_gid) == -1 ||
  		    setresuid(pw->pw_uid, pw->pw_uid, pw->pw_uid) == -1)
-@@ -1082,7 +1082,8 @@ main(int argc, char *argv[])
+@@ -1087,7 +1087,8 @@ main(int argc, char *argv[])
  			verbose++;
  			break;
  		case 'V':
@@ -95,7 +95,7 @@ index 342548ce3..6b3c9e4f3 100644
  			return 0;
  		case 'x':
  			experimental = 1;
-@@ -1131,7 +1132,7 @@ main(int argc, char *argv[])
+@@ -1136,7 +1137,7 @@ main(int argc, char *argv[])
  	if (talsz == 0)
  		talsz = tal_load_default();
  	if (talsz == 0)
@@ -105,5 +105,5 @@ index 342548ce3..6b3c9e4f3 100644
  	/* Load optional constraint files sitting next to the TALs. */
  	constraints_load();
 -- 
-2.45.2
+2.47.0
 

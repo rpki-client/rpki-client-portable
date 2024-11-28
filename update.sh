@@ -68,7 +68,6 @@ ${CP} "${arc4random_src}"/arc4random_*.h compat
 
 ${CP} "${libutil_src}/imsg.c" compat/
 ${CP} "${libutil_src}/imsg-buffer.c" compat/
-(cd compat; ${PATCH} -p0 < "${patches}/patch-imsg.c")
 
 for i in as.c aspa.c cert.c cms.c crl.c constraints.c encoding.c extern.h filemode.c \
 	gbr.c geofeed.c http.c io.c ip.c json.c json.h main.c mft.c \
