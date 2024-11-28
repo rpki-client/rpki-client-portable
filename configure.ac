@@ -168,6 +168,7 @@ AC_ARG_WITH([openssl],
 )
 if test X"$PKG_NAME" != X; then
 	OPENSSL_CFLAGS=`pkg-config --cflags-only-I $PKG_NAME 2>/dev/null`
+	OPENSSL_CFLAGS="$OPENSSL_CFLAGS -DOPENSSL_SUPPRESS_DEPRECATED"
 	OPENSSL_LDFLAGS=`pkg-config --libs-only-L $PKG_NAME 2>/dev/null`
 fi
 
