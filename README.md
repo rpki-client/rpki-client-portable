@@ -20,11 +20,11 @@ Platform Requirements
 At the time of writing the portable version is known to build and work on:
 
  - OpenBSD
- - Alpine 3.18, edge
- - CentOS/RHEL/Rocky 7, 8, 9
+ - Alpine 3.21, edge
+ - CentOS/RHEL/Rocky 8, 9, 10
  - Debian 11, 12, 13
- - Fedora 37, 38, Rawhide
- - Ubuntu 20.04 LTS, 21.04
+ - Fedora 40, 41, Rawhide
+ - Ubuntu 20.04 LTS, 22.04 LTS
  - FreeBSD 12, 13, 14
  - macOS Catalina
 
