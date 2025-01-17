@@ -1,4 +1,4 @@
-From fb829d43f086b6632bdfd7ccd519325aba6a7ae3 Mon Sep 17 00:00:00 2001
+From 0284ea1faae8e16a7589f3c42ce6481bb0a25757 Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Mon, 20 Apr 2020 12:16:46 +0200
 Subject: [PATCH 2/4] Apply placeholders for portability shim
@@ -9,10 +9,10 @@ From Robert Scheck
  1 file changed, 13 insertions(+), 13 deletions(-)
 
 diff --git src/usr.sbin/rpki-client/rpki-client.8 src/usr.sbin/rpki-client/rpki-client.8
-index aada53f8f..bbd3bc596 100644
+index 73bbf6a53..6dc23dc37 100644
 --- src/usr.sbin/rpki-client/rpki-client.8
 +++ src/usr.sbin/rpki-client/rpki-client.8
-@@ -45,7 +45,7 @@ The
+@@ -44,7 +44,7 @@ The
  utility queries the
  .Em Resource Public Key Infrastructure Pq RPKI
  repository system with a built-in HTTPS client and
@@ -21,7 +21,7 @@ index aada53f8f..bbd3bc596 100644
  to fetch all X.509 certificates, manifests, and revocation lists under a given
  .Em Trust Anchor .
  .Nm
-@@ -94,12 +94,12 @@ The directory where
+@@ -101,12 +101,12 @@ The directory where
  .Nm
  will store the cached repository data.
  Defaults to
@@ -36,7 +36,7 @@ index aada53f8f..bbd3bc596 100644
  to fetch repositories.
  It must accept the
  .Fl rt
-@@ -188,7 +188,7 @@ The skip filter is enforced during processing of the
+@@ -195,7 +195,7 @@ The skip filter is enforced during processing of the
  .Em Subject Information Access Pq SIA
  extension in CA certificates, thus applies to both RSYNC and RRDP connections.
  By default load entries from
@@ -45,7 +45,7 @@ index aada53f8f..bbd3bc596 100644
  .It Fl s Ar timeout
  Terminate after
  .Ar timeout
-@@ -214,7 +214,7 @@ This option can be used multiple times to load multiple TALs.
+@@ -215,7 +215,7 @@ This option can be used multiple times to load multiple TALs.
  By default
  .Nm
  will load all TAL files in
@@ -54,7 +54,7 @@ index aada53f8f..bbd3bc596 100644
  TAL are small files containing a public key and URL endpoint address.
  .It Fl V
  Show the version and exit.
-@@ -235,7 +235,7 @@ The directory where
+@@ -236,7 +236,7 @@ The directory where
  .Nm
  will write the output files.
  Defaults to
@@ -63,7 +63,7 @@ index aada53f8f..bbd3bc596 100644
  .El
  .Pp
  By default
-@@ -297,22 +297,22 @@ utilizes the following environment variables:
+@@ -298,29 +298,29 @@ utilizes the following environment variables:
  URL of HTTP proxy to use.
  .El
  .Sh FILES
@@ -74,6 +74,7 @@ index aada53f8f..bbd3bc596 100644
  default TAL files used unless
  .Fl t Ar tal
  is specified.
+ The TAL files of the five Regional Internet Registries are included.
 -.It Pa /etc/rpki/*.constraints
 +.It Pa @RPKI_TAL_DIR@/*.constraints
  files containing registry-specific constraints to restrict what IP addresses
@@ -91,8 +92,6 @@ index aada53f8f..bbd3bc596 100644
 +.It Pa @RPKI_OUT_DIR@/openbgpd
  default roa-set output file.
  .El
- .Pp
-@@ -323,7 +323,7 @@ agreement regarding ARIN service restrictions.
  .Sh EXIT STATUS
  .Ex -std
  .Sh SEE ALSO

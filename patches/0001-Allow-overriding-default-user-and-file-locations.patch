@@ -1,4 +1,4 @@
-From 894d81f3775e8ecfb56b93c9202aa0d790069e51 Mon Sep 17 00:00:00 2001
+From 5724a9fbdabd0a8fd0b99cc9cb46c4567a16048c Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Tue, 14 Apr 2020 22:43:56 +0200
 Subject: [PATCH 1/4] Allow overriding default user and file locations
@@ -10,10 +10,10 @@ Adjust version string for -portable
  2 files changed, 26 insertions(+), 8 deletions(-)
 
 diff --git src/usr.sbin/rpki-client/extern.h src/usr.sbin/rpki-client/extern.h
-index ab86f44fa..dd7393488 100644
+index e9afc703a..77c10bc78 100644
 --- src/usr.sbin/rpki-client/extern.h
 +++ src/usr.sbin/rpki-client/extern.h
-@@ -989,10 +989,27 @@ time_t		 get_current_time(void);
+@@ -986,10 +986,27 @@ time_t		 get_current_time(void);
  int	mkpath(const char *);
  int	mkpathat(int, const char *);
  
@@ -43,10 +43,10 @@ index ab86f44fa..dd7393488 100644
  /* Interval in which random reinitialization to an RRDP snapshot happens. */
  #define RRDP_RANDOM_REINIT_MAX	12 /* weeks */
 diff --git src/usr.sbin/rpki-client/main.c src/usr.sbin/rpki-client/main.c
-index 3dd01dad3..da1237e10 100644
+index 9d977dc34..8b2ae0287 100644
 --- src/usr.sbin/rpki-client/main.c
 +++ src/usr.sbin/rpki-client/main.c
-@@ -806,7 +806,7 @@ sum_repostats(const struct repo *rp, const struct repostats *in, void *arg)
+@@ -805,7 +805,7 @@ sum_repostats(const struct repo *rp, const struct repostats *in, void *arg)
  }
  
  /*
@@ -55,7 +55,7 @@ index 3dd01dad3..da1237e10 100644
   * returning the number of files found and filled-in.
   * This may be zero.
   * Don't exceed "max" filenames.
-@@ -814,7 +814,7 @@ sum_repostats(const struct repo *rp, const struct repostats *in, void *arg)
+@@ -813,7 +813,7 @@ sum_repostats(const struct repo *rp, const struct repostats *in, void *arg)
  static int
  tal_load_default(void)
  {
@@ -64,7 +64,7 @@ index 3dd01dad3..da1237e10 100644
  	int s = 0;
  	char *path;
  	DIR *dirp;
-@@ -979,7 +979,7 @@ main(int argc, char *argv[])
+@@ -978,7 +978,7 @@ main(int argc, char *argv[])
  	struct pollfd	 pfd[NPFD];
  	struct msgbuf	*queues[NPFD];
  	struct ibuf	*b;
@@ -73,7 +73,7 @@ index 3dd01dad3..da1237e10 100644
  	char		*bind_addr = NULL;
  	const char	*cachedir = NULL, *outputdir = NULL;
  	const char	*errs, *name;
-@@ -997,9 +997,9 @@ main(int argc, char *argv[])
+@@ -996,9 +996,9 @@ main(int argc, char *argv[])
  	if (getuid() == 0) {
  		struct passwd *pw;
  
