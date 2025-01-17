@@ -17,7 +17,7 @@ SUBDIRS = include compat src
 ACLOCAL_AMFLAGS = -I m4
 
 taldir = $(RPKI_TAL_DIR)
-tal_DATA = afrinic.tal apnic.tal lacnic.tal ripe.tal
+tal_DATA = afrinic.tal apnic.tal arin.tal lacnic.tal ripe.tal
 tal_DATA += afrinic.constraints apnic.constraints arin.constraints \
 		lacnic.constraints ripe.constraints
 
