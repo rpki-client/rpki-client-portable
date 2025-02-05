@@ -4,7 +4,7 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/rpki/rpki-client.svg)](https://hub.docker.com/r/rpki/rpki-client)
 
 <a href="https://repology.org/project/rpki-client/versions">
-    <img src="https://repology.org/badge/vertical-allrepos/rpki-client.svg" alt="Packaging status" align="right">
+    <img src="https://repology.org/badge/vertical-allrepos/rpki-client.svg?exclude_unsupported=1" alt="Packaging status" align="right">
 </a>
 
 This is a port of OpenBSD's rpki-client to other operating systems. It
