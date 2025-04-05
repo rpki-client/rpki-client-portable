@@ -13,13 +13,13 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        compiler: [cc, clang, gcc-12]
+        compiler: [cc, clang, gcc-14]
         os: [ubuntu-latest, macos-latest]
         exclude:
           - os: macos-latest
             compiler: cc
           - os: macos-latest
-            compiler: gcc-12
+            compiler: gcc-14
     steps:
       - uses: actions/checkout@v4
       - name: install macOS autogen prerequisites
