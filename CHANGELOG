@@ -1,3 +1,47 @@
+Version 9.5 - Apr 11th, 2025
+============================
+
+rpki-client 9.5 has just been released and will be available in the
+rpki-client directory of any OpenBSD mirror soon. It is recommended
+that all users upgrade to this version for improved reliability.
+
+rpki-client is a FREE, easy-to-use implementation of the Resource
+Public Key Infrastructure (RPKI) for Relying Parties to facilitate
+validation of BGP announcements. The program queries the global RPKI
+repository system and validates untrusted network inputs. The program
+outputs validated ROA payloads, BGPsec Router keys, and ASPA payloads
+in configuration formats suitable for OpenBGPD and BIRD, and supports
+emitting CSV and JSON for consumption by other routing stacks.
+
+See RFC 6480 and RFC 6811 for a description of how RPKI and BGP Prefix
+Origin Validation help secure the global Internet routing system.
+
+rpki-client was primarily developed by Kristaps Dzonsons, Claudio
+Jeker, Job Snijders, Theo Buehler, Theo de Raadt and Sebastian Benoit
+as part of the OpenBSD Project.
+
+This release includes the following changes to the previous release:
+
+- rpki-client now includes arin.tal which is no longer legally encumbered.
+  See https://www.arin.net/announcements/20250116-tal/
+
+- rpki-client reports Certification Authorities that do not meaningfully 
+  participate in the RPKI as non-functional CAs. By definition, a CA is
+  non-functional if there is no currently valid Manifest. The number of
+  such CAs is printed at the end of each run and more detailed information
+  is available in the JSON (-j) and ometrics (-m) output.
+
+- OpenBSD reliability errata 014:
+  Incorrect internal RRDP state handling in rpki-client can lead to a
+  denial of service. Affected are rpki-client versions 7.5 - 9.4. 
+
+- Termination of rsync child processes with SIGTERM is no longer treated as
+  an error if rpki-client has sent this signal. This only affects openrsync.
+
+- Do not exit filemode with an error if a .gbr or a .tak object contains
+  control characters in its UTF-8 strings. Instead, only warn and emit a
+  sanitized version in JSON output.
+
 Version 9.4 - Jan 7th, 2025
 ===========================
 
