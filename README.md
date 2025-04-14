@@ -17,16 +17,16 @@ https://github.com/rpki-client/rpki-client-portable
 Platform Requirements
 ---------------------
 
-At the time of writing the portable version is known to build and work on:
+At the time of writing the portable version is known to build and work on actively maintained versions of:
 
+ - Alpine
+ - CentOS/RHEL/Rocky
+ - Debian
+ - Fedora
+ - FreeBSD
+ - macOS
  - OpenBSD
- - Alpine 3.21, edge
- - CentOS/RHEL/Rocky 8, 9, 10
- - Debian 11, 12, 13
- - Fedora 40, 41, Rawhide
- - Ubuntu 20.04 LTS, 22.04 LTS
- - FreeBSD 12, 13, 14
- - macOS Catalina
+ - Ubuntu
 
 Building
 --------
