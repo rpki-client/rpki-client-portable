@@ -32,7 +32,9 @@ jobs:
         env:
           CC: ${{ matrix.compiler }}
       - name: install missing Linux deps
-        run: sudo apt-get install libtls-dev
+        run: |
+          sudo apt-get update
+          sudo apt-get install libtls-dev
         if: runner.os == 'Linux'
       - name: install missing macOS deps
         run: |
