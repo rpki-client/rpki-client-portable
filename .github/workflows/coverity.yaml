@@ -46,7 +46,7 @@ jobs:
 
       - name: "Submit build result to Coverity Scan"
         env:
-          EMAIL: "chipitsine@gmail.com"
+          EMAIL: "job@openbsd.org"
           PROJECT: "rpki-client"
           COVERITY_SCAN_TOKEN: "${{ secrets.COVERITY_SCAN_TOKEN }}"
         run: |
