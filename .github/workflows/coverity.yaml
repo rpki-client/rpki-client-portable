@@ -1,0 +1,59 @@
+name: "Coverity"
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *" # At 00:00 daily.
+
+concurrency:
+  group: "${{ github.workflow }}-${{ github.event.number || github.ref }}"
+  cancel-in-progress: true
+
+jobs:
+  scan:
+    name: "Scan"
+    runs-on: "ubuntu-24.04"
+    if: ${{ github.repository_owner == 'rpki-client' || github.event_name == 'workflow_dispatch' }}
+    permissions:
+      contents: read
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v4
+
+      - name: "Install dependencies"
+        run: |
+          sudo apt-get update
+          sudo apt-get install libtls-dev
+
+      - name: "Download Coverity build tool"
+        env:
+          PROJECT: "rpki-client"
+          COVERITY_SCAN_TOKEN: "${{ secrets.COVERITY_SCAN_TOKEN }}"
+        run: |
+          wget -c -N https://scan.coverity.com/download/linux64 --post-data "token=$COVERITY_SCAN_TOKEN&project=$PROJECT" -O coverity_tool.tar.gz
+          mkdir coverity_tool
+          tar xzf coverity_tool.tar.gz --strip 1 -C coverity_tool
+
+      - name: "Setup"
+        run: |
+          ./autogen.sh
+          ./configure --with-libtls=libtls
+
+      - name: "Build with Coverity build tool"
+        run: |
+          export PATH=`pwd`/coverity_tool/bin:$PATH
+          cov-build --dir cov-int make
+
+      - name: "Submit build result to Coverity Scan"
+        env:
+          EMAIL: "chipitsine@gmail.com"
+          PROJECT: "rpki-client"
+          COVERITY_SCAN_TOKEN: "${{ secrets.COVERITY_SCAN_TOKEN }}"
+        run: |
+          tar czvf cov.tar.gz cov-int
+          curl --form token=$COVERITY_SCAN_TOKEN \
+            --form email=$EMAIL \
+            --form file=@cov.tar.gz \
+            --form version="Commit $GITHUB_SHA" \
+            --form description="Build submitted via CI" \
+            https://scan.coverity.com/builds?project=$PROJECT
