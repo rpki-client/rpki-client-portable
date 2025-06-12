@@ -24,7 +24,9 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
     - name: install missing deps
-      run: sudo apt-get install libtls-dev
+      run: |
+        sudo apt-get update
+        sudo apt-get install libtls-dev
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
       with:
