@@ -3,7 +3,7 @@ name: "Coverity"
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 0 * * *" # At 00:00 daily.
+    - cron: "0 8 * * *" # At 08:00 UTC daily.
 
 concurrency:
   group: "${{ github.workflow }}-${{ github.event.number || github.ref }}"
