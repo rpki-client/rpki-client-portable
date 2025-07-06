@@ -451,6 +451,12 @@ AM_CONDITIONAL([HAVE_ARC4RANDOM],
 
 AC_CHECK_HEADERS([err.h sha2.h])
 
+AC_SEARCH_LIBS([pthread_cond_broadcast], [pthread])
+AC_SEARCH_LIBS([pthread_join], [pthread])
+AC_SEARCH_LIBS([pthread_once], [pthread])
+AC_SEARCH_LIBS([pthread_mutex_lock], [pthread])
+AC_SEARCH_LIBS([pthread_rwlock_unlock], [pthread])
+
 AC_CHECK_HEADERS([openssl/cms.h openssl/err.h openssl/evp.h openssl/ssl.h openssl/x509.h openssl/x509v3.h], [], [AC_MSG_ERROR([OpenSSL headers required])])
 AC_CHECK_LIB([crypto], [ASN1_STRING_get0_data], [], [AC_MSG_ERROR([OpenSSL libraries required])])
 AC_CHECK_FUNCS([X509_up_ref], [], [AC_MSG_ERROR([OpenSSL libraries required])])
