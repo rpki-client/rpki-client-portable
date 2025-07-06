@@ -106,6 +106,10 @@ if !HAVE_X509_GET0_UIDS
 libcompat_la_SOURCES += x509_get0_uids.c
 endif
 
+if !HAVE_X509_CRL_GET0_TBS_SIGALG
+libcompat_la_SOURCES += x509_crl_get0_tbs_sigalg.c
+endif
+
 if !HAVE_PLEDGE
 libcompat_la_SOURCES += pledge.c
 endif

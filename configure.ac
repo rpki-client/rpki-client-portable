@@ -462,11 +462,13 @@ AC_CHECK_FUNCS([tls_default_ca_cert_file tls_config_set_ca_mem], [], [AC_MSG_ERR
 
 # check for libressl special functions after including libtls in case
 # these are present in that library
-AC_CHECK_FUNCS([CMS_get_version X509_get0_uids])
+AC_CHECK_FUNCS([CMS_get_version X509_get0_uids X509_CRL_get0_tbs_sigalg])
 # available since LibreSSL 3.8.1
 AM_CONDITIONAL([HAVE_CMS_GET_VERSION], [test "x$ac_cv_func_CMS_get_version" = xyes])
 # available since LibreSSL 3.7.1
 AM_CONDITIONAL([HAVE_X509_GET0_UIDS], [test "x$ac_cv_func_X509_get0_uids" = xyes])
+# available since LibreSSL 3.7.1 and hopefully openssl 3.6.
+AM_CONDITIONAL([HAVE_X509_CRL_GET0_TBS_SIGALG], [test "x$ac_cv_func_X509_CRL_get0_tbs_sigalg" = xyes])
 
 AC_CHECK_HEADERS([expat.h], [], [AC_MSG_ERROR([Expat headers required])])
 AC_CHECK_LIB([expat], [XML_Parse], [], [AC_MSG_ERROR([Expat library required])])
