@@ -77,7 +77,7 @@ rpki_client_SOURCES += x509.c
 
 rpki_client_DEPENDENCIES = rpki-client.8
 
-noinst_HEADERS = extern.h json.h ometric.h rrdp.h version.h
+noinst_HEADERS = extern.h json.h ometric.h rpki-asn1.h rrdp.h version.h
 
 rpki-client.8: rpki-client.8.in
 	$(SED) \
