@@ -1,19 +1,19 @@
-From 5724a9fbdabd0a8fd0b99cc9cb46c4567a16048c Mon Sep 17 00:00:00 2001
+From caccd11aa6bcc2e8e935045e9314a9ebe919c296 Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Tue, 14 Apr 2020 22:43:56 +0200
 Subject: [PATCH 1/4] Allow overriding default user and file locations
 
 Adjust version string for -portable
 ---
- src/usr.sbin/rpki-client/extern.h | 19 ++++++++++++++++++-
- src/usr.sbin/rpki-client/main.c   | 15 ++++++++-------
+ extern.h | 19 ++++++++++++++++++-
+ main.c   | 15 ++++++++-------
  2 files changed, 26 insertions(+), 8 deletions(-)
 
-diff --git src/usr.sbin/rpki-client/extern.h src/usr.sbin/rpki-client/extern.h
-index e9afc703a..77c10bc78 100644
---- src/usr.sbin/rpki-client/extern.h
-+++ src/usr.sbin/rpki-client/extern.h
-@@ -986,10 +986,27 @@ time_t		 get_current_time(void);
+diff --git extern.h extern.h
+index afb2ae810..6d91f93da 100644
+--- extern.h
++++ extern.h
+@@ -1028,10 +1028,27 @@ time_t		 get_current_time(void);
  int	mkpath(const char *);
  int	mkpathat(int, const char *);
  
@@ -42,11 +42,11 @@ index e9afc703a..77c10bc78 100644
  
  /* Interval in which random reinitialization to an RRDP snapshot happens. */
  #define RRDP_RANDOM_REINIT_MAX	12 /* weeks */
-diff --git src/usr.sbin/rpki-client/main.c src/usr.sbin/rpki-client/main.c
-index 9d977dc34..8b2ae0287 100644
---- src/usr.sbin/rpki-client/main.c
-+++ src/usr.sbin/rpki-client/main.c
-@@ -805,7 +805,7 @@ sum_repostats(const struct repo *rp, const struct repostats *in, void *arg)
+diff --git main.c main.c
+index cbe9b39ba..8f6329155 100644
+--- main.c
++++ main.c
+@@ -830,7 +830,7 @@ sum_repostats(const struct repo *rp, const struct repostats *in, void *arg)
  }
  
  /*
@@ -55,7 +55,7 @@ index 9d977dc34..8b2ae0287 100644
   * returning the number of files found and filled-in.
   * This may be zero.
   * Don't exceed "max" filenames.
-@@ -813,7 +813,7 @@ sum_repostats(const struct repo *rp, const struct repostats *in, void *arg)
+@@ -838,7 +838,7 @@ sum_repostats(const struct repo *rp, const struct repostats *in, void *arg)
  static int
  tal_load_default(void)
  {
@@ -64,7 +64,7 @@ index 9d977dc34..8b2ae0287 100644
  	int s = 0;
  	char *path;
  	DIR *dirp;
-@@ -978,7 +978,7 @@ main(int argc, char *argv[])
+@@ -1007,7 +1007,7 @@ main(int argc, char *argv[])
  	struct pollfd	 pfd[NPFD];
  	struct msgbuf	*queues[NPFD];
  	struct ibuf	*b;
@@ -73,7 +73,7 @@ index 9d977dc34..8b2ae0287 100644
  	char		*bind_addr = NULL;
  	const char	*cachedir = NULL, *outputdir = NULL;
  	const char	*errs, *name;
-@@ -996,9 +996,9 @@ main(int argc, char *argv[])
+@@ -1030,9 +1030,9 @@ main(int argc, char *argv[])
  	if (getuid() == 0) {
  		struct passwd *pw;
  
@@ -85,7 +85,7 @@ index 9d977dc34..8b2ae0287 100644
  		if (setgroups(1, &pw->pw_gid) == -1 ||
  		    setresgid(pw->pw_gid, pw->pw_gid, pw->pw_gid) == -1 ||
  		    setresuid(pw->pw_uid, pw->pw_uid, pw->pw_uid) == -1)
-@@ -1087,7 +1087,8 @@ main(int argc, char *argv[])
+@@ -1126,7 +1126,8 @@ main(int argc, char *argv[])
  			verbose++;
  			break;
  		case 'V':
@@ -95,7 +95,7 @@ index 9d977dc34..8b2ae0287 100644
  			return 0;
  		case 'x':
  			experimental = 1;
-@@ -1136,7 +1137,7 @@ main(int argc, char *argv[])
+@@ -1176,7 +1177,7 @@ main(int argc, char *argv[])
  	if (talsz == 0)
  		talsz = tal_load_default();
  	if (talsz == 0)
@@ -105,5 +105,5 @@ index 9d977dc34..8b2ae0287 100644
  	/* Load optional constraint files sitting next to the TALs. */
  	constraints_load();
 -- 
-2.47.0
+2.50.1
 

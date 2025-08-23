@@ -1,4 +1,4 @@
-From a49615767915c1c65ff548465de752faeb2b3b7e Mon Sep 17 00:00:00 2001
+From 377060bd164fd4a43c3930a07638d0bbff4d4906 Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Wed, 1 Sep 2021 16:23:36 +0200
 Subject: [PATCH 4/4] Only call tls_config_set_ca_mem() when pledge() is used.
@@ -7,13 +7,13 @@ For landlock systems unveil("/", "r") since there is no dns pledge and
 libretls/OpenSSL have no way to pre-load the certs into memory.
 This is one giant hole but landlock is not capable to do proper protection.
 ---
- src/usr.sbin/rpki-client/http.c | 16 ++++++++++++++++
+ http.c | 16 ++++++++++++++++
  1 file changed, 16 insertions(+)
 
-diff --git src/usr.sbin/rpki-client/http.c src/usr.sbin/rpki-client/http.c
-index abc8c38ab..117805bf4 100644
---- src/usr.sbin/rpki-client/http.c
-+++ src/usr.sbin/rpki-client/http.c
+diff --git http.c http.c
+index b7e8fcdf9..6dc366cb5 100644
+--- http.c
++++ http.c
 @@ -64,6 +64,9 @@
  #include <vis.h>
  #include <zlib.h>
@@ -24,7 +24,7 @@ index abc8c38ab..117805bf4 100644
  #include <tls.h>
  
  #include "extern.h"
-@@ -166,8 +169,10 @@ static unsigned int		http_conn_count;
+@@ -167,8 +170,10 @@ static unsigned int		http_conn_count;
  static struct msgbuf *msgq;
  static struct sockaddr_storage http_bindaddr;
  static struct tls_config *tls_config;
@@ -35,7 +35,7 @@ index abc8c38ab..117805bf4 100644
  
  /* HTTP request API */
  static void	http_req_new(unsigned int, char *, char *, int, int);
-@@ -2025,12 +2030,23 @@ http_setup(void)
+@@ -2036,12 +2041,23 @@ http_setup(void)
  		    tls_config_error(tls_config));
  #endif
  
@@ -60,5 +60,5 @@ index abc8c38ab..117805bf4 100644
  	if ((httpproxy = getenv("http_proxy")) != NULL && *httpproxy == '\0')
  		httpproxy = NULL;
 -- 
-2.47.0
+2.50.1
 

@@ -1,32 +1,32 @@
-From a67b53ef9cec0be7d4652f022ec6e9e1fa89ccca Mon Sep 17 00:00:00 2001
+From ff207d9ba9b3b5849053f2ec0969cd6cc45f2822 Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Fri, 6 Nov 2020 13:19:45 +0100
 Subject: [PATCH 3/4] Emit all output formats on non-OpenBSD systems
 
 ---
- src/usr.sbin/rpki-client/main.c        | 3 ++-
- src/usr.sbin/rpki-client/rpki-client.8 | 4 ++--
+ main.c        | 3 ++-
+ rpki-client.8 | 4 ++--
  2 files changed, 4 insertions(+), 3 deletions(-)
 
-diff --git src/usr.sbin/rpki-client/main.c src/usr.sbin/rpki-client/main.c
-index 8b2ae0287..be23b6860 100644
---- src/usr.sbin/rpki-client/main.c
-+++ src/usr.sbin/rpki-client/main.c
-@@ -1129,7 +1129,8 @@ main(int argc, char *argv[])
+diff --git main.c main.c
+index 8f6329155..a0423606a 100644
+--- main.c
++++ main.c
+@@ -1168,7 +1168,8 @@ main(int argc, char *argv[])
  		if ((outdirfd = open(outputdir, O_RDONLY | O_DIRECTORY)) == -1)
  			err(1, "output directory %s", outputdir);
  		if (outformats == 0)
 -			outformats = FORMAT_OPENBGPD;
 +			outformats = FORMAT_OPENBGPD | FORMAT_JSON |
 +			    FORMAT_CSV | FORMAT_BIRD | FORMAT_OMETRIC;
+ 		outformats |= FORMAT_CCR;
  	}
  
- 	check_fs_size(cachefd, cachedir);
-diff --git src/usr.sbin/rpki-client/rpki-client.8 src/usr.sbin/rpki-client/rpki-client.8
-index 6dc23dc37..9f78dffdb 100644
---- src/usr.sbin/rpki-client/rpki-client.8
-+++ src/usr.sbin/rpki-client/rpki-client.8
-@@ -242,8 +242,8 @@ Defaults to
+diff --git rpki-client.8 rpki-client.8
+index d875836d9..aeb3745d2 100644
+--- rpki-client.8
++++ rpki-client.8
+@@ -246,8 +246,8 @@ Defaults to
  By default
  .Nm
  outputs validated payloads in
@@ -38,5 +38,5 @@ index 6dc23dc37..9f78dffdb 100644
  .Nm
  should be run hourly by
 -- 
-2.47.0
+2.50.1
 
