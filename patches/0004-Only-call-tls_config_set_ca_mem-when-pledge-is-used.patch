@@ -7,13 +7,13 @@ For landlock systems unveil("/", "r") since there is no dns pledge and
 libretls/OpenSSL have no way to pre-load the certs into memory.
 This is one giant hole but landlock is not capable to do proper protection.
 ---
- http.c | 16 ++++++++++++++++
+ src/usr.sbin/rpki-client/http.c | 16 ++++++++++++++++
  1 file changed, 16 insertions(+)
 
-diff --git http.c http.c
+diff --git src/usr.sbin/rpki-client/http.c src/usr.sbin/rpki-client/http.c
 index b7e8fcdf9..6dc366cb5 100644
---- http.c
-+++ http.c
+--- src/usr.sbin/rpki-client/http.c
++++ src/usr.sbin/rpki-client/http.c
 @@ -64,6 +64,9 @@
  #include <vis.h>
  #include <zlib.h>

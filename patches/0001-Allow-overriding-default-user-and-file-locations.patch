@@ -5,14 +5,14 @@ Subject: [PATCH 1/4] Allow overriding default user and file locations
 
 Adjust version string for -portable
 ---
- extern.h | 19 ++++++++++++++++++-
- main.c   | 15 ++++++++-------
+ src/usr.sbin/rpki-client/extern.h | 19 ++++++++++++++++++-
+ src/usr.sbin/rpki-client/main.c   | 15 ++++++++-------
  2 files changed, 26 insertions(+), 8 deletions(-)
 
-diff --git extern.h extern.h
+diff --git src/usr.sbin/rpki-client/extern.h src/usr.sbin/rpki-client/extern.h
 index afb2ae810..6d91f93da 100644
---- extern.h
-+++ extern.h
+--- src/usr.sbin/rpki-client/extern.h
++++ src/usr.sbin/rpki-client/extern.h
 @@ -1028,10 +1028,27 @@ time_t		 get_current_time(void);
  int	mkpath(const char *);
  int	mkpathat(int, const char *);
@@ -42,10 +42,10 @@ index afb2ae810..6d91f93da 100644
  
  /* Interval in which random reinitialization to an RRDP snapshot happens. */
  #define RRDP_RANDOM_REINIT_MAX	12 /* weeks */
-diff --git main.c main.c
+diff --git src/usr.sbin/rpki-client/main.c src/usr.sbin/rpki-client/main.c
 index cbe9b39ba..8f6329155 100644
---- main.c
-+++ main.c
+--- src/usr.sbin/rpki-client/main.c
++++ src/usr.sbin/rpki-client/main.c
 @@ -830,7 +830,7 @@ sum_repostats(const struct repo *rp, const struct repostats *in, void *arg)
  }
  

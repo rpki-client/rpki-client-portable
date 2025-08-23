@@ -4,14 +4,14 @@ Date: Fri, 6 Nov 2020 13:19:45 +0100
 Subject: [PATCH 3/4] Emit all output formats on non-OpenBSD systems
 
 ---
- main.c        | 3 ++-
- rpki-client.8 | 4 ++--
+ src/usr.sbin/rpki-client/main.c        | 3 ++-
+ src/usr.sbin/rpki-client/rpki-client.8 | 4 ++--
  2 files changed, 4 insertions(+), 3 deletions(-)
 
-diff --git main.c main.c
+diff --git src/usr.sbin/rpki-client/main.c src/usr.sbin/rpki-client/main.c
 index 8f6329155..a0423606a 100644
---- main.c
-+++ main.c
+--- src/usr.sbin/rpki-client/main.c
++++ src/usr.sbin/rpki-client/main.c
 @@ -1168,7 +1168,8 @@ main(int argc, char *argv[])
  		if ((outdirfd = open(outputdir, O_RDONLY | O_DIRECTORY)) == -1)
  			err(1, "output directory %s", outputdir);
@@ -22,10 +22,10 @@ index 8f6329155..a0423606a 100644
  		outformats |= FORMAT_CCR;
  	}
  
-diff --git rpki-client.8 rpki-client.8
+diff --git src/usr.sbin/rpki-client/rpki-client.8 src/usr.sbin/rpki-client/rpki-client.8
 index d875836d9..aeb3745d2 100644
---- rpki-client.8
-+++ rpki-client.8
+--- src/usr.sbin/rpki-client/rpki-client.8
++++ src/usr.sbin/rpki-client/rpki-client.8
 @@ -246,8 +246,8 @@ Defaults to
  By default
  .Nm

@@ -5,13 +5,13 @@ Subject: [PATCH 2/4] Apply placeholders for portability shim
 
 From Robert Scheck
 ---
- rpki-client.8 | 28 ++++++++++++++--------------
+ src/usr.sbin/rpki-client/rpki-client.8 | 28 +++++++++++++-------------
  1 file changed, 14 insertions(+), 14 deletions(-)
 
-diff --git rpki-client.8 rpki-client.8
+diff --git src/usr.sbin/rpki-client/rpki-client.8 src/usr.sbin/rpki-client/rpki-client.8
 index fab2d5c27..d875836d9 100644
---- rpki-client.8
-+++ rpki-client.8
+--- src/usr.sbin/rpki-client/rpki-client.8
++++ src/usr.sbin/rpki-client/rpki-client.8
 @@ -46,7 +46,7 @@ The
  utility queries the
  .Em Resource Public Key Infrastructure Pq RPKI
