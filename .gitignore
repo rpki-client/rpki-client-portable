@@ -3,6 +3,7 @@
 *.la
 *.lo
 *.orig
+*.rej
 
 .deps
 .dirstamp
@@ -15,10 +16,13 @@ aclocal.m4
 autom4te.cache/
 compile
 config.guess
+config.guess~
 config.log
 config.status
 config.sub
+config.sub~
 configure
+configure~
 depcomp
 install-sh
 libtool
