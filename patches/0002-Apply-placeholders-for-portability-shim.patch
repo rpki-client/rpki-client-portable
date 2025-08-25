@@ -1,4 +1,4 @@
-From b4f81a213c4a30c2ba1732d415c1981d51aacf60 Mon Sep 17 00:00:00 2001
+From 4c6bae3f37fd0589ceb794bdad042d112ce25655 Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Mon, 20 Apr 2020 12:16:46 +0200
 Subject: [PATCH 2/4] Apply placeholders for portability shim
@@ -9,7 +9,7 @@ From Robert Scheck
  1 file changed, 14 insertions(+), 14 deletions(-)
 
 diff --git src/usr.sbin/rpki-client/rpki-client.8 src/usr.sbin/rpki-client/rpki-client.8
-index fab2d5c27..d875836d9 100644
+index c6fde7865..65435362b 100644
 --- src/usr.sbin/rpki-client/rpki-client.8
 +++ src/usr.sbin/rpki-client/rpki-client.8
 @@ -46,7 +46,7 @@ The
@@ -88,13 +88,13 @@ index fab2d5c27..d875836d9 100644
 -.It Pa /var/cache/rpki-client
 +.It Pa @RPKI_BASE_DIR@
  cached repository data.
+-.It Pa /var/db/rpki-client/openbgpd
++.It Pa @RPKI_OUT_DIR@/openbgpd
+ default roa-set output file.
 -.It Pa /var/db/rpki-client/rpki.ccr
 +.It Pa @RPKI_OUT_DIR@/rpki.ccr
  DER-encoded canonical cache representation file.
  This facility is experimental and is still subject to change.
--.It Pa /var/db/rpki-client/openbgpd
-+.It Pa @RPKI_OUT_DIR@/openbgpd
- default roa-set output file.
  .El
  .Sh EXIT STATUS
  .Ex -std
