@@ -1,26 +1,38 @@
-Version 9.5 - Apr 11th, 2025
+Version 9.6 - Sep 22nd, 2025
 ============================
 
-rpki-client 9.5 has just been released and will be available in the
-rpki-client directory of any OpenBSD mirror soon. It is recommended
-that all users upgrade to this version for improved reliability.
+- The parser process now uses parallel threads for object validation.
+  The new -p option can be used to adjust the number of threads.
 
-rpki-client is a FREE, easy-to-use implementation of the Resource
-Public Key Infrastructure (RPKI) for Relying Parties to facilitate
-validation of BGP announcements. The program queries the global RPKI
-repository system and validates untrusted network inputs. The program
-outputs validated ROA payloads, BGPsec Router keys, and ASPA payloads
-in configuration formats suitable for OpenBGPD and BIRD, and supports
-emitting CSV and JSON for consumption by other routing stacks.
+- Support for Canonical Cache Representation has been added. CCR is a
+  new DER-encoded data interchange format to support audit trail
+  keeping, validated payload dissemination, and analytics pipelines.
+  https://datatracker.ietf.org/doc/html/draft-spaghetti-sidrops-rpki-ccr
 
-See RFC 6480 and RFC 6811 for a description of how RPKI and BGP Prefix
-Origin Validation help secure the global Internet routing system.
+- Certificate parsing and validation has been completely reworked. In
+  particular, a more stringent set of compliance checks based on RFC
+  6487, RFC 8209, and RFC 8608 is imposed on end entity certificates.
 
-rpki-client was primarily developed by Kristaps Dzonsons, Claudio
-Jeker, Job Snijders, Theo Buehler, Theo de Raadt and Sebastian Benoit
-as part of the OpenBSD Project.
+- Filemode is now able to detect most file types without recourse to the
+  file name extension.
 
-This release includes the following changes to the previous release:
+- Experimental support for P-256 Trust Anchor keys was added.
+
+- Marshalling and unmarshalling of privsep messages was improved.
+
+- In verbose mode, warnings are emitted about uncompressed HTTP/RRDP
+  transfers larger than one megabyte. Publication server operators are
+  strongly encouraged to offer gzip compressed HTTP content-encoding, see
+  draft-ietf-sidrops-publication-server-bcp, section 6.3.
+
+- As announced in the release notes for rpki-client 9.5, rpki-client 9.6
+  emits all key identifiers (AKI and SKI) encoded in JSON as bare hex
+  strings without colons.
+
+- Fixed numerous minor issues flagged by the Coverity static analyzer.
+
+Version 9.5 - Apr 11th, 2025
+============================
 
 - rpki-client now includes arin.tal which is no longer legally encumbered.
   See https://www.arin.net/announcements/20250116-tal/
