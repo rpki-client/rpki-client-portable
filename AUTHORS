@@ -1,7 +1,8 @@
 Credits
 -------
 
-rpki-client was written by Kristaps Dzonsons.
+rpki-client was written by Kristaps Dzonsons, Theo Buehler, Claudio
+Jeker, Job Snijders, Theo de Raadt, and Sebastian Benoit.
 
 Since inclusion into the OpenBSD source tree, it has seen improvements
 from others as well. Please see the OpenBSD commit logs for a list of
