@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-openbsd_branch=master
+openbsd_branch=$(cat OPENBSD_BRANCH)
 if [ -n "$1" ]; then
 	openbsd_branch="$1"
 fi
@@ -19,7 +19,8 @@ if [ -d openbsd/.git ]; then
 	(cd openbsd
 	 git fetch
 	 git checkout "${openbsd_branch}"
-	 git pull --rebase)
+	 # do not git pull on an rpki-client-X.Y release tag
+	 [ "${openbsd_branch%-*}" = rpki-client ] ||  git pull --rebase)
 fi
 
 # setup source paths
