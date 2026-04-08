@@ -12,6 +12,7 @@ concurrency:
 jobs:
   scan:
     name: "Scan"
+    environment: "coverity"
     runs-on: "ubuntu-24.04"
     if: ${{ github.repository_owner == 'rpki-client' || github.event_name == 'workflow_dispatch' }}
     permissions:
