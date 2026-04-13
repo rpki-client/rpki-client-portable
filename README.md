@@ -46,7 +46,3 @@ If you install from a GitHub repository checkout please read the [INSTALL](./INS
 
 Reports (success or otherwise) are welcome. You may report bugs or submit pull
 requests at the GitHub project: https://github.com/rpki-client/rpki-client-portable
-
-Thanks,
-  Sebastian Benoit <benno at openbsd.org>,
-  Job Snijders <job @ openbsd.org>
