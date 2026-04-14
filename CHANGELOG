@@ -1,3 +1,37 @@
+Version 9.8 - Apr 14th, 2026
+============================
+
+- Various refactoring for improved compatibility with various libcrypto
+  implementations and in CA/BGPsec certificate handling.
+
+- Added support for OpenSSL 4.0.
+
+- Fixed an accounting issue in HTTP gzip compression detection.
+
+- Added a warning in extra verbose mode (-vv) about standards
+  non-compliant Issuer and Subject ASN.1 string encodings.
+
+- Added a check for canonical encoding of ASPA eContent in alignment
+  with draft-ietf-sidrops-aspa-profile-22.
+
+- Ensure that a repository timeout correctly stops repository
+  processing. Thanks to Fedor Vompe from Deutsche Telekom for reporting.
+
+- Fixed a defect in Canonical Cache Representation ROAIPAddressFamily
+  sort order. As a result, rpki-client 9.8 cannot parse rpki-client
+  9.7's .ccr files and vice versa. Thanks to Bart Bakker from RIPE NCC
+  for reporting.
+
+- Fixed an issue in the parser for the locally configured constraints.
+  Thanks to Daniel Anderson.
+
+- A malicious RRDP Publication Server can cause a NULL dereference.
+  Thanks to Daniel Anderson for reporting.
+
+- A malicious RPKI Publication Server can cause an incorrect error exit.
+  Thanks to Yuheng Zhang, Qi Wang, Jianjun Chen from Tsinghua University,
+  and Teatime Lab for reporting.
+
 Version 9.7 - Jan 13th, 2026
 ============================
 
