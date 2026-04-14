@@ -4,8 +4,6 @@ Version 9.8 - Apr 14th, 2026
 - Various refactoring for improved compatibility with various libcrypto
   implementations and in CA/BGPsec certificate handling.
 
-- Added support for OpenSSL 4.0.
-
 - Fixed an accounting issue in HTTP gzip compression detection.
 
 - Added a warning in extra verbose mode (-vv) about standards
