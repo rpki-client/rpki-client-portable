@@ -468,7 +468,11 @@ AC_CHECK_FUNCS([tls_default_ca_cert_file tls_config_set_ca_mem], [], [AC_MSG_ERR
 
 # check for libressl special functions after including libtls in case
 # these are present in that library
+AC_CHECK_FUNCS([ASN1_BIT_STRING_get_length ASN1_BIT_STRING_set1])
 AC_CHECK_FUNCS([CMS_get_version X509_get0_uids X509_CRL_get0_tbs_sigalg])
+# available since OpenSSL 4 and LibreSSL 4.4
+AM_CONDITIONAL([HAVE_ASN1_BIT_STRING_GET_LENGTH], [test "x$ac_cv_func_ASN1_BIT_STRING_get_length" = xyes])
+AM_CONDITIONAL([HAVE_ASN1_BIT_STRING_SET1], [test "x$ac_cv_func_ASN1_BIT_STRING_set1" = xyes])
 # available since LibreSSL 3.8.1
 AM_CONDITIONAL([HAVE_CMS_GET_VERSION], [test "x$ac_cv_func_CMS_get_version" = xyes])
 # available since LibreSSL 3.7.1
