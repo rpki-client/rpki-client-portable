@@ -50,6 +50,7 @@ rpki_client_SOURCES += json.c
 rpki_client_SOURCES += main.c
 rpki_client_SOURCES += mft.c
 rpki_client_SOURCES += mkdir.c
+rpki_client_SOURCES += nca.c
 rpki_client_SOURCES += ometric.c
 rpki_client_SOURCES += output-bgpd.c
 rpki_client_SOURCES += output-bird.c
