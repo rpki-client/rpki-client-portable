@@ -55,7 +55,7 @@ done
 for i in reallocarray.c recallocarray.c strtonum.c; do
 	${CP_LIBC} "${libc_src}/stdlib/${i}" compat
 done
-${CP_LIBC} "${libc_src}/hash/sha2.c" compat
+${CP_LIBC} "${libc_src}/hash/sha256.c" compat
 ${CP_LIBC} "${libc_src}/gen/vis.c" compat
 ${CP_LIBC} "${libc_src}/net/inet_net_pton.c" compat
 ${CP_LIBC} "${libc_src}/crypt/arc4random.c" compat
