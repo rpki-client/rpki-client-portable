@@ -1,7 +1,7 @@
 1. Prerequisites
 ----------------
 
-You will need the following libraries & tools:
+You will need the following dependencies:
  - libcrypto: LibreSSL (3.6.0 or newer) or OpenSSL (1.1.1w or newer).
  - libtls: LibreSSL or libretls
  - libexpat
@@ -9,12 +9,10 @@ You will need the following libraries & tools:
  - rsync
 
 Centos/RHEL/Rocky/Fedora:
-  dnf install gcc make openssl-devel libretls-devel expat-devel zlib-devel \
-     rsync
+  dnf install gcc make openssl-devel libretls-devel expat-devel zlib-devel rsync
 
 Debian/Ubuntu:
-  apt install autoconf automake libtool pkgconf libssl-dev libtls-dev \
-     libexpat1-dev zlib1g-dev rsync
+  apt install autoconf automake libtool pkgconf libssl-dev libtls-dev libexpat1-dev zlib1g-dev rsync
 
 Alpine:
   apk add expat-dev libretls-dev musl-fts-dev openssl-dev>3 zlib-dev rsync
