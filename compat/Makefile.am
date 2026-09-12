@@ -58,6 +58,10 @@ if !HAVE_PPOLL
 libcompat_la_SOURCES += ppoll.c
 endif
 
+if !HAVE_MEMMEM
+libcompat_la_SOURCES += memmem.c
+endif
+
 if !HAVE_MEMRCHR
 libcompat_la_SOURCES += memrchr.c
 endif
