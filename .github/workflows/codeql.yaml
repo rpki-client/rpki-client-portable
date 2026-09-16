@@ -1,0 +1,58 @@
+name: "CodeQL"
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  schedule:
+    # build the main branch every Monday morning
+    - cron: "22 5 * * 1"
+  workflow_dispatch:
+
+concurrency:
+  group: "${{ github.workflow }}-${{ github.event.number || github.ref }}"
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  analyze:
+    name: "Analyze"
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read # needed by CodeQL
+      contents: read
+      security-events: write # needed to upload SARIF
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ "cpp" ]
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: "Install missing deps"
+        run: |
+          sudo apt-get update
+          sudo apt-get install libtls-dev
+
+      - name: "Initialize CodeQL"
+        uses: github/codeql-action/init@cdf488f595d80d6e07e03d4674febd5ab45fa938 # v4.37.9
+        with:
+          languages: "${{ matrix.language }}"
+
+      - name: "Setup"
+        run: |
+          ./autogen.sh
+          ./configure
+
+      - name: "Build"
+        run: make
+
+      - name: "Perform CodeQL Analysis"
+        uses: github/codeql-action/analyze@cdf488f595d80d6e07e03d4674febd5ab45fa938 # v4.37.9
+        with:
+          category: "/language:${{matrix.language}}"
