@@ -1,0 +1,44 @@
+{
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: [
+    'config:best-practices',
+    ':configMigration',
+    ':pinVersions',
+    ':rebaseStalePrs',
+    'customManagers:githubActionsVersions',
+    'helpers:pinGitHubActionDigests',
+    ':assignAndReview(botovq)',
+  ],
+  schedule: [
+    '* 0-3 * * 2',
+  ],
+  commitMessagePrefix: 'ci:',
+  commitMessageAction: 'update',
+  commitMessageTopic: '{{depName}}',
+  labels: [
+    'dependencies',
+  ],
+  minimumReleaseAge: '3 days',
+  packageRules: [
+    {
+      matchUpdateTypes: ['pin', 'pinDigest'],
+      commitMessageAction: 'pin',
+    },
+    {
+      groupName: 'github/codeql-action',
+      matchManagers: [
+        'github-actions',
+      ],
+      matchPackageNames: [
+        'github/codeql-action',
+      ],
+    },
+  ],
+  osvVulnerabilityAlerts: true,
+  vulnerabilityAlerts: {
+    enabled: true,
+    addLabels: [
+      'security',
+    ],
+  },
+}
