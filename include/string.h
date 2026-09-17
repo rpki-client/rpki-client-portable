@@ -21,6 +21,10 @@
 void explicit_bzero(void *, size_t);
 #endif
 
+#ifndef HAVE_MEMMEM
+void *memmem(const void *, size_t, const void *, size_t);
+#endif
+
 #ifndef HAVE_MEMRCHR
 void *memrchr(const void *b, int c, size_t len);
 #endif

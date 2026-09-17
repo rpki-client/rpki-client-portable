@@ -43,6 +43,7 @@ compat/getentropy_*
 compat/imsg-buffer.c
 compat/imsg.c
 compat/inet_net_pton.c
+compat/memmem.c
 compat/memrchr.c
 compat/reallocarray.c
 compat/recallocarray.c
