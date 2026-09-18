@@ -33,7 +33,7 @@ index 7cda9afc1..70d752642 100644
 -.Fl o
 -(OpenBGPD compatible) format
 +.Fl joBcm
-+(JSON, OpenBGPD, BIRD, CSV and OpenMetric) formats
++(JSON, OpenBGPD, BIRD, CSV and OpenMetrics) formats
  and in canonical cache representation format.
  .Pp
  .Nm
