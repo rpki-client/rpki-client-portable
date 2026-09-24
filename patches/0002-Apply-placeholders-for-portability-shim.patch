@@ -1,6 +1,6 @@
-From af56a8a9a494b13e624b647aa1a62ff133a88e80 Mon Sep 17 00:00:00 2001
+From 2cc117f8296af2c30abbf28180a1580dced056e9 Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
-Date: Mon, 20 Apr 2020 12:16:46 +0200
+Date: Thu, 24 Sep 2026 23:42:43 +0200
 Subject: [PATCH 2/4] Apply placeholders for portability shim
 
 From Robert Scheck
@@ -9,7 +9,7 @@ From Robert Scheck
  1 file changed, 14 insertions(+), 14 deletions(-)
 
 diff --git src/usr.sbin/rpki-client/rpki-client.8 src/usr.sbin/rpki-client/rpki-client.8
-index 8cd9681d7..7cda9afc1 100644
+index 8e29293be..d2ff5bdb5 100644
 --- src/usr.sbin/rpki-client/rpki-client.8
 +++ src/usr.sbin/rpki-client/rpki-client.8
 @@ -46,7 +46,7 @@ The
@@ -36,7 +36,7 @@ index 8cd9681d7..7cda9afc1 100644
  to fetch repositories.
  It must accept the
  .Fl rt
-@@ -200,7 +200,7 @@ The skip filter is enforced during processing of the
+@@ -206,7 +206,7 @@ The skip filter is enforced during processing of the
  .Em Subject Information Access Pq SIA
  extension in CA certificates, thus applies to both RSYNC and RRDP connections.
  By default load entries from
@@ -45,7 +45,7 @@ index 8cd9681d7..7cda9afc1 100644
  .It Fl s Ar timeout
  Terminate after
  .Ar timeout
-@@ -220,7 +220,7 @@ This option can be used multiple times to load multiple TALs.
+@@ -226,7 +226,7 @@ This option can be used multiple times to load multiple TALs.
  By default
  .Nm
  will load all TAL files in
@@ -54,7 +54,7 @@ index 8cd9681d7..7cda9afc1 100644
  TAL are small files containing a public key and URL endpoint address.
  .It Fl V
  Show the version and exit.
-@@ -241,7 +241,7 @@ The directory where
+@@ -247,7 +247,7 @@ The directory where
  .Nm
  will write the output files.
  Defaults to
@@ -63,7 +63,7 @@ index 8cd9681d7..7cda9afc1 100644
  .El
  .Pp
  By default
-@@ -304,32 +304,32 @@ utilizes the following environment variables:
+@@ -310,32 +310,32 @@ utilizes the following environment variables:
  URL of HTTP proxy to use.
  .El
  .Sh FILES
@@ -101,9 +101,9 @@ index 8cd9681d7..7cda9afc1 100644
  .Sh SEE ALSO
 -.Xr openrsync 1 ,
 +.Xr @RSYNC@ 1 ,
- .Xr bgpd.conf 5
- .Sh STANDARDS
- .Rs
+ .Xr bgpd.conf 5 ,
+ .Xr bgpd 8 ,
+ .Xr rtrctl 8 ,
 -- 
-2.52.0
+2.55.0
 

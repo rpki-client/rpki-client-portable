@@ -1,4 +1,4 @@
-From 91a42c7d4f55b005ef5f0a061865276d0023cfb5 Mon Sep 17 00:00:00 2001
+From 7e717f07c1d7b82a3a7e48e1a97e7e24f2a89c91 Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Fri, 6 Nov 2020 13:19:45 +0100
 Subject: [PATCH 3/4] Emit all output formats on non-OpenBSD systems
@@ -9,10 +9,10 @@ Subject: [PATCH 3/4] Emit all output formats on non-OpenBSD systems
  2 files changed, 4 insertions(+), 3 deletions(-)
 
 diff --git src/usr.sbin/rpki-client/main.c src/usr.sbin/rpki-client/main.c
-index 7473bb93a..c56d4efb9 100644
+index 821c76f08..15f87afe9 100644
 --- src/usr.sbin/rpki-client/main.c
 +++ src/usr.sbin/rpki-client/main.c
-@@ -1181,7 +1181,8 @@ main(int argc, char *argv[])
+@@ -1191,7 +1191,8 @@ main(int argc, char *argv[])
  		if ((outdirfd = open(outputdir, O_RDONLY | O_DIRECTORY)) == -1)
  			err(1, "output directory %s", outputdir);
  		if (outformats == 0)
@@ -23,20 +23,20 @@ index 7473bb93a..c56d4efb9 100644
  	}
  
 diff --git src/usr.sbin/rpki-client/rpki-client.8 src/usr.sbin/rpki-client/rpki-client.8
-index 7cda9afc1..70d752642 100644
+index d2ff5bdb5..a5c18365c 100644
 --- src/usr.sbin/rpki-client/rpki-client.8
 +++ src/usr.sbin/rpki-client/rpki-client.8
-@@ -247,8 +247,8 @@ Defaults to
+@@ -253,8 +253,8 @@ Defaults to
  By default
  .Nm
  outputs validated payloads in
 -.Fl o
 -(OpenBGPD compatible) format
 +.Fl joBcm
-+(JSON, OpenBGPD, BIRD, CSV and OpenMetrics) formats
++(JSON, OpenBGPD, BIRD, CSV and OpenMetric) formats
  and in canonical cache representation format.
  .Pp
  .Nm
 -- 
-2.52.0
+2.55.0
 

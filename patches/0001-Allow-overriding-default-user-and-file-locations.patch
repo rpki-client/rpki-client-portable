@@ -1,4 +1,4 @@
-From cc682646acf080fac61788e1193efdb1775d3b2a Mon Sep 17 00:00:00 2001
+From 6806abfb7258a96baa1f25afda97d50333f632bd Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Tue, 14 Apr 2020 22:43:56 +0200
 Subject: [PATCH 1/4] Allow overriding default user and file locations
@@ -10,10 +10,10 @@ Adjust version string for -portable
  2 files changed, 26 insertions(+), 8 deletions(-)
 
 diff --git src/usr.sbin/rpki-client/extern.h src/usr.sbin/rpki-client/extern.h
-index d1d6baae6..7d47f9f49 100644
+index 07022a79b..ee5b0eb91 100644
 --- src/usr.sbin/rpki-client/extern.h
 +++ src/usr.sbin/rpki-client/extern.h
-@@ -1024,10 +1024,27 @@ time_t		 get_current_time(void);
+@@ -1065,10 +1065,27 @@ time_t		 get_current_time(void);
  int	mkpath(const char *);
  int	mkpathat(int, const char *);
  
@@ -43,10 +43,10 @@ index d1d6baae6..7d47f9f49 100644
  /* Interval in which random reinitialization to an RRDP snapshot happens. */
  #define RRDP_RANDOM_REINIT_MAX	12 /* weeks */
 diff --git src/usr.sbin/rpki-client/main.c src/usr.sbin/rpki-client/main.c
-index ff88a70c4..7473bb93a 100644
+index 65a947305..821c76f08 100644
 --- src/usr.sbin/rpki-client/main.c
 +++ src/usr.sbin/rpki-client/main.c
-@@ -842,7 +842,7 @@ sum_repostats(const struct repo *rp, const struct repostats *in, void *arg)
+@@ -862,7 +862,7 @@ sum_repostats(const struct repo *rp, const struct repostats *in, void *arg)
  }
  
  /*
@@ -55,7 +55,7 @@ index ff88a70c4..7473bb93a 100644
   * returning the number of files found and filled-in.
   * This may be zero.
   * Don't exceed "max" filenames.
-@@ -850,7 +850,7 @@ sum_repostats(const struct repo *rp, const struct repostats *in, void *arg)
+@@ -870,7 +870,7 @@ sum_repostats(const struct repo *rp, const struct repostats *in, void *arg)
  static int
  tal_load_default(void)
  {
@@ -64,7 +64,7 @@ index ff88a70c4..7473bb93a 100644
  	int s = 0;
  	char *path;
  	DIR *dirp;
-@@ -1019,7 +1019,7 @@ main(int argc, char *argv[])
+@@ -1025,7 +1025,7 @@ main(int argc, char *argv[])
  	struct pollfd	 pfd[NPFD];
  	struct msgbuf	*queues[NPFD];
  	struct ibuf	*b;
@@ -73,7 +73,7 @@ index ff88a70c4..7473bb93a 100644
  	char		*bind_addr = NULL;
  	const char	*cachedir = NULL, *outputdir = NULL;
  	const char	*errs, *name;
-@@ -1043,9 +1043,9 @@ main(int argc, char *argv[])
+@@ -1050,9 +1050,9 @@ main(int argc, char *argv[])
  	if (getuid() == 0) {
  		struct passwd *pw;
  
@@ -85,7 +85,7 @@ index ff88a70c4..7473bb93a 100644
  		if (setgroups(1, &pw->pw_gid) == -1 ||
  		    setresgid(pw->pw_gid, pw->pw_gid, pw->pw_gid) == -1 ||
  		    setresuid(pw->pw_uid, pw->pw_uid, pw->pw_uid) == -1)
-@@ -1139,7 +1139,8 @@ main(int argc, char *argv[])
+@@ -1149,7 +1149,8 @@ main(int argc, char *argv[])
  			verbose++;
  			break;
  		case 'V':
@@ -95,7 +95,7 @@ index ff88a70c4..7473bb93a 100644
  			return 0;
  		case 'x':
  			experimental = 1;
-@@ -1191,7 +1192,7 @@ main(int argc, char *argv[])
+@@ -1201,7 +1202,7 @@ main(int argc, char *argv[])
  	if (talsz == 0)
  		talsz = tal_load_default();
  	if (talsz == 0)
@@ -105,5 +105,5 @@ index ff88a70c4..7473bb93a 100644
  	/* Load optional constraint files sitting next to the TALs. */
  	constraints_load();
 -- 
-2.52.0
+2.55.0
 
