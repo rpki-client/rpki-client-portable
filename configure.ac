@@ -452,6 +452,7 @@ AM_CONDITIONAL([HAVE_ARC4RANDOM],
 
 AC_CHECK_HEADERS([err.h sha2.h])
 
+AC_SEARCH_LIBS([pthread_create], [pthread])
 AC_SEARCH_LIBS([pthread_cond_broadcast], [pthread])
 AC_SEARCH_LIBS([pthread_join], [pthread])
 AC_SEARCH_LIBS([pthread_once], [pthread])
