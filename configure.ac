@@ -97,6 +97,7 @@ char buf[1]; getentropy(buf, 1);
 		HOST_OS=openbsd
 		AC_DEFINE([HAVE_ATTRIBUTE__BOUNDED__], [1], [OpenBSD has __bounded__])
 		AC_DEFINE([HAVE_ATTRIBUTE__DEAD], [1], [OpenBSD has __dead])
+		AC_DEFINE([HAVE_ATTRIBUTE__PACKED], [1], [OpenBSD has __packed])
 		;;
 	*solaris*)
 		HOST_OS=solaris

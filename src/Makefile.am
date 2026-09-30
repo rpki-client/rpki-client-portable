@@ -57,6 +57,7 @@ rpki_client_SOURCES += output-bird.c
 rpki_client_SOURCES += output-csv.c
 rpki_client_SOURCES += output-json.c
 rpki_client_SOURCES += output-ometric.c
+rpki_client_SOURCES += output-rtrx.c
 rpki_client_SOURCES += output.c
 rpki_client_SOURCES += parser.c
 rpki_client_SOURCES += print.c
