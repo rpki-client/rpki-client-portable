@@ -1,4 +1,4 @@
-From 4ab71785b8f9f395725ff33f605a453fac6f5f35 Mon Sep 17 00:00:00 2001
+From d9d13dfc128027476eb981a338196eaa9000ebec Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Wed, 1 Sep 2021 16:23:36 +0200
 Subject: [PATCH 4/4] Only call tls_config_set_ca_mem() when pledge() is used.

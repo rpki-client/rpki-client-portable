@@ -1,4 +1,4 @@
-From 6806abfb7258a96baa1f25afda97d50333f632bd Mon Sep 17 00:00:00 2001
+From 92d13a9f37e931ad89635d3aa6f02495792f4972 Mon Sep 17 00:00:00 2001
 From: Claudio Jeker <claudio@openbsd.org>
 Date: Tue, 14 Apr 2020 22:43:56 +0200
 Subject: [PATCH 1/4] Allow overriding default user and file locations
@@ -10,10 +10,10 @@ Adjust version string for -portable
  2 files changed, 26 insertions(+), 8 deletions(-)
 
 diff --git src/usr.sbin/rpki-client/extern.h src/usr.sbin/rpki-client/extern.h
-index 07022a79b..ee5b0eb91 100644
+index 6091cec29..129e0425c 100644
 --- src/usr.sbin/rpki-client/extern.h
 +++ src/usr.sbin/rpki-client/extern.h
-@@ -1065,10 +1065,27 @@ time_t		 get_current_time(void);
+@@ -1071,10 +1071,27 @@ time_t		 get_current_time(void);
  int	mkpath(const char *);
  int	mkpathat(int, const char *);
  
@@ -43,7 +43,7 @@ index 07022a79b..ee5b0eb91 100644
  /* Interval in which random reinitialization to an RRDP snapshot happens. */
  #define RRDP_RANDOM_REINIT_MAX	12 /* weeks */
 diff --git src/usr.sbin/rpki-client/main.c src/usr.sbin/rpki-client/main.c
-index 65a947305..821c76f08 100644
+index 85796faf5..5ba673ed0 100644
 --- src/usr.sbin/rpki-client/main.c
 +++ src/usr.sbin/rpki-client/main.c
 @@ -862,7 +862,7 @@ sum_repostats(const struct repo *rp, const struct repostats *in, void *arg)
@@ -73,7 +73,17 @@ index 65a947305..821c76f08 100644
  	char		*bind_addr = NULL;
  	const char	*cachedir = NULL, *outputdir = NULL;
  	const char	*errs, *name;
-@@ -1050,9 +1050,9 @@ main(int argc, char *argv[])
+@@ -1136,7 +1136,8 @@ main(int argc, char *argv[])
+ 			verbose++;
+ 			break;
+ 		case 'V':
+-			fprintf(stderr, "rpki-client %s\n", RPKI_VERSION);
++			fprintf(stderr, "rpki-client-portable %s\n",
++			    RPKI_VERSION);
+ 			return 0;
+ 		case 'x':
+ 			experimental = 1;
+@@ -1157,9 +1158,9 @@ main(int argc, char *argv[])
  	if (getuid() == 0) {
  		struct passwd *pw;
  
@@ -85,17 +95,7 @@ index 65a947305..821c76f08 100644
  		if (setgroups(1, &pw->pw_gid) == -1 ||
  		    setresgid(pw->pw_gid, pw->pw_gid, pw->pw_gid) == -1 ||
  		    setresuid(pw->pw_uid, pw->pw_uid, pw->pw_uid) == -1)
-@@ -1149,7 +1149,8 @@ main(int argc, char *argv[])
- 			verbose++;
- 			break;
- 		case 'V':
--			fprintf(stderr, "rpki-client %s\n", RPKI_VERSION);
-+			fprintf(stderr, "rpki-client-portable %s\n",
-+			    RPKI_VERSION);
- 			return 0;
- 		case 'x':
- 			experimental = 1;
-@@ -1201,7 +1202,7 @@ main(int argc, char *argv[])
+@@ -1210,7 +1211,7 @@ main(int argc, char *argv[])
  	if (talsz == 0)
  		talsz = tal_load_default();
  	if (talsz == 0)
