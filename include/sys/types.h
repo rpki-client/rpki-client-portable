@@ -26,4 +26,9 @@
 #define __packed	__attribute__((__packed__))
 #endif
 
+#if !defined(HAVE_BEGIN_HIDDEN_DECLS) && !defined(__BEGIN_HIDDEN_DECLS)
+#define __BEGIN_HIDDEN_DECLS
+#define __END_HIDDEN_DECLS
+#endif
+
 #endif

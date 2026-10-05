@@ -69,7 +69,8 @@ ${CP} "${arc4random_src}"/arc4random_*.h compat
 ${CP} "${libutil_src}/imsg.c" compat/
 ${CP} "${libutil_src}/imsg-buffer.c" compat/
 
-for i in as.c asn1_bit_string.c aspa.c ccr.c cert.c cms.c constraints.c \
+for i in as.c asn1_bit_string.c aspa.c bytestring.h bs_ber.c bs_cbb.c bs_cbs.c \
+	ccr.c cert.c cms.c constraints.c \
 	crl.c encoding.c extern.h filemode.c http.c io.c ip.c json.c json.h \
 	main.c mft.c mkdir.c nca.c ometric.c ometric.h output-bgpd.c \
 	output-bird.c output-csv.c output-json.c output-ometric.c \

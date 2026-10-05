@@ -36,6 +36,9 @@ rpki_client_LDADD += $(top_builddir)/compat/libcompatnoopt.la
 rpki_client_SOURCES = as.c
 rpki_client_SOURCES += asn1_bit_string.c
 rpki_client_SOURCES += aspa.c
+rpki_client_SOURCES += bs_ber.c
+rpki_client_SOURCES += bs_cbb.c
+rpki_client_SOURCES += bs_cbs.c
 rpki_client_SOURCES += ccr.c
 rpki_client_SOURCES += cert.c
 rpki_client_SOURCES += cms.c
@@ -79,7 +82,8 @@ rpki_client_SOURCES += x509.c
 
 rpki_client_DEPENDENCIES = rpki-client.8
 
-noinst_HEADERS = extern.h json.h ometric.h rpki-asn1.h rrdp.h version.h
+noinst_HEADERS = bytestring.h extern.h json.h ometric.h rpki-asn1.h rrdp.h \
+		 version.h
 
 rpki-client.8: rpki-client.8.in
 	$(SED) \
