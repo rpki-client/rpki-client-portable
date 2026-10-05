@@ -51,6 +51,7 @@ compat/sha256.c
 compat/strlcat.c
 compat/strlcpy.c
 compat/strtonum.c
+compat/timingsafe_memcmp.c
 compat/vis.c
 
 include/sha2_openbsd.h

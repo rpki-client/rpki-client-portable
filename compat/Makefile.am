@@ -97,6 +97,10 @@ if BROKEN_STRNVIS
 libcompat_la_SOURCES += vis.c
 endif
 
+if !HAVE_TIMINGSAFE_MEMCMP
+libcompat_la_SOURCES += timingsafe_memcmp.c
+endif
+
 if !HAVE_IMSG
 libcompat_la_SOURCES += imsg.c
 libcompat_la_SOURCES += imsg-buffer.c
