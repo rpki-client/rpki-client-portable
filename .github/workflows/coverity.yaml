@@ -15,7 +15,7 @@ jobs:
     environment:
       name: "coverity"
       deployment: false
-    runs-on: "ubuntu-24.04"
+    runs-on: "ubuntu-26.04"
     if: ${{ github.repository_owner == 'rpki-client' || github.event_name == 'workflow_dispatch' }}
     permissions:
       contents: read
