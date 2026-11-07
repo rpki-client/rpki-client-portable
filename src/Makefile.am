@@ -67,6 +67,7 @@ rpki_client_SOURCES += print.c
 rpki_client_SOURCES += repo.c
 rpki_client_SOURCES += rfc3779.c
 rpki_client_SOURCES += roa.c
+rpki_client_SOURCES += rpki-der.c
 rpki_client_SOURCES += rrdp.c
 rpki_client_SOURCES += rrdp_delta.c
 rpki_client_SOURCES += rrdp_notification.c
@@ -82,8 +83,8 @@ rpki_client_SOURCES += x509.c
 
 rpki_client_DEPENDENCIES = rpki-client.8
 
-noinst_HEADERS = bytestring.h extern.h json.h ometric.h rpki-asn1.h rrdp.h \
-		 version.h
+noinst_HEADERS = bytestring.h extern.h json.h ometric.h rpki-asn1.h \
+		 rpki-der.h rrdp.h version.h
 
 rpki-client.8: rpki-client.8.in
 	$(SED) \
