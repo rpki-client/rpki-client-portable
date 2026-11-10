@@ -84,7 +84,7 @@ rpki_client_SOURCES += x509.c
 rpki_client_DEPENDENCIES = rpki-client.8
 
 noinst_HEADERS = bytestring.h extern.h json.h ometric.h rpki-asn1.h \
-		 rpki-der.h rrdp.h version.h
+		 rpki-der.h rrdp.h thread.h version.h
 
 rpki-client.8: rpki-client.8.in
 	$(SED) \

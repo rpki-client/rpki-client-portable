@@ -77,7 +77,8 @@ for i in as.c asn1_bit_string.c aspa.c bytestring.h bs_ber.c bs_cbb.c bs_cbs.c \
 	output-rtrx.c output.c parser.c print.c \
 	repo.c rfc3779.c roa.c rpki-asn1.h rpki-der.c rpki-der.h rpki-client.8 \
 	rrdp.c rrdp.h rrdp_delta.c rrdp_notification.c rrdp_snapshot.c \
-	rrdp_util.c rsc.c rsync.c spl.c tak.c tal.c validate.c version.h \
+	rrdp_util.c rsc.c rsync.c spl.c tak.c tal.c thread.h \
+	validate.c version.h \
 	x509.c
 do
 	file=`basename ${i}`
