@@ -462,7 +462,7 @@ AC_SEARCH_LIBS([pthread_once], [pthread])
 AC_SEARCH_LIBS([pthread_mutex_lock], [pthread])
 AC_SEARCH_LIBS([pthread_rwlock_unlock], [pthread])
 
-AC_CHECK_HEADERS([openssl/cms.h openssl/err.h openssl/evp.h openssl/ssl.h openssl/x509.h openssl/x509v3.h], [], [AC_MSG_ERROR([OpenSSL headers required])])
+AC_CHECK_HEADERS([openssl/err.h openssl/evp.h openssl/ssl.h openssl/x509.h openssl/x509v3.h], [], [AC_MSG_ERROR([OpenSSL headers required])])
 AC_CHECK_LIB([crypto], [ASN1_STRING_get0_data], [], [AC_MSG_ERROR([OpenSSL libraries required])])
 AC_CHECK_FUNCS([X509_up_ref], [], [AC_MSG_ERROR([OpenSSL libraries required])])
 AC_CHECK_FUNCS([ASIdentifiers_free IPAddressRange_free X509v3_addr_is_canonical X509v3_asid_is_canonical], [], [AC_MSG_ERROR([libcrypto with RFC3779 support required])])
@@ -474,7 +474,7 @@ AC_CHECK_FUNCS([tls_default_ca_cert_file tls_config_set_ca_mem], [], [AC_MSG_ERR
 # check for libressl special functions after including libtls in case
 # these are present in that library
 AC_CHECK_FUNCS([ASN1_BIT_STRING_get_length ASN1_BIT_STRING_set1])
-AC_CHECK_FUNCS([CMS_get_version X509_get0_uids X509_CRL_get0_tbs_sigalg])
+AC_CHECK_FUNCS([X509_get0_uids X509_CRL_get0_tbs_sigalg])
 AC_CHECK_FUNCS([IPAddrBlocks_new IPAddrBlocks_free])
 # available since OpenSSL 4.1
 AM_CONDITIONAL([HAVE_IPADDRBLOCKS_NEW], [test "x$ac_cv_func_IPAddrBlocks_new" = xyes])
@@ -482,8 +482,6 @@ AM_CONDITIONAL([HAVE_IPADDRBLOCKS_FREE], [test "x$ac_cv_func_IPAddrBlocks_free" 
 # available since OpenSSL 4 and LibreSSL 4.x?
 AM_CONDITIONAL([HAVE_ASN1_BIT_STRING_GET_LENGTH], [test "x$ac_cv_func_ASN1_BIT_STRING_get_length" = xyes])
 AM_CONDITIONAL([HAVE_ASN1_BIT_STRING_SET1], [test "x$ac_cv_func_ASN1_BIT_STRING_set1" = xyes])
-# available since LibreSSL 3.8.1
-AM_CONDITIONAL([HAVE_CMS_GET_VERSION], [test "x$ac_cv_func_CMS_get_version" = xyes])
 # available since LibreSSL 3.7.1
 AM_CONDITIONAL([HAVE_X509_GET0_UIDS], [test "x$ac_cv_func_X509_get0_uids" = xyes])
 # available since LibreSSL 3.7.1 and OpenSSL 3.6.

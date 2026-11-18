@@ -106,10 +106,6 @@ libcompat_la_SOURCES += imsg.c
 libcompat_la_SOURCES += imsg-buffer.c
 endif
 
-if !HAVE_CMS_GET_VERSION
-libcompat_la_SOURCES += cms_lib.c
-endif
-
 if !HAVE_X509_GET0_UIDS
 libcompat_la_SOURCES += x509_get0_uids.c
 endif
