@@ -46,3 +46,13 @@ If you install from a GitHub repository checkout please read the [INSTALL](./INS
 
 Reports (success or otherwise) are welcome. You may report bugs or submit pull
 requests at the GitHub project: https://github.com/rpki-client/rpki-client-portable
+
+Professional support
+--------------------
+
+Rpki-client is mission-critical open-source software which protects the
+safety and reliability of the global Internet routing system.
+
+Organisations wishing to establish a direct contractual relationship for
+professional support for rpki-client can do so through the Route Server
+Support Foundation. See https://www.rpki-client.org/support.html for more information.
